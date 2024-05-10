@@ -3,8 +3,11 @@ import { Layout, theme } from 'antd';
 import { SideBar } from './components/SideBar';
 import { Header } from './components/Header';
 import { Route, Routes } from 'react-router-dom';
-import { Dashboard } from './pages/dashboard';
-import { Categories } from './pages/categories';
+import { Dashboard } from './pages/Dashboard';
+import { Categories } from './pages/Categories';
+import { UpdateCategory } from './pages/UpdateCategory';
+import { AddCategory } from './pages/AddCategory';
+import { NotFound } from './pages/NotFound';
 
 const { Content, Footer } = Layout;
 
@@ -15,7 +18,7 @@ const App: React.FC = () => {
   return (
     <Layout>
       <SideBar />
-      <Layout style={{ height: '100vh' }}>
+      <Layout style={{ minHeight: '100vh' }}>
         <Header />
         <Content
           style={{
@@ -29,6 +32,9 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/category" element={<Categories />} />
+            <Route path="/category/add" element={<AddCategory />} />
+            <Route path="/category/:id/edit" element={<UpdateCategory />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
