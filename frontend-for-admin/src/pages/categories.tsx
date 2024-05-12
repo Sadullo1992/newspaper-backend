@@ -26,12 +26,12 @@ const columns: TableProps<CategoryDataType>['columns'] = [
   {
     title: 'Action',
     key: 'action',
-    render: (_, record) => (
+    render: (_, { key, name }) => (
       <Space size={50}>
-        <Link to={`/category/${record.key}/edit`}>
+        <Link to={`/category/${key}/edit`}>
           <EditOutlined style={{ fontSize: 16 }} />
         </Link>
-        <ConfirmModal data={record}>
+        <ConfirmModal data={{ key, name }} type="kategoriya">
           <DeleteFilled style={{ fontSize: 16, color: '#f5222d' }} />
         </ConfirmModal>
       </Space>
@@ -41,8 +41,13 @@ const columns: TableProps<CategoryDataType>['columns'] = [
 
 export const Categories = () => {
   const [categories, setCategories] = useState<CategoryDataType[]>([]);
+
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
+    setLoading(true);
     fetchCategories().then((data) => {
+      setLoading(false);
       const dataSource = data.map(({ id, ...rest }) => ({ key: id, ...rest }));
       setCategories(dataSource);
     });
@@ -58,7 +63,7 @@ export const Categories = () => {
           </Button>
         </Link>
       </div>
-      <Table columns={columns} dataSource={categories} />
+      <Table columns={columns} dataSource={categories} loading={loading} />
     </>
   );
 };

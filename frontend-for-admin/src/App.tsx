@@ -10,6 +10,7 @@ import { AddCategory } from './pages/AddCategory';
 import { NotFound } from './pages/NotFound';
 import { Footer } from './components/Footer';
 import { Posts } from './pages/Posts';
+import { AddPost } from './pages/AddPost';
 
 const { Content } = Layout;
 
@@ -37,6 +38,7 @@ const App: React.FC = () => {
             <Route path="/category/add" element={<AddCategory />} />
             <Route path="/category/:id/edit" element={<UpdateCategory />} />
             <Route path="/post" element={<Posts />} />
+            <Route path="/post/add" element={<AddPost />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Content>
