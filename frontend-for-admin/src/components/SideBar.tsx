@@ -45,8 +45,6 @@ export const SideBar = () => {
         setCurrent(location.pathname);
       }
     }
-    console.log(location.pathname);
-    console.log('current: ', current);
   }, [location, current]);
 
   const onClick: MenuProps['onClick'] = (e) => {
