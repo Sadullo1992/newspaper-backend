@@ -5,10 +5,12 @@ import { CategoryDataType } from '../pages/Categories';
 
 interface SubmitButtonProps {
   data: Omit<CategoryDataType, 'slug'>;
+  type: 'kategoriya' | 'maqola';
 }
 
 export const ConfirmModal: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
   data,
+  type,
   children,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,7 +53,7 @@ export const ConfirmModal: React.FC<React.PropsWithChildren<SubmitButtonProps>> 
       >
         <div style={{ marginLeft: 20 }}>
           <h4>
-            Kategoriya: <span style={{ color: '#1890ff' }}>{data.name}</span>
+            {type.toUpperCase()}: <span style={{ color: '#1890ff' }}>{data.name}</span>
           </h4>
         </div>
       </Modal>

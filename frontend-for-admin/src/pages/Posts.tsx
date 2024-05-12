@@ -6,10 +6,16 @@ import {
   CloseCircleFilled,
   CheckCircleFilled,
 } from '@ant-design/icons';
-import { Button, Space, Table, TableProps } from 'antd';
+import { Button, Space, Table, TableProps, GetProp } from 'antd';
 import { Link } from 'react-router-dom';
 import { ConfirmModal } from '../components/ConfirmModal';
 import { fetchPosts } from '../api/fetchPosts';
+
+type TablePaginationConfig = Exclude<GetProp<TableProps, 'pagination'>, boolean>;
+
+interface TableParams {
+  pagination?: TablePaginationConfig;
+}
 
 export interface PostDataType {
   key: string;
@@ -69,12 +75,12 @@ const columns: TableProps<PostDataType>['columns'] = [
   {
     title: 'Action',
     key: 'action',
-    render: (_, record) => (
+    render: (_, { key, name }) => (
       <Space>
-        <Link to={`/post/${record.key}/edit`}>
+        <Link to={`/post/${key}/edit`}>
           <EditOutlined style={{ fontSize: 16 }} />
         </Link>
-        <ConfirmModal data={record}>
+        <ConfirmModal data={{ key, name }} type="maqola">
           <DeleteFilled style={{ fontSize: 16, color: '#f5222d' }} />
         </ConfirmModal>
       </Space>
@@ -84,9 +90,21 @@ const columns: TableProps<PostDataType>['columns'] = [
 
 export const Posts = () => {
   const [posts, setPosts] = useState<PostDataType[]>([]);
+
+  const [loading, setLoading] = useState(false);
+
+  const [tableParams, setTableParams] = useState<TableParams>({
+    pagination: {
+      current: 1,
+      pageSize: 10,
+    },
+  });
+
   useEffect(() => {
-    fetchPosts().then((data) => {
-      const dataSource = data.map(
+    setLoading(true);
+    fetchPosts(tableParams.pagination?.current).then((data) => {
+      setLoading(false);
+      const dataSource = data.results.map(
         ({ id, title, category, created_at, is_featured, dolzarb, views }) => ({
           key: id,
           name: title,
@@ -97,21 +115,40 @@ export const Posts = () => {
           views,
         })
       );
+      setTableParams({
+        pagination: {
+          ...tableParams.pagination,
+          total: data.total,
+        },
+      });
       setPosts(dataSource);
     });
-  }, []);
+  }, [tableParams.pagination?.current]);
+
+  const handleTableChange: TableProps['onChange'] = (pagination) => {
+    setTableParams({
+      pagination,
+    });
+  };
 
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 32 }}>
         <h2>Maqolalar</h2>
-        <Link to={'/category/add'}>
+        <Link to={'/post/add'}>
           <Button type="primary" icon={<PlusOutlined />}>
             Maqola qo&#39;shish
           </Button>
         </Link>
       </div>
-      <Table columns={columns} dataSource={posts} size="small" />
+      <Table
+        columns={columns}
+        dataSource={posts}
+        size="small"
+        pagination={tableParams.pagination}
+        onChange={handleTableChange}
+        loading={loading}
+      />
     </>
   );
 };

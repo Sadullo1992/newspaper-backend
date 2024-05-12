@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { LeftOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 import { Link, useParams } from 'react-router-dom';
 import { FormCategory } from '../components/FormCategory';
 import { ICategory } from '../types/types';
@@ -10,8 +10,16 @@ import { fetchCategoryById } from '../api/fetchCategories';
 export const UpdateCategory = () => {
   const { id } = useParams();
   const [category, setCategory] = useState<ICategory>();
+
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    id && fetchCategoryById(id).then((data) => setCategory(data));
+    setLoading(true);
+    id &&
+      fetchCategoryById(id).then((data) => {
+        setLoading(false);
+        setCategory(data);
+      });
   }, [id]);
   return (
     <>
@@ -21,6 +29,7 @@ export const UpdateCategory = () => {
           <Button icon={<LeftOutlined />}>Orqaga qaytish</Button>
         </Link>
       </div>
+      {loading && <Spin />}
       {category && <FormCategory initialData={category} />}
     </>
   );

@@ -4,6 +4,17 @@ export interface ICategory {
   slug: string;
 }
 
+export interface IResponse<T> {
+  links: {
+    next: null;
+    previous: null;
+  };
+  total: number;
+  page: number;
+  page_size: number;
+  results: T;
+}
+
 export type TImage = {
   id: number;
   image: string;
