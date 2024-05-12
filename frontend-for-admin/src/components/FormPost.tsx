@@ -4,11 +4,11 @@ import { Button, Form, FormProps, Input, Space, Select, Switch, Upload } from 'a
 import { UploadOutlined } from '@ant-design/icons';
 
 import slugify from 'slugify';
-import { ICategory } from '../types/types';
+import { ICategory, IPost } from '../types/types';
 import { fetchCategories } from '../api/fetchCategories';
 
-interface FormCategoryProps {
-  initialData?: ICategory;
+interface FormPostProps {
+  initialData?: IPost;
 }
 
 interface SubmitButtonProps {
@@ -31,8 +31,8 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({ fo
       .validateFields({ validateOnly: true })
       .then(() => setSubmittable(true))
       .catch(() => setSubmittable(false));
-    const nameValue = form.getFieldValue('name') || '';
-    form.isFieldTouched('slug') || form.setFieldValue('slug', slugify(nameValue));
+    const title = form.getFieldValue('title') || '';
+    form.isFieldTouched('slug') || form.setFieldValue('slug', slugify(title));
   }, [form, values]);
 
   const handleOnClick = () => console.log(values);
@@ -56,17 +56,26 @@ const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
   console.log('Success:', values);
 };
 
-export const FormPost = ({ initialData }: FormCategoryProps) => {
+export const FormPost = ({ initialData }: FormPostProps) => {
   const [form] = Form.useForm();
 
   const [categories, setCategories] = useState<ICategory[]>([]);
 
   useEffect(() => {
-    initialData && form.setFieldValue('name', initialData.name);
-  }, [form, initialData]);
-  useEffect(() => {
     fetchCategories().then((data) => setCategories(data));
   }, []);
+
+  useEffect(() => {
+    initialData &&
+      form.setFieldsValue({
+        title: initialData.title,
+        content: initialData.content,
+        dolzarb: initialData.dolzarb,
+        is_featured: initialData.is_featured,
+        category: initialData?.category.slug,
+      });
+  }, [form, initialData]);
+
   return (
     <Form
       form={form}
@@ -78,7 +87,7 @@ export const FormPost = ({ initialData }: FormCategoryProps) => {
       style={{ maxWidth: 600 }}
       onFinish={onFinish}
     >
-      <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+      <Form.Item name="title" label="Sarlavha" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
       <Form.Item label="Maqola" name="content" rules={[{ required: true }]}>
@@ -111,13 +120,13 @@ export const FormPost = ({ initialData }: FormCategoryProps) => {
         <Input />
       </Form.Item>
       <Form.Item label="Korishlar soni">
-        <span>0</span>
+        <span>{initialData?.views}</span>
       </Form.Item>
       <Form.Item label="Created at">
-        <span>-</span>
+        <span>{initialData?.created_at || '-'}</span>
       </Form.Item>
       <Form.Item label="Updated at">
-        <span>-</span>
+        <span>{initialData?.updated_at || '-'}</span>
       </Form.Item>
       <Form.Item
         name="postimage_set"

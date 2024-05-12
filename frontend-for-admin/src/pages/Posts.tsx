@@ -20,6 +20,7 @@ interface TableParams {
 export interface PostDataType {
   key: string;
   name: string;
+  slug: string;
   category: string;
   created_at: string;
   is_featured: boolean;
@@ -75,9 +76,9 @@ const columns: TableProps<PostDataType>['columns'] = [
   {
     title: 'Action',
     key: 'action',
-    render: (_, { key, name }) => (
+    render: (_, { key, name, slug }) => (
       <Space>
-        <Link to={`/post/${key}/edit`}>
+        <Link to={`/post/${slug}/edit`}>
           <EditOutlined style={{ fontSize: 16 }} />
         </Link>
         <ConfirmModal data={{ key, name }} type="maqola">
@@ -105,7 +106,7 @@ export const Posts = () => {
     fetchPosts(tableParams.pagination?.current).then((data) => {
       setLoading(false);
       const dataSource = data.results.map(
-        ({ id, title, category, created_at, is_featured, dolzarb, views }) => ({
+        ({ id, title, category, created_at, is_featured, dolzarb, views, slug }) => ({
           key: id,
           name: title,
           category: category.name,
@@ -113,6 +114,7 @@ export const Posts = () => {
           is_featured,
           dolzarb,
           views,
+          slug,
         })
       );
       setTableParams({
