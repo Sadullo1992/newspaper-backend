@@ -1,53 +1,60 @@
-import { useState, createElement } from 'react';
+import { useState, createElement, useEffect } from 'react';
 
 import { Layout, Menu, MenuProps } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   HomeOutlined,
   ProfileOutlined,
   AppstoreAddOutlined,
   FilePdfOutlined,
 } from '@ant-design/icons';
-<ProfileOutlined />;
-<AppstoreAddOutlined />;
-<FilePdfOutlined />;
-
-const { Sider } = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number];
 
 const items: MenuItem[] = [
   {
     label: <Link to={'/'}>Dashboard</Link>,
-    key: 'dashboard',
+    key: '/',
     icon: createElement(HomeOutlined),
   },
   {
     label: <Link to={'/category'}>Categories</Link>,
-    key: 'categories',
+    key: '/category',
     icon: createElement(ProfileOutlined),
   },
   {
     label: <Link to={'/post'}>Posts</Link>,
-    key: 'posts',
+    key: '/post',
     icon: createElement(AppstoreAddOutlined),
   },
   {
     label: <Link to={'/magazine'}>Magazines</Link>,
-    key: 'magazines',
+    key: '/magazine',
     icon: createElement(FilePdfOutlined),
   },
 ];
 
 export const SideBar = () => {
-  const [current, setCurrent] = useState('dashboard');
+  const location = useLocation();
+
+  const [current, setCurrent] = useState('/');
+
+  useEffect(() => {
+    if (location) {
+      if (current !== location.pathname) {
+        setCurrent(location.pathname);
+      }
+    }
+    console.log(location.pathname);
+    console.log('current: ', current);
+  }, [location, current]);
 
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);
   };
 
   return (
-    <Sider breakpoint="lg" collapsedWidth="0">
+    <Layout.Sider breakpoint="lg" collapsedWidth="0">
       <div className="demo-logo-vertical" />
       <Menu
         theme="dark"
@@ -57,6 +64,6 @@ export const SideBar = () => {
         style={{ paddingTop: '32px' }}
         onClick={onClick}
       />
-    </Sider>
+    </Layout.Sider>
   );
 };
