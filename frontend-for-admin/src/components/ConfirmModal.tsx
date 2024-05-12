@@ -4,7 +4,7 @@ import { ExclamationCircleFilled } from '@ant-design/icons';
 import { CategoryDataType } from '../pages/Categories';
 
 interface SubmitButtonProps {
-  data: CategoryDataType;
+  data: Omit<CategoryDataType, 'slug'>;
 }
 
 export const ConfirmModal: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
