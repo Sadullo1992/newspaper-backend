@@ -8,8 +8,9 @@ import { Categories } from './pages/Categories';
 import { UpdateCategory } from './pages/UpdateCategory';
 import { AddCategory } from './pages/AddCategory';
 import { NotFound } from './pages/NotFound';
+import { Footer } from './components/Footer';
 
-const { Content, Footer } = Layout;
+const { Content } = Layout;
 
 const App: React.FC = () => {
   const {
@@ -37,9 +38,7 @@ const App: React.FC = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
-        </Footer>
+        <Footer />
       </Layout>
     </Layout>
   );

@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { FormInstance } from 'antd';
-import { Button, Form, Input, Space } from 'antd';
+import { Button, Form, FormProps, Input, Space } from 'antd';
+
+import slugify from 'slugify';
+import { ICategory } from '../types/types';
+
+interface FormCategoryProps {
+  initialData?: ICategory;
+}
 
 interface SubmitButtonProps {
   form: FormInstance;
 }
+
+type FieldType = {
+  name?: string;
+  slug?: string;
+};
 
 const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({ form, children }) => {
   const [submittable, setSubmittable] = React.useState<boolean>(false);
@@ -17,6 +29,8 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({ fo
       .validateFields({ validateOnly: true })
       .then(() => setSubmittable(true))
       .catch(() => setSubmittable(false));
+    const nameValue = form.getFieldValue('name') || '';
+    form.isFieldTouched('slug') || form.setFieldValue('slug', slugify(nameValue));
   }, [form, values]);
 
   return (
@@ -26,8 +40,15 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({ fo
   );
 };
 
-export const FormCategory = () => {
+const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+  console.log('Success:', values);
+};
+
+export const FormCategory = ({ initialData }: FormCategoryProps) => {
   const [form] = Form.useForm();
+  useEffect(() => {
+    initialData && form.setFieldValue('name', initialData.name);
+  }, [form, initialData]);
   return (
     <Form
       form={form}
@@ -35,6 +56,7 @@ export const FormCategory = () => {
       layout="vertical"
       autoComplete="off"
       style={{ maxWidth: 600 }}
+      onFinish={onFinish}
     >
       <Form.Item name="name" label="Name" rules={[{ required: true }]}>
         <Input />
@@ -44,8 +66,8 @@ export const FormCategory = () => {
       </Form.Item>
       <Form.Item>
         <Space>
-          <SubmitButton form={form}>Saqlamoq</SubmitButton>
-          <Button htmlType="reset">Formani tozalamoq</Button>
+          <SubmitButton form={form}>Submit</SubmitButton>
+          <Button htmlType="reset">Reset</Button>
         </Space>
       </Form.Item>
     </Form>

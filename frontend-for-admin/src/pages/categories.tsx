@@ -4,14 +4,15 @@ import { DeleteFilled, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Space, Table, TableProps } from 'antd';
 import { Link } from 'react-router-dom';
 import { fetchCategories } from '../api/fetchCategories';
+import { ConfirmModal } from '../components/ConfirmModal';
 
-interface DataType {
+export interface CategoryDataType {
   key: string;
   name: string;
   slug: string;
 }
 
-const columns: TableProps<DataType>['columns'] = [
+const columns: TableProps<CategoryDataType>['columns'] = [
   {
     title: 'Kategoriya Nomi',
     dataIndex: 'name',
@@ -30,21 +31,20 @@ const columns: TableProps<DataType>['columns'] = [
         <Link to={`/category/${record.key}/edit`}>
           <EditOutlined style={{ fontSize: 16 }} />
         </Link>
-        <Link to={`/category/${record.key}/remove`}>
+        <ConfirmModal data={record}>
           <DeleteFilled style={{ fontSize: 16, color: '#f5222d' }} />
-        </Link>
+        </ConfirmModal>
       </Space>
     ),
   },
 ];
 
 export const Categories = () => {
-  const [categories, setCategories] = useState<DataType[]>([]);
+  const [categories, setCategories] = useState<CategoryDataType[]>([]);
   useEffect(() => {
     fetchCategories().then((data) => {
       const dataSource = data.map(({ id, ...rest }) => ({ key: id, ...rest }));
       setCategories(dataSource);
-      console.log(data);
     });
   }, []);
 

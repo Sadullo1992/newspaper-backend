@@ -7,4 +7,10 @@ async function fetchCategories(): Promise<ICategory[]> {
   return data.results;
 }
 
-export { fetchCategories };
+async function fetchCategoryById(id: string): Promise<ICategory> {
+  const response = await fetch(`${BASE_URL}/categories/${id}`);
+  const data = await response.json();
+  return data;
+}
+
+export { fetchCategories, fetchCategoryById };
