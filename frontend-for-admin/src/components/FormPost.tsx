@@ -6,6 +6,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import slugify from 'slugify';
 import { ICategory, IPost } from '../types/types';
 import { fetchCategories } from '../api/fetchCategories';
+import { PostEditor } from './PostEditor';
 
 interface FormPostProps {
   initialData?: IPost;
@@ -52,10 +53,6 @@ const normFile = (e: any) => {
   return e?.fileList;
 };
 
-const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-  console.log('Success:', values);
-};
-
 export const FormPost = ({ initialData }: FormPostProps) => {
   const [form] = Form.useForm();
 
@@ -76,6 +73,14 @@ export const FormPost = ({ initialData }: FormPostProps) => {
       });
   }, [form, initialData]);
 
+  const handleOnChange = (value: string) => {
+    form.setFieldValue('content', value);
+  };
+
+  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    console.log('Success:', values);
+  };
+
   return (
     <Form
       form={form}
@@ -91,7 +96,7 @@ export const FormPost = ({ initialData }: FormPostProps) => {
         <Input />
       </Form.Item>
       <Form.Item label="Maqola" name="content" rules={[{ required: true }]}>
-        <Input.TextArea />
+        <PostEditor value={initialData?.content} onChange={handleOnChange} />
       </Form.Item>
       <Form.Item label="Kategoriya" name="category" rules={[{ required: true }]}>
         <Select>

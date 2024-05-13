@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, Space } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
-import { CategoryDataType } from '../pages/Categories';
+import { CategoryDataType } from '../pages/categories';
 
 interface SubmitButtonProps {
   data: Omit<CategoryDataType, 'slug'>;
