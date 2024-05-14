@@ -33,6 +33,7 @@ const columns: TableProps<PostDataType>['columns'] = [
     title: 'Sarlavha',
     dataIndex: 'name',
     key: 'name',
+    render: (_, { name }) => <span style={{ fontWeight: 500 }}>{name}</span>,
   },
   {
     title: 'Kategoriya',
@@ -125,6 +126,7 @@ export const Posts = () => {
       });
       setPosts(dataSource);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tableParams.pagination?.current]);
 
   const handleTableChange: TableProps['onChange'] = (pagination) => {
