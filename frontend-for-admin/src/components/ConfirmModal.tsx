@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Modal, Space } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
-import { CategoryDataType } from '../pages/categories';
 
 interface SubmitButtonProps {
-  data: Omit<CategoryDataType, 'slug'>;
-  type: 'kategoriya' | 'maqola';
+  data: { key: string | number; name: string };
+  type: 'kategoriya' | 'maqola' | 'nashr';
 }
 
 export const ConfirmModal: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({

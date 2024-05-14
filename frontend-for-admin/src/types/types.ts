@@ -38,3 +38,12 @@ export interface IArticle {
 export interface IPost extends IArticle {
   content: string;
 }
+
+export interface IMagazine {
+  id: number;
+  name: string;
+  created_at: string;
+  file: string;
+  hajmi: string;
+  downloads_count: number;
+}
