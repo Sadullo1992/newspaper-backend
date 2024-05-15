@@ -103,7 +103,7 @@ export const Magazines = () => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 32 }}>
-        <h2>Maqolalar</h2>
+        <h2>Gazeta Nashrlari</h2>
         <Link to={'/magazine/add'}>
           <Button type="primary" icon={<PlusOutlined />}>
             Add Gazeta Nashri
