@@ -12,6 +12,7 @@ import Admin from './pages/Admin';
 import { Login } from './pages/Login';
 import { Magazines } from './pages/Magazines';
 import { AddMagazine } from './pages/AddMagazine';
+import { UpdateMagazine } from './pages/UpdateMagazine';
 
 const App: React.FC = () => {
   return (
@@ -26,6 +27,7 @@ const App: React.FC = () => {
         <Route path="/post/:id/edit" element={<UpdatePost />} />
         <Route path="/magazine" element={<Magazines />} />
         <Route path="/magazine/add" element={<AddMagazine />} />
+        <Route path="/magazine/:id/edit" element={<UpdateMagazine />} />
         <Route path="*" element={<NotFound />} />
       </Route>
       <Route path="/login" element={<Login />} />

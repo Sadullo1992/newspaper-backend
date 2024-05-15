@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { DatePicker, FormInstance } from 'antd';
+import { DatePicker, DatePickerProps, FormInstance } from 'antd';
 import { Button, Form, FormProps, Input, Space, Upload } from 'antd';
+import dayjs from 'dayjs';
+import type { Dayjs } from 'dayjs';
 import { UploadOutlined } from '@ant-design/icons';
 import { IMagazine } from '../types/types';
 
@@ -61,8 +63,8 @@ export const FormMagazine = ({ initialData }: FormPostProps) => {
     console.log('Success:', values);
   };
 
-  const handleOnChange = (value: string) => {
-    form.setFieldValue('created_at', value);
+  const handleOnChange: DatePickerProps<Dayjs>['onChange'] = (date) => {
+    form.setFieldValue('created_at', date);
   };
 
   return (
@@ -76,9 +78,16 @@ export const FormMagazine = ({ initialData }: FormPostProps) => {
       style={{ maxWidth: 600 }}
       onFinish={onFinish}
     >
-      <Form.Item name="title" label="Nashr Nomi" rules={[{ required: true }]}>
+      <Form.Item name="name" label="Nashr Nomi" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
+      {initialData && (
+        <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
+          <a href={initialData?.file} target="_blank" rel="noreferrer">
+            {initialData?.name}
+          </a>
+        </Form.Item>
+      )}
       <Form.Item
         name="magzine_file"
         label="Fayl"
@@ -89,10 +98,10 @@ export const FormMagazine = ({ initialData }: FormPostProps) => {
           <Button icon={<UploadOutlined />}>Gazeta faylini yuklash</Button>
         </Upload>
       </Form.Item>
-      <Form.Item label="Yaratilgan vaqti">
+      <Form.Item label="Yaratilgan vaqti" name="created_at">
         <DatePicker
           onChange={handleOnChange}
-          value={initialData?.created_at}
+          defaultValue={initialData ? dayjs(initialData?.created_at) : null}
           showTime
           needConfirm={false}
         />

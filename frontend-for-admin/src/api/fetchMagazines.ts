@@ -7,7 +7,7 @@ async function fetchMagazines(currentPage = 1): Promise<IResponse<IMagazine[]>> 
   return data;
 }
 
-async function fetchMagazineById(id: number): Promise<IMagazine> {
+async function fetchMagazineById(id: string): Promise<IMagazine> {
   const response = await fetch(`${BASE_URL}/magazines/${id}`);
   const data = await response.json();
   return data;
