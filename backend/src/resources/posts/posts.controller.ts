@@ -1,42 +1,48 @@
 import {
   Controller,
   Get,
-  Post,
-  Body,
-  Patch,
+  NotFoundException,
   Param,
-  Delete,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { CreatePostDto } from './dto/create-post.dto';
-import { UpdatePostDto } from './dto/update-post.dto';
-
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
-
-  @Post()
-  create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
-  }
-
   @Get()
   findAll() {
     return this.postsService.findAll();
   }
 
+  @Get('featured_posts')
+  findFeaturedPosts() {
+    return this.postsService.findFeaturedPosts();
+  }
+
+  @Get('dolzarb_posts')
+  findDolzarbPosts() {
+    return this.postsService.findDolzarbPosts();
+  }
+
+  @Get(':slug')
+  findBySlug(@Param('slug') slug: string) {
+    const post = this.postsService.findBySlug(slug);
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    return post;
+  }
+
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id);
-  }
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
+    const post = this.postsService.findOne(id);
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postsService.update(+id, updatePostDto);
-  }
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postsService.remove(+id);
+    return post;
   }
 }

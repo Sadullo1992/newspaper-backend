@@ -40,6 +40,12 @@ export class DatabaseService<T extends DBEntity> {
     return this.recordMap[id];
   }
 
+  findBySlug(slug: string) {
+    return Object.values(this.recordMap).find(
+      (record) => record['slug'] === slug,
+    );
+  }
+
   update(id: string, record: Partial<T>) {
     this.recordMap[id] = { ...this.recordMap[id], ...record };
 

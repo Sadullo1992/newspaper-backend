@@ -27,13 +27,7 @@ export class PostController {
 
   @Get()
   findAll() {
-    return this.postService.findAll([
-      'title',
-      'created_at',
-      'updated_at',
-      'slug',
-      'views',
-    ]);
+    return this.postService.findAll();
   }
 
   @Get(':id')
