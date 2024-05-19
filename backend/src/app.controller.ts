@@ -6,6 +6,6 @@ export class AppController {
 
   @Get()
   getHome(): string {
-    return 'Newspaper REST Service';
+    return 'Newspaper REST Service!';
   }
 }
