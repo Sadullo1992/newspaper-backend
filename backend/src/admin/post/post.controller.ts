@@ -3,40 +3,73 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  HttpCode,
+  HttpStatus,
+  Put,
+  ParseUUIDPipe,
+  NotFoundException,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 
-@Controller('post')
+@Controller('admin/post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   create(@Body() createPostDto: CreatePostDto) {
     return this.postService.create(createPostDto);
   }
 
   @Get()
   findAll() {
-    return this.postService.findAll();
+    return this.postService.findAll([
+      'title',
+      'created_at',
+      'updated_at',
+      'slug',
+      'views',
+    ]);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postService.findOne(+id);
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
+    const post = this.postService.findOne(id);
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    return post;
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postService.update(+id, updatePostDto);
+  @Put(':id')
+  update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updatePostDto: UpdatePostDto,
+  ) {
+    const post = this.postService.findOne(id);
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    return this.postService.update(id, updatePostDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postService.remove(+id);
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(@Param('id', ParseUUIDPipe) id: string) {
+    const post = this.postService.findOne(id);
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    this.postService.remove(id);
   }
 }

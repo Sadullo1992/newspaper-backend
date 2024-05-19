@@ -19,8 +19,21 @@ export class DatabaseService<T extends DBEntity> {
     return newRecord;
   }
 
-  findAll() {
-    return Object.values(this.recordMap);
+  findAll(keys?: Array<keyof T>) {
+    const allRecord = Object.values(this.recordMap);
+    if (!keys) {
+      return allRecord;
+    }
+
+    return allRecord.map((record) => {
+      const obj = {} as Partial<T>;
+
+      keys.forEach((key) => {
+        obj[key] = record[key];
+      });
+
+      return obj;
+    });
   }
 
   findOne(id: string) {
