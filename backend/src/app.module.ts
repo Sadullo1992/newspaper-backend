@@ -5,6 +5,7 @@ import { PostsModule } from './resources/posts/posts.module';
 import { PostModule } from './admin/post/post.module';
 import { CategoryModule } from './admin/category/category.module';
 import { DatabaseModule } from './database/database.module';
+import { CategoriesModule } from './resources/categories/categories.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -12,6 +13,7 @@ import { DatabaseModule } from './database/database.module';
     PostModule,
     CategoryModule,
     DatabaseModule,
+    CategoriesModule,
   ],
   controllers: [AppController],
 })
