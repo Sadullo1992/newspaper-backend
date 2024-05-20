@@ -32,6 +32,14 @@ export class PostsService {
     return this.postService.findBySlug(slug);
   }
 
+  getRelatedPosts(slug: string) {
+    const post = this.postService.findBySlug(slug);
+
+    const allPosts = this.postService.findAll();
+
+    return allPosts.filter((item) => item.categoryId === post.categoryId);
+  }
+
   findOne(id: string) {
     return this.postService.findOne(id);
   }

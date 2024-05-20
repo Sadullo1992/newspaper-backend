@@ -35,6 +35,17 @@ export class PostsController {
     return post;
   }
 
+  @Get(':slug/related_posts')
+  getRelatedPosts(@Param('slug') slug: string) {
+    const post = this.postsService.getRelatedPosts(slug);
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    return post;
+  }
+
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string) {
     const post = this.postsService.findOne(id);
