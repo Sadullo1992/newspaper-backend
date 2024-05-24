@@ -7,6 +7,7 @@ import { CategoryModule } from './admin/category/category.module';
 import { DatabaseModule } from './database/database.module';
 import { CategoriesModule } from './resources/categories/categories.module';
 import { MagazineModule } from './admin/magazine/magazine.module';
+import { MagazinesModule } from './resources/magazines/magazines.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -16,6 +17,7 @@ import { MagazineModule } from './admin/magazine/magazine.module';
     DatabaseModule,
     CategoriesModule,
     MagazineModule,
+    MagazinesModule,
   ],
   controllers: [AppController],
 })

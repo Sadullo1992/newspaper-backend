@@ -7,5 +7,6 @@ import { DatabaseModule } from 'src/database/database.module';
   imports: [DatabaseModule],
   controllers: [MagazineController],
   providers: [MagazineService],
+  exports: [MagazineService],
 })
 export class MagazineModule {}
