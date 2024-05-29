@@ -13,7 +13,7 @@ services:
     environment:
       PORT: ${PORT}
     volumes:
-      - ./:/usr/frontend
+      - ./frontend-for-admin:/usr/frontend
       - ignore_fe:/usr/frontend/node_modules
     networks:
       - app-network
@@ -30,16 +30,18 @@ services:
       - .env
     environment:
       PORT: ${PORT}
+    stdin_open: true
+    tty: true
     volumes:
-      - ./:/usr/backend
+      - ./backend:/usr/backend
       - ignore_be:/usr/backend/node_modules
     networks:
       - app-network
-      
+
   db:
     image: postgres:16-alpine
     container_name: db
-    restart: unless-stopped
+    restart: always
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     env_file:
@@ -54,7 +56,7 @@ services:
       - app-network
     volumes:
       - pgdata:/var/lib/postgresql/data
-  
+
   pg-admin:
     image: dpage/pgadmin4:6
     container_name: pg-admin

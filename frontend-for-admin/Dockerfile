@@ -16,4 +16,4 @@ WORKDIR /usr/frontend/
 
 COPY --from=build /usr/frontend /usr/frontend
 
-CMD cd ./frontend-for-admin && npm run dev
+CMD npm run dev

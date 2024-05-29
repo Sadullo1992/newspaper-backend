@@ -16,4 +16,4 @@ WORKDIR /usr/backend/
 
 COPY --from=build /usr/backend /usr/backend
 
-CMD cd ./backend && npm run start:dev
+CMD npm run start:dev:docker
