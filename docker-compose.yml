@@ -3,7 +3,7 @@ services:
   frontend:
     container_name: frontend
     restart: unless-stopped
-    build: ./frontend-for-admin
+    build: ./frontend
     ports:
       - ${PORT_FE}:${PORT_FE}
     depends_on:
@@ -13,7 +13,7 @@ services:
     environment:
       PORT: ${PORT}
     volumes:
-      - ./frontend-for-admin:/usr/frontend
+      - ./frontend:/usr/frontend
       - ignore_fe:/usr/frontend/node_modules
     networks:
       - app-network
@@ -41,7 +41,7 @@ services:
   db:
     image: postgres:16-alpine
     container_name: db
-    restart: always
+    restart: unless-stopped
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     env_file:
@@ -56,18 +56,6 @@ services:
       - app-network
     volumes:
       - pgdata:/var/lib/postgresql/data
-
-  pg-admin:
-    image: dpage/pgadmin4:6
-    container_name: pg-admin
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@email.com
-      - PGADMIN_DEFAULT_PASSWORD=admin
-      - PGADMIN_LISTEN_PORT=5050
-    ports:
-      - '5050:5050'
-    networks:
-      - app-network
 
 networks:
   app-network:
