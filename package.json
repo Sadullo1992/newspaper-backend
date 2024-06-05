@@ -1,11 +1,10 @@
 {
   "name": "newspaper-backend",
-  "version": "1.0.0",
-  "description": "newspaper backend",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "sadullo buriev",
+  "scripts": {},
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "license": "MIT"
 }
