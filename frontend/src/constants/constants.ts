@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://uzunpro.uz/api/v1';
+export const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
