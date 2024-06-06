@@ -2,7 +2,7 @@ name: Build Docker Images
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ 'develop' ]
 
 jobs:
   build_api:
