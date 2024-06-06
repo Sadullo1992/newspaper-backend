@@ -1,19 +1,17 @@
-FROM node:20.13-alpine as build
-
-EXPOSE ${PORT}
-
+FROM node:20-alpine as base
 WORKDIR /usr/backend/
+COPY package*.json tsconfig*.json ./
 
-COPY package*.json tsconfig.json tsconfig.build.json ./
-
+FROM base as dev
 RUN npm install
-
 COPY . .
+RUN npm run build
 
-FROM node:20.13-alpine
+FROM base as prod
+RUN npm install --omit=dev
 
-WORKDIR /usr/backend/
+FROM base
+COPY --from=dev /usr/backend/dist ./dist
+COPY --from=prod /usr/backend/node_modules  ./node_modules
 
-COPY --from=build /usr/backend /usr/backend
-
-CMD npm run start:dev:docker
+CMD npm run start:dev
