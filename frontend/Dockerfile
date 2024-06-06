@@ -1,19 +1,11 @@
-FROM node:20.13-alpine as build
-
-EXPOSE ${PORT_FE}
-
+FROM node:20-alpine as build
 WORKDIR /usr/frontend/
-
-COPY package*.json tsconfig.json tsconfig.node.json vite.config.ts ./
-
+COPY package*.json package-lock.json tsconfig*.json ./
 RUN npm install
+COPY . ./
+RUN npm run build
+RUN find ./dist -type f | xargs gzip -k
 
-COPY . .
-
-FROM node:20.13-alpine
-
-WORKDIR /usr/frontend/
-
-COPY --from=build /usr/frontend /usr/frontend
-
-CMD npm run dev
+FROM nginx:1-alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /usr/frontend/dist /usr/share/nginx/html
