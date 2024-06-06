@@ -1,0 +1,23 @@
+name: Build Docker Images
+
+on:
+  push:
+    branches: ['develop', 'feat/monorepo']
+
+jobs:
+  build_api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker login -u ${{github.repository_owner}} -p ${{secrets.GITHUB_TOKEN}} ghcr.io
+      - run: cp package-lock.json ./backend
+      - run: docker build -t ghcr.io/${{github.repository}}/${{github.ref_name}}:api backend
+      - run: docker push ghcr.io/${{github.repository}}/${{github.ref_name}}:api
+  build_ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker login -u ${{github.repository_owner}} -p ${{secrets.GITHUB_TOKEN}} ghcr.io
+      - run: cp package-lock.json ./frontend
+      - run: docker build -t ghcr.io/${{github.repository}}/${{github.ref_name}}:ui frontend
+      - run: docker push ghcr.io/${{github.repository}}/${{github.ref_name}}:ui
