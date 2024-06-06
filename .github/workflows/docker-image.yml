@@ -2,7 +2,7 @@ name: Build Docker Images
 
 on:
   push:
-    branches: ['develop', 'monorepo']
+    branches: [ $default-branch ]
 
 jobs:
   build_api:
