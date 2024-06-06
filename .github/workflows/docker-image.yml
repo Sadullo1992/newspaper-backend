@@ -2,22 +2,32 @@ name: Build Docker Images
 
 on:
   push:
-    branches: ['develop', 'feat/monorepo']
+    branches: ['develop', 'monorepo']
 
 jobs:
   build_api:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: set lower case owner name
+        run: |
+          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+        env:
+          OWNER: '${{ github.repository_owner }}'
       - run: docker login -u ${{github.repository_owner}} -p ${{secrets.GITHUB_TOKEN}} ghcr.io
       - run: cp package-lock.json ./backend
-      - run: docker build -t ghcr.io/${{github.repository}}/${{github.ref_name}}:api backend
-      - run: docker push ghcr.io/${{github.repository}}/${{github.ref_name}}:api
+      - run: docker build -t ghcr.io/${{ env.OWNER_LC }}/${{github.ref_name}}:api backend
+      - run: docker push ghcr.io/${{ env.OWNER_LC }}/${{github.ref_name}}:api
   build_ui:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: set lower case owner name
+        run: |
+          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+        env:
+          OWNER: '${{ github.repository_owner }}'
       - run: docker login -u ${{github.repository_owner}} -p ${{secrets.GITHUB_TOKEN}} ghcr.io
       - run: cp package-lock.json ./frontend
-      - run: docker build -t ghcr.io/${{github.repository}}/${{github.ref_name}}:ui frontend
-      - run: docker push ghcr.io/${{github.repository}}/${{github.ref_name}}:ui
+      - run: docker build -t ghcr.io/${{ env.OWNER_LC }}/${{github.ref_name}}:ui frontend
+      - run: docker push ghcr.io/${{ env.OWNER_LC }}/${{github.ref_name}}:ui
