@@ -3,7 +3,9 @@
   "main": "index.js",
   "scripts": {
     "backend:docker:compose:up": "npm -w backend run docker:compose:up",
-    "backend:start": "npm -w backend run start:dev",
+    "backend:prisma:generate": "npm -w backend run prisma:generate",
+    "backend:prisma:studio": "npm -w backend run prisma:studio",
+    "backend:start": "npm -w backend run start",
     "start": "npm-run-all -p backend:start frontend:start",
     "frontend:start": "npm -w frontend run dev"
   },
