@@ -8,6 +8,7 @@ import { DatabaseModule } from './database/database.module';
 import { CategoriesModule } from './resources/categories/categories.module';
 import { MagazineModule } from './admin/magazine/magazine.module';
 import { MagazinesModule } from './resources/magazines/magazines.module';
+import { PrismaModule } from './prisma/prisma.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -18,6 +19,7 @@ import { MagazinesModule } from './resources/magazines/magazines.module';
     CategoriesModule,
     MagazineModule,
     MagazinesModule,
+    PrismaModule,
   ],
   controllers: [AppController],
 })
