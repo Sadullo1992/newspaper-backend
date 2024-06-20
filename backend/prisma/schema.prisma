@@ -17,4 +17,20 @@ model Category {
   id   String @id @default(uuid())
   name String
   slug String
+  Post Post[]
+}
+
+model Post {
+  id         String    @id @default(uuid())
+  title      String
+  slug       String
+  content    String
+  createdAt  BigInt    @default(0)
+  updatedAt  BigInt    @default(0)
+  isActual   Boolean   @default(false)
+  isFeatured Boolean   @default(false)
+  views      Int       @default(0)
+  categoryId String?
+  author     String?
+  category   Category? @relation(fields: [categoryId], references: [id])
 }

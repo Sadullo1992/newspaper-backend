@@ -19,13 +19,13 @@ export class PostsService {
   findFeaturedPosts() {
     const allPosts = this.postService.findAll();
 
-    return allPosts.filter(({ is_featured }) => is_featured);
+    return allPosts.filter(({ isFeatured }) => isFeatured);
   }
 
-  findDolzarbPosts() {
+  findActualPosts() {
     const allPosts = this.postService.findAll();
 
-    return allPosts.filter(({ dolzarb }) => dolzarb);
+    return allPosts.filter(({ isActual }) => isActual);
   }
 
   findBySlug(slug: string) {

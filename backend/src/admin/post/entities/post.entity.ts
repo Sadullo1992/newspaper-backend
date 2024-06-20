@@ -37,10 +37,10 @@ export class Post {
   updated_at: string;
 
   @IsBoolean()
-  dolzarb: boolean;
+  isActual: boolean;
 
   @IsBoolean()
-  is_featured: boolean;
+  isFeatured: boolean;
 
   @IsNumber()
   @IsNotEmpty()

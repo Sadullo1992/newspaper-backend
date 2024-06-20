@@ -20,8 +20,8 @@ export class PostsController {
   }
 
   @Get('dolzarb_posts')
-  findDolzarbPosts() {
-    return this.postsService.findDolzarbPosts();
+  findActualPosts() {
+    return this.postsService.findActualPosts();
   }
 
   @Get(':slug')
