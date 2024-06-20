@@ -21,16 +21,17 @@ model Category {
 }
 
 model Post {
-  id         String    @id @default(uuid())
+  id         String  @id @default(uuid())
   title      String
+  categoryId String
   slug       String
   content    String
-  createdAt  BigInt    @default(0)
-  updatedAt  BigInt    @default(0)
-  isActual   Boolean   @default(false)
-  isFeatured Boolean   @default(false)
-  views      Int       @default(0)
-  categoryId String?
+  createdAt  String
+  updatedAt  String
+  isActual   Boolean @default(false)
+  isFeatured Boolean @default(false)
+  views      Int     @default(0)
   author     String?
-  category   Category? @relation(fields: [categoryId], references: [id])
+
+  category Category? @relation(fields: [categoryId], references: [id])
 }

@@ -21,12 +21,11 @@ export class Post {
 
   @IsNotEmpty()
   @IsString()
-  @ValidateIf((_, value) => value !== null)
-  categoryId: string | null;
+  categoryId: string;
 
   @IsString()
   @IsNotEmpty()
-  created_at: string;
+  createdAt: string;
 
   @IsString()
   @IsNotEmpty()
@@ -34,7 +33,7 @@ export class Post {
 
   @IsString()
   @IsNotEmpty()
-  updated_at: string;
+  updatedAt: string;
 
   @IsBoolean()
   isActual: boolean;
