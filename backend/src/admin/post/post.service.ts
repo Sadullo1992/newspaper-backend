@@ -8,7 +8,14 @@ export class PostService {
   constructor(private prisma: PrismaService) {}
 
   async create(createPostDto: CreatePostDto) {
-    return this.prisma.post.create({ data: createPostDto });
+    const now = Date.now();
+    return this.prisma.post.create({
+      data: {
+        ...createPostDto,
+        createdAt: now,
+        updatedAt: now,
+      },
+    });
   }
 
   async findAll() {
@@ -22,7 +29,10 @@ export class PostService {
   async update(id: string, updatePostDto: UpdatePostDto) {
     return this.prisma.post.update({
       where: { id },
-      data: updatePostDto,
+      data: {
+        ...updatePostDto,
+        updatedAt: Date.now(),
+      },
     });
   }
 

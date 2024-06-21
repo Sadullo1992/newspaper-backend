@@ -3,8 +3,8 @@ import {
   IsString,
   IsNotEmpty,
   IsBoolean,
-  IsNumber,
   ValidateIf,
+  IsInt,
 } from 'class-validator';
 
 export class Post {
@@ -26,15 +26,11 @@ export class Post {
 
   @IsString()
   @IsNotEmpty()
-  createdAt: string;
-
-  @IsString()
-  @IsNotEmpty()
   content: string;
 
-  @IsString()
-  @IsNotEmpty()
-  updatedAt: string;
+  createdAt: number;
+
+  updatedAt: number;
 
   @IsBoolean()
   isActual: boolean;
@@ -42,8 +38,6 @@ export class Post {
   @IsBoolean()
   isFeatured: boolean;
 
-  @IsNumber()
-  @IsNotEmpty()
   views: number;
 
   @IsNotEmpty()

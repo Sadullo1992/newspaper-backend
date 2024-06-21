@@ -26,8 +26,8 @@ model Post {
   categoryId String?
   slug       String
   content    String
-  createdAt  String
-  updatedAt  String
+  createdAt  BigInt  @default(0)
+  updatedAt  BigInt  @default(0)
   isActual   Boolean @default(false)
   isFeatured Boolean @default(false)
   views      Int     @default(0)
