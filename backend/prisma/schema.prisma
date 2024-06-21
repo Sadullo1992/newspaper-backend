@@ -23,7 +23,7 @@ model Category {
 model Post {
   id         String  @id @default(uuid())
   title      String
-  categoryId String
+  categoryId String?
   slug       String
   content    String
   createdAt  String

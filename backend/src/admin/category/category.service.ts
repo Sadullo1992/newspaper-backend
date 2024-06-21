@@ -5,7 +5,9 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Injectable()
 export class CategoryService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+  ) {}
 
   async create(createCategoryDto: CreateCategoryDto) {
     return this.prisma.category.create({ data: createCategoryDto });
@@ -27,6 +29,14 @@ export class CategoryService {
   }
 
   async remove(id: string) {
-    return this.prisma.category.delete({ where: { id } });
+    await this.prisma.category.delete({ where: { id } });
+
+    const posts = await this.prisma.post.findMany();
+
+    const categoryPosts = posts.filter((post) => post.categoryId === id);
+
+    categoryPosts.forEach((post) => {
+      post.categoryId = null;
+    });
   }
 }

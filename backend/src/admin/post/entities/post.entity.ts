@@ -21,7 +21,8 @@ export class Post {
 
   @IsNotEmpty()
   @IsString()
-  categoryId: string;
+  @ValidateIf((_, value) => value !== null)
+  categoryId: string | null;
 
   @IsString()
   @IsNotEmpty()
