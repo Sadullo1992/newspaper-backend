@@ -1,21 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { CategoryService } from 'src/admin/category/category.service';
-import { PostService } from 'src/admin/post/post.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class CategoriesService {
-  constructor(
-    private categoryService: CategoryService,
-    private postService: PostService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
-  findAll() {
-    return this.categoryService.findAll();
+  async findAll() {
+    return this.prisma.category.findMany();
   }
 
-  findPostsByCategory(categoryId: string) {
-    const allPosts = this.postService.findAll();
+  async findOne(id: string) {
+    return this.prisma.category.findUnique({ where: { id } });
+  }
 
-    return allPosts.filter((item) => item.categoryId === categoryId);
+  async findCategoryPosts(categoryId: string) {
+    return this.prisma.post.findMany({ where: { categoryId } });
   }
 }
