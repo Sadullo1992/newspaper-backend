@@ -1,46 +1,82 @@
-import { Injectable } from '@nestjs/common';
-import { PostService } from 'src/admin/post/post.service';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class PostsService {
-  constructor(private postService: PostService) {}
+  constructor(private prisma: PrismaService) {}
 
-  findAll() {
-    return this.postService.findAll([
-      'id',
-      'title',
-      'created_at',
-      'updated_at',
-      'slug',
-      'views',
-    ]);
+  async findAll() {
+    return this.prisma.post.findMany({
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        createdAt: true,
+        updatedAt: true,
+        views: true,
+      },
+    });
   }
 
   findFeaturedPosts() {
-    const allPosts = this.postService.findAll();
-
-    return allPosts.filter(({ isFeatured }) => isFeatured);
+    return this.prisma.post.findMany({
+      where: { isFeatured: true },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        createdAt: true,
+        updatedAt: true,
+        views: true,
+      },
+    });
   }
 
   findActualPosts() {
-    const allPosts = this.postService.findAll();
-
-    return allPosts.filter(({ isActual }) => isActual);
+    return this.prisma.post.findMany({
+      where: { isActual: true },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        createdAt: true,
+        updatedAt: true,
+        views: true,
+      },
+    });
   }
 
-  findBySlug(slug: string) {
-    return this.postService.findBySlug(slug);
+  async findBySlug(slug: string) {
+    return this.prisma.post.findUnique({
+      where: { slug },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        categoryId: true,
+        content: true,
+        author: true,
+      },
+    });
   }
 
-  getRelatedPosts(slug: string) {
-    const post = this.postService.findBySlug(slug);
+  async findRelatedPosts(slug: string) {
+    const post = await this.prisma.post.findUnique({ where: { slug }, select: { categoryId: true } });
 
-    const allPosts = this.postService.findAll();
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
 
-    return allPosts.filter((item) => item.categoryId === post.categoryId);
-  }
-
-  findOne(id: string) {
-    return this.postService.findOne(id);
+    return this.prisma.post.findMany({
+      where: { categoryId: post.categoryId },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        createdAt: true,
+        updatedAt: true,
+        views: true,
+      },
+    });
   }
 }
