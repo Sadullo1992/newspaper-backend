@@ -21,18 +21,18 @@ export class CategoryController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() createCategoryDto: CreateCategoryDto) {
+  async create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.categoryService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
-    const category = this.categoryService.findOne(id);
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
+    const category = await this.categoryService.findOne(id);
 
     if (!category) {
       throw new NotFoundException('Category not found');
@@ -42,11 +42,11 @@ export class CategoryController {
   }
 
   @Put(':id')
-  update(
+  async update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    const category = this.categoryService.findOne(id);
+    const category = await this.categoryService.findOne(id);
 
     if (!category) {
       throw new NotFoundException('Category not found');
@@ -57,8 +57,8 @@ export class CategoryController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id', ParseUUIDPipe) id: string) {
-    const category = this.categoryService.findOne(id);
+  async remove(@Param('id', ParseUUIDPipe) id: string) {
+    const category = await this.categoryService.findOne(id);
 
     if (!category) {
       throw new NotFoundException('Category not found');

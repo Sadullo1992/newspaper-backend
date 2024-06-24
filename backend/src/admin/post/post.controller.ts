@@ -21,18 +21,18 @@ export class PostController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() createPostDto: CreatePostDto) {
+  async create(@Body() createPostDto: CreatePostDto) {
     return this.postService.create(createPostDto);
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.postService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
-    const post = this.postService.findOne(id);
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
+    const post = await this.postService.findOne(id);
 
     if (!post) {
       throw new NotFoundException('Post not found');
@@ -42,11 +42,11 @@ export class PostController {
   }
 
   @Put(':id')
-  update(
+  async update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updatePostDto: UpdatePostDto,
   ) {
-    const post = this.postService.findOne(id);
+    const post = await this.postService.findOne(id);
 
     if (!post) {
       throw new NotFoundException('Post not found');
@@ -57,8 +57,8 @@ export class PostController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id', ParseUUIDPipe) id: string) {
-    const post = this.postService.findOne(id);
+  async remove(@Param('id', ParseUUIDPipe) id: string) {
+    const post = await this.postService.findOne(id);
 
     if (!post) {
       throw new NotFoundException('Post not found');
