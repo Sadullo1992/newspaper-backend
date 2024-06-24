@@ -3,7 +3,6 @@ import {
   Get,
   NotFoundException,
   Param,
-  ParseUUIDPipe,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 
@@ -16,14 +15,14 @@ export class CategoriesController {
     return this.categoriesService.findAll();
   }
 
-  @Get(':id/posts')
-  async findCategoryPosts(@Param('id', ParseUUIDPipe) id: string) {
-    const category = await this.categoriesService.findOne(id);
+  @Get(':slug/posts')
+  async findCategoryPosts(@Param('slug') slug: string) {
+    const category = await this.categoriesService.findOne(slug);
 
     if (!category) {
       throw new NotFoundException('Category not found');
     }
 
-    return this.categoriesService.findCategoryPosts(id);
+    return this.categoriesService.findCategoryPosts(category.id);
   }
 }

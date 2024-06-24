@@ -9,11 +9,21 @@ export class CategoriesService {
     return this.prisma.category.findMany();
   }
 
-  async findOne(id: string) {
-    return this.prisma.category.findUnique({ where: { id } });
+  async findOne(slug: string) {
+    return this.prisma.category.findUnique({ where: { slug } });
   }
 
   async findCategoryPosts(categoryId: string) {
-    return this.prisma.post.findMany({ where: { categoryId } });
+    return this.prisma.post.findMany({
+      where: { categoryId },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        createdAt: true,
+        updatedAt: true,
+        views: true,
+      },
+    });
   }
 }
