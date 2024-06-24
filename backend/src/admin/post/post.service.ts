@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -8,14 +8,21 @@ export class PostService {
   constructor(private prisma: PrismaService) {}
 
   async create(createPostDto: CreatePostDto) {
-    const now = Date.now();
-    return this.prisma.post.create({
-      data: {
-        ...createPostDto,
-        createdAt: now,
-        updatedAt: now,
-      },
-    });
+    try {
+      const now = Date.now();
+
+      const post = await this.prisma.post.create({
+        data: {
+          ...createPostDto,
+          createdAt: now,
+          updatedAt: now,
+        },
+      });
+
+      return post;
+    } catch (e) {
+      throw new HttpException('Post slug already exists!', HttpStatus.CONFLICT);
+    }
   }
 
   async findAll() {

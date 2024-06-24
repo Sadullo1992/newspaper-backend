@@ -1,16 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Injectable()
 export class CategoryService {
-  constructor(
-    private prisma: PrismaService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async create(createCategoryDto: CreateCategoryDto) {
-    return this.prisma.category.create({ data: createCategoryDto });
+    try {
+      const category = await this.prisma.category.create({
+        data: createCategoryDto,
+      });
+      return category;
+    } catch (e) {
+      throw new HttpException(
+        'Category slug already exists!',
+        HttpStatus.CONFLICT,
+      );
+    }
   }
 
   async findAll() {
