@@ -24,7 +24,7 @@ model Post {
   id         String  @id @default(uuid())
   title      String
   categoryId String?
-  slug       String @unique
+  slug       String  @unique
   content    String
   createdAt  BigInt  @default(0)
   updatedAt  BigInt  @default(0)
@@ -34,4 +34,14 @@ model Post {
   author     String?
 
   category Category? @relation(fields: [categoryId], references: [id])
+  images   Image[]
+}
+
+model Image {
+  id        String @id @default(uuid())
+  imageName String
+  imageSize Int
+  postId    String
+
+  post Post? @relation(fields: [postId], references: [id])
 }

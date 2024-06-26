@@ -9,6 +9,7 @@ import { CategoriesModule } from './resources/categories/categories.module';
 import { MagazineModule } from './admin/magazine/magazine.module';
 import { MagazinesModule } from './resources/magazines/magazines.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { ImageModule } from './admin/image/image.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -20,6 +21,7 @@ import { PrismaModule } from './prisma/prisma.module';
     MagazineModule,
     MagazinesModule,
     PrismaModule,
+    ImageModule,
   ],
   controllers: [AppController],
 })
