@@ -1,10 +1,15 @@
+import { Type } from 'class-transformer';
 import {
   IsUUID,
   IsString,
   IsNotEmpty,
   IsBoolean,
   ValidateIf,
-  IsInt,
+  MaxLength,
+  IsArray,
+  ArrayContains,
+  ValidateNested,
+  ArrayMaxSize,
 } from 'class-validator';
 
 export class Post {
@@ -44,4 +49,15 @@ export class Post {
   @IsString()
   @ValidateIf((_, value) => value !== null)
   author: string | null;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @ArrayMaxSize(3)
+  @Type(() => Image)
+  images: Image[];
+}
+
+export class Image {
+  id: string;
+  imagename: string;
 }
