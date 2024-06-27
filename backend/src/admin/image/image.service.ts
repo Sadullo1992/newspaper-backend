@@ -1,26 +1,43 @@
-import { Injectable } from '@nestjs/common';
-import { CreateImageDto } from './dto/save-image.dto';
-import { UpdateImageDto } from './dto/update-image.dto';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ImageService {
-  create(createImageDto: CreateImageDto) {
-    return 'This action adds a new image';
+  constructor(private prisma: PrismaService) {}
+
+  async checkExistFileInDB(imagename: string): Promise<boolean> {
+    const isExist = await this.prisma.image.findUnique({
+      select: { id: true },
+      where: { imagename },
+    });
+    return !!isExist;
   }
 
-  findAll() {
-    return `This action returns all image`;
+  async saveImage(imagename: string, id: string, imageSize: number) {
+    try {
+      const imageModel = await this.prisma.image.create({
+        data: {
+          id,
+          imagename,
+          imageSize,
+          postId: null,
+        },
+      });
+      return { id: imageModel.id, imagename: imageModel.imagename };
+    } catch (e) {
+      throw new HttpException('Image already exists!', HttpStatus.CONFLICT);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} image`;
-  }
+  async findImageId(imagename: string) {
+    const modelImage = await this.prisma.image.findUnique({
+      where: { imagename },
+    });
 
-  update(id: number, updateImageDto: UpdateImageDto) {
-    return `This action updates a #${id} image`;
-  }
+    if (!modelImage) {
+      throw new HttpException('Image was not founded!', HttpStatus.NOT_FOUND);
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} image`;
+    return modelImage.id as string;
   }
 }

@@ -1,16 +1,30 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  UseInterceptors,
+  UploadedFile,
+  ParseFilePipe,
+  MaxFileSizeValidator,
+  FileTypeValidator,
+  Param,
+  NotFoundException,
+  Res,
+} from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import { ImageService } from './image.service';
-import { UpdateImageDto } from './dto/update-image.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { SaveImageDto } from './dto/save-image.dto';
 import { diskStorage } from 'multer';
+import { join } from 'path';
+import { createReadStream, existsSync } from 'fs';
+import { Response } from 'express';
+import { of } from 'rxjs';
 
-@Controller('image')
+@Controller()
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
-  @Post()
+  @Post('upload/image')
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
@@ -19,14 +33,31 @@ export class ImageController {
       }),
     }),
   )
-  uploadImage(
-    @UploadedFile() image: Express.Multer.File,
-    @Body() body: SaveImageDto,
+  async uploadImage(
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 2000000 }),
+          new FileTypeValidator({ fileType: /(jpg|jpeg|png|gif)$/ }),
+        ],
+      }),
+    )
+    image: Express.Multer.File,
   ) {
-    const { postId } = body;
     const { originalname, filename, size } = image;
 
-    return this.imageService;
+    return this.imageService.saveImage(originalname, filename, size);
   }
 
+  @Get('media/images/:imagename')
+  async download(@Param('imagename') imagename: string, @Res() res: Response) {
+    const imageId = await this.imageService.findImageId(imagename);
+
+    const filePath = join(process.cwd(), `/uploads/images/${imageId}`);
+    if (existsSync(filePath)) {
+      return of(res.sendFile(filePath));
+    }
+
+    throw new NotFoundException('Image file not found');
+  }
 }
