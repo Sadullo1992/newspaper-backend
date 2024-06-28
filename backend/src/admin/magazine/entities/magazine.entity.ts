@@ -10,16 +10,9 @@ export class Magazine {
 
   @IsString()
   @IsNotEmpty()
-  created_at: string;
+  createdAt: string;
 
-  @IsString()
-  @IsNotEmpty()
-  file: string;
+  filename: string;
 
-  @IsString()
-  @IsNotEmpty()
-  hajmi: string;
-
-  @IsNumber()
-  downloads_count: number;
+  size: number;
 }

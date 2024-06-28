@@ -3,5 +3,5 @@ import { Magazine } from '../entities/magazine.entity';
 
 export class CreateMagazineDto extends PickType(Magazine, [
   'name',
-  'created_at',
+  'createdAt',
 ] as const) {}
