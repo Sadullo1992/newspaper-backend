@@ -29,10 +29,13 @@ export class MagazineService {
   }
 
   async update(id: string, updateMagazineDto: Partial<Omit<Magazine, 'id'>>) {
-    
     return await this.prisma.magazine.update({
       where: { id },
       data: updateMagazineDto,
     });
+  }
+
+  async remove(id:string) {
+    return await this.prisma.magazine.delete({ where: { id } });
   }
 }

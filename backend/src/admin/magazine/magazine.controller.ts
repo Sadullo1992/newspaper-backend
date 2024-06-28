@@ -132,15 +132,18 @@ export class MagazineController {
     });
   }
 
-  // @Delete(':id')
-  // @HttpCode(HttpStatus.NO_CONTENT)
-  // remove(@Param('id', ParseUUIDPipe) id: string) {
-  //   const magazine = this.magazineService.findOne(id);
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async remove(@Param('id', ParseUUIDPipe) id: string) {
+    const magazine = this.magazineService.findOne(id);
 
-  //   if (!magazine) {
-  //     throw new NotFoundException('Magazine not found');
-  //   }
+    if (!magazine) {
+      throw new NotFoundException('Magazine not found');
+    }
 
-  //   this.magazineService.remove(id);
-  // }
+    await this.magazineService.remove(id);
+
+    const filePath = join(process.cwd(), `/uploads/magazines/${id}`);
+    await rm(filePath);
+  }
 }
