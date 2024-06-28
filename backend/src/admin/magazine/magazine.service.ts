@@ -10,10 +10,7 @@ export class MagazineService {
   async create(magazine: Magazine) {
     try {
       return await this.prisma.magazine.create({
-        data: {
-          ...magazine,
-          createdAt: new Date(Number(magazine.createdAt)).getTime(),
-        },
+        data: magazine,
       });
     } catch (e) {
       throw new HttpException(
@@ -31,5 +28,11 @@ export class MagazineService {
     return await this.prisma.magazine.findUnique({ where: { id } });
   }
 
-  async update(id: string, updateMagazineDto: UpdateMagazineDto) {}
+  async update(id: string, updateMagazineDto: Partial<Omit<Magazine, 'id'>>) {
+    
+    return await this.prisma.magazine.update({
+      where: { id },
+      data: updateMagazineDto,
+    });
+  }
 }

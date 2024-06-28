@@ -22,6 +22,8 @@ import { CreateMagazineDto } from './dto/create-magazine.dto';
 import { UpdateMagazineDto } from './dto/update-magazine.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { join } from 'path';
+import { rename, rm } from 'fs/promises';
 
 @Controller('admin/magazine')
 export class MagazineController {
@@ -55,7 +57,7 @@ export class MagazineController {
       id: filename,
       filename: originalname,
       name,
-      createdAt,
+      createdAt: Number(createdAt),
       size,
     });
   }
@@ -77,9 +79,26 @@ export class MagazineController {
   }
 
   @Put(':id')
-  update(
+  @UseInterceptors(
+    FileInterceptor('magazine-file', {
+      storage: diskStorage({
+        destination: './uploads/magazines',
+      }),
+    }),
+  )
+  async update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateMagazineDto: UpdateMagazineDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 5000000 }),
+          new FileTypeValidator({ fileType: /(pdf)$/ }),
+        ],
+        fileIsRequired: false,
+      }),
+    )
+    file: Express.Multer.File,
   ) {
     const magazine = this.magazineService.findOne(id);
 
@@ -87,7 +106,30 @@ export class MagazineController {
       throw new NotFoundException('Magazine not found');
     }
 
-    return this.magazineService.update(id, updateMagazineDto);
+    const updateDto =
+      'createdAt' in updateMagazineDto
+        ? {
+            ...updateMagazineDto,
+            createdAt: Number(updateMagazineDto.createdAt),
+          }
+        : { ...updateMagazineDto };
+
+    if (!file) {
+      return this.magazineService.update(id, updateDto);
+    }
+
+    const { originalname, filename, size } = file;
+
+    const oldFilePath = join(process.cwd(), `/uploads/magazines/${id}`);
+    const newFilePath = join(process.cwd(), `/uploads/magazines/${filename}`);
+    await rm(oldFilePath);
+    await rename(newFilePath, oldFilePath);
+
+    return await this.magazineService.update(id, {
+      ...updateDto,
+      filename: originalname,
+      size,
+    });
   }
 
   // @Delete(':id')

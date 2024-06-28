@@ -10,7 +10,7 @@ export class Magazine {
 
   @IsString()
   @IsNotEmpty()
-  createdAt: string;
+  createdAt: number;
 
   filename: string;
 
