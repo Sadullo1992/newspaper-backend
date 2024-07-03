@@ -34,7 +34,6 @@ export class PostService {
 
       return post;
     } catch (e) {
-      console.log(e);
       throw new HttpException(
         'Please check the entities!',
         HttpStatus.CONFLICT,
