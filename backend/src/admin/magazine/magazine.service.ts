@@ -1,6 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { UpdateMagazineDto } from './dto/update-magazine.dto';
 import { Magazine } from './entities/magazine.entity';
 
 @Injectable()
@@ -35,7 +34,7 @@ export class MagazineService {
     });
   }
 
-  async remove(id:string) {
+  async remove(id: string) {
     return await this.prisma.magazine.delete({ where: { id } });
   }
 }

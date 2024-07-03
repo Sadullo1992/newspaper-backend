@@ -68,8 +68,8 @@ export class MagazineController {
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string) {
-    const magazine = this.magazineService.findOne(id);
+  async findOne(@Param('id', ParseUUIDPipe) id: string) {
+    const magazine = await this.magazineService.findOne(id);
 
     if (!magazine) {
       throw new NotFoundException('Magazine not found');
@@ -100,7 +100,7 @@ export class MagazineController {
     )
     file: Express.Multer.File,
   ) {
-    const magazine = this.magazineService.findOne(id);
+    const magazine = await this.magazineService.findOne(id);
 
     if (!magazine) {
       throw new NotFoundException('Magazine not found');
@@ -135,7 +135,7 @@ export class MagazineController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@Param('id', ParseUUIDPipe) id: string) {
-    const magazine = this.magazineService.findOne(id);
+    const magazine = await this.magazineService.findOne(id);
 
     if (!magazine) {
       throw new NotFoundException('Magazine not found');

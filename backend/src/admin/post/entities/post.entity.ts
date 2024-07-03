@@ -5,9 +5,7 @@ import {
   IsNotEmpty,
   IsBoolean,
   ValidateIf,
-  MaxLength,
   IsArray,
-  ArrayContains,
   ValidateNested,
   ArrayMaxSize,
 } from 'class-validator';

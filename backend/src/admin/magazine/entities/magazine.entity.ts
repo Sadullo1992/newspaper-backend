@@ -1,4 +1,4 @@
-import { IsUUID, IsString, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsUUID, IsString, IsNotEmpty } from 'class-validator';
 
 export class Magazine {
   @IsUUID('4')

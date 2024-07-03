@@ -61,7 +61,10 @@ export class PostsService {
   }
 
   async findRelatedPosts(slug: string) {
-    const post = await this.prisma.post.findUnique({ where: { slug }, select: { categoryId: true } });
+    const post = await this.prisma.post.findUnique({
+      where: { slug },
+      select: { categoryId: true },
+    });
 
     if (!post) {
       throw new NotFoundException('Post not found');

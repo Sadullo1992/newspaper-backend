@@ -1,20 +1,28 @@
-import { Controller, Get, NotFoundException, Param, ParseUUIDPipe, Res, StreamableFile } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  ParseUUIDPipe,
+  Res,
+  StreamableFile,
+} from '@nestjs/common';
 import { Response } from 'express';
 import { createReadStream, existsSync } from 'fs';
 import { join } from 'path';
 import { of } from 'rxjs';
 import { MagazinesService } from './magazines.service';
 
-@Controller('magazines')
+@Controller()
 export class MagazinesController {
   constructor(private readonly magazinesService: MagazinesService) {}
 
-  @Get()
+  @Get('magazines')
   async findAll() {
     return await this.magazinesService.findAll();
   }
 
-  @Get(':id')
+  @Get('magazines/:id')
   async findOne(@Param('id', ParseUUIDPipe) id: string) {
     const magazine = await this.magazinesService.findOne(id);
 
@@ -25,7 +33,7 @@ export class MagazinesController {
     return magazine;
   }
 
-  @Get(':id/download')
+  @Get('magazines/:id/download')
   async download(@Param('id', ParseUUIDPipe) id: string) {
     const magazine = await this.magazinesService.findOne(id);
 

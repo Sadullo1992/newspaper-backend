@@ -16,7 +16,7 @@ import { ImageService } from './image.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { join } from 'path';
-import { createReadStream, existsSync } from 'fs';
+import { existsSync } from 'fs';
 import { Response } from 'express';
 import { of } from 'rxjs';
 

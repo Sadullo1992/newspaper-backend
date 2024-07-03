@@ -6,7 +6,7 @@ import { AppModule } from './app.module';
 // https://github.com/expressjs/express/issues/4453
 declare global {
   interface BigInt {
-    toJSON(): number
+    toJSON(): number;
   }
 }
 
@@ -14,7 +14,7 @@ BigInt.prototype.toJSON = function () {
   return Number(this.toString());
 };
 
-const PORT = process.env.PORT;  
+const PORT = process.env.PORT;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -23,6 +23,5 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   await app.listen(PORT);
-
 }
 bootstrap();
