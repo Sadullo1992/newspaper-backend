@@ -1,23 +1,34 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { MagazineService } from 'src/admin/magazine/magazine.service';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class MagazinesService {
-  constructor(private magazineService: MagazineService) {}
+  constructor(private prisma: PrismaService) {}
 
-  findAll() {
-    return this.magazineService.findAll();
+  async findAll() {
+    return await this.prisma.magazine.findMany();
   }
 
-  addDownloadCount(id: string) {
-    const magazine = this.magazineService.findOne(id);
+  async findOne(id: string) {
+    return await this.prisma.magazine.findUnique({ where: { id } });
+  }
 
-    if (!magazine) {
+  async addDownloadCount(id: string) {
+    return await this.prisma.magazine.update({
+      where: { id },
+      data: { downloadsCount: { increment: 1 } },
+    });
+  }
+
+  async findMagazineId(filename: string) {
+    const modelMagazine = await this.prisma.magazine.findUnique({
+      where: { filename },
+    });
+
+    if (!modelMagazine) {
       throw new NotFoundException('Magazine not found');
     }
 
-    return this.magazineService.update(id, {
-      downloads_count: magazine.downloads_count + 1,
-    });
+    return modelMagazine.id as string;
   }
 }
