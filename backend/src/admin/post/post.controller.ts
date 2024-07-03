@@ -14,6 +14,8 @@ import {
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { join } from 'path';
+import { rm } from 'fs/promises';
 
 @Controller('admin/post')
 export class PostController {
@@ -62,8 +64,16 @@ export class PostController {
 
     if (!post) {
       throw new NotFoundException('Post not found');
-    }
+    }    
 
-    this.postService.remove(id);
+    const postImages = await this.postService.findPostImages(id);
+
+    postImages.forEach(async (image) => {
+      const filePath = join(process.cwd(), `/uploads/images/${image.id}`);
+
+      await rm(filePath);
+    });
+
+    await this.postService.remove(id);
   }
 }

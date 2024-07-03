@@ -60,6 +60,12 @@ export class PostService {
   }
 
   async remove(id: string) {
-    return this.prisma.post.delete({ where: { id } });
+    await this.prisma.image.deleteMany({ where: { postId: id } });
+
+    return await this.prisma.post.delete({ where: { id } });
+  }
+
+  async findPostImages(postId: string) {
+    return await this.prisma.image.findMany({ where: { postId } })
   }
 }
