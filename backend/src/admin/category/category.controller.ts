@@ -1,15 +1,16 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Param,
+  Controller,
   Delete,
-  ParseUUIDPipe,
-  Put,
+  Get,
   HttpCode,
   HttpStatus,
   NotFoundException,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  Put,
+  Query,
 } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -26,8 +27,11 @@ export class CategoryController {
   }
 
   @Get()
-  async findAll() {
-    return this.categoryService.findAll();
+  async findAll(
+    @Query('page') page: number,
+    @Query('perPage') perPage: number,
+  ) {
+    return this.categoryService.findAll({ page, perPage });
   }
 
   @Get(':id')
