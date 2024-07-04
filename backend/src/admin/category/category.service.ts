@@ -3,6 +3,7 @@ import { Category } from '@prisma/client';
 import {
   PaginatedResult,
   PaginateFunction,
+  PaginateOptions,
   paginator,
 } from 'src/helpers/paginator';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -30,10 +31,7 @@ export class CategoryService {
   async findAll({
     page,
     perPage,
-  }: {
-    page?: number;
-    perPage?: number;
-  }): Promise<PaginatedResult<Category>> {
+  }: PaginateOptions): Promise<PaginatedResult<Category>> {
     const paginate: PaginateFunction = paginator({ page, perPage });
     return paginate(this.prisma.category);
   }

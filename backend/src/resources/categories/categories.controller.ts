@@ -1,4 +1,4 @@
-import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Param, Query } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 
 @Controller('categories')
@@ -6,8 +6,8 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Get()
-  findAll() {
-    return this.categoriesService.findAll();
+  findAll(@Query('page') page: number, @Query('perPage') perPage: number) {
+    return this.categoriesService.findAll({ page, perPage });
   }
 
   @Get(':slug/posts')

@@ -1,12 +1,19 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  PaginateFunction,
+  PaginateOptions,
+  paginator,
+} from 'src/helpers/paginator';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class PostsService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll() {
-    return this.prisma.post.findMany({
+  async findAll({ page, perPage }: PaginateOptions) {
+    const paginate: PaginateFunction = paginator({ page, perPage });
+
+    const posts = paginate(this.prisma.post, {
       select: {
         id: true,
         title: true,
@@ -14,12 +21,17 @@ export class PostsService {
         createdAt: true,
         updatedAt: true,
         views: true,
+        images: true,
       },
     });
+
+    return posts;
   }
 
-  findFeaturedPosts() {
-    return this.prisma.post.findMany({
+  findFeaturedPosts({ page, perPage }: PaginateOptions) {
+    const paginate: PaginateFunction = paginator({ page, perPage });
+
+    const featuredPosts = paginate(this.prisma.post, {
       where: { isFeatured: true },
       select: {
         id: true,
@@ -28,12 +40,17 @@ export class PostsService {
         createdAt: true,
         updatedAt: true,
         views: true,
+        images: true,
       },
     });
+
+    return featuredPosts;
   }
 
-  findActualPosts() {
-    return this.prisma.post.findMany({
+  findActualPosts({ page, perPage }: PaginateOptions) {
+    const paginate: PaginateFunction = paginator({ page, perPage });
+
+    const actualPosts = paginate(this.prisma.post, {
       where: { isActual: true },
       select: {
         id: true,
@@ -44,6 +61,8 @@ export class PostsService {
         views: true,
       },
     });
+
+    return actualPosts;
   }
 
   async findBySlug(slug: string) {
@@ -60,7 +79,7 @@ export class PostsService {
     });
   }
 
-  async findRelatedPosts(slug: string) {
+  async findRelatedPosts(slug: string, { page, perPage }: PaginateOptions) {
     const post = await this.prisma.post.findUnique({
       where: { slug },
       select: { categoryId: true },
@@ -70,7 +89,9 @@ export class PostsService {
       throw new NotFoundException('Post not found');
     }
 
-    return this.prisma.post.findMany({
+    const paginate: PaginateFunction = paginator({ page, perPage });
+
+    const relatedPosts = paginate(this.prisma.post, {
       where: { categoryId: post.categoryId },
       select: {
         id: true,
@@ -79,7 +100,10 @@ export class PostsService {
         createdAt: true,
         updatedAt: true,
         views: true,
+        images: true,
       },
     });
+
+    return relatedPosts;
   }
 }

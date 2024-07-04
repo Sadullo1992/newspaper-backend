@@ -10,6 +10,7 @@ import {
   Put,
   ParseUUIDPipe,
   NotFoundException,
+  Query,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -28,8 +29,11 @@ export class PostController {
   }
 
   @Get()
-  async findAll() {
-    return this.postService.findAll();
+  async findAll(
+    @Query('page') page: number,
+    @Query('perPage') perPage: number,
+  ) {
+    return this.postService.findAll({ page, perPage });
   }
 
   @Get(':id')
@@ -64,7 +68,7 @@ export class PostController {
 
     if (!post) {
       throw new NotFoundException('Post not found');
-    }    
+    }
 
     const postImages = await this.postService.findPostImages(id);
 

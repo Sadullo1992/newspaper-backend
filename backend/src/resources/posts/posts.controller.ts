@@ -1,22 +1,31 @@
-import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Param, Query } from '@nestjs/common';
 import { PostsService } from './posts.service';
 
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
   @Get()
-  async findAll() {
-    return this.postsService.findAll();
+  async findAll(
+    @Query('page') page: number,
+    @Query('perPage') perPage: number,
+  ) {
+    return this.postsService.findAll({ page, perPage });
   }
 
   @Get('featured_posts')
-  async findFeaturedPosts() {
-    return this.postsService.findFeaturedPosts();
+  async findFeaturedPosts(
+    @Query('page') page: number,
+    @Query('perPage') perPage: number,
+  ) {
+    return this.postsService.findFeaturedPosts({ page, perPage });
   }
 
   @Get('actual_posts')
-  async findActualPosts() {
-    return this.postsService.findActualPosts();
+  async findActualPosts(
+    @Query('page') page: number,
+    @Query('perPage') perPage: number,
+  ) {
+    return this.postsService.findActualPosts({ page, perPage });
   }
 
   @Get(':slug')
@@ -31,7 +40,11 @@ export class PostsController {
   }
 
   @Get(':slug/related_posts')
-  async findRelatedPosts(@Param('slug') slug: string) {
-    return this.postsService.findRelatedPosts(slug);
+  async findRelatedPosts(
+    @Param('slug') slug: string,
+    @Query('page') page: number,
+    @Query('perPage') perPage: number,
+  ) {
+    return this.postsService.findRelatedPosts(slug, { page: perPage });
   }
 }

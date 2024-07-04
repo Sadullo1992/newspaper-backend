@@ -4,6 +4,7 @@ import {
   NotFoundException,
   Param,
   ParseUUIDPipe,
+  Query,
   Res,
   StreamableFile,
 } from '@nestjs/common';
@@ -18,8 +19,11 @@ export class MagazinesController {
   constructor(private readonly magazinesService: MagazinesService) {}
 
   @Get('magazines')
-  async findAll() {
-    return await this.magazinesService.findAll();
+  async findAll(
+    @Query('page') page: number,
+    @Query('perPage') perPage: number,
+  ) {
+    return await this.magazinesService.findAll({ page, perPage });
   }
 
   @Get('magazines/:id')

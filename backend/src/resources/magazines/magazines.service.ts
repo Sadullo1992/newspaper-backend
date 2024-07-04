@@ -1,12 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { PaginateFunction, PaginateOptions, paginator } from 'src/helpers/paginator';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class MagazinesService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll() {
-    return await this.prisma.magazine.findMany();
+  async findAll({ page, perPage }: PaginateOptions) {
+    const paginate: PaginateFunction = paginator({ page, perPage });
+
+    return paginate(this.prisma.magazine);
   }
 
   async findOne(id: string) {

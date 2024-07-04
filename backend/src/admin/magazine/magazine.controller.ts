@@ -1,29 +1,30 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Param,
+  Controller,
   Delete,
+  FileTypeValidator,
+  Get,
   HttpCode,
   HttpStatus,
-  Put,
-  ParseUUIDPipe,
-  NotFoundException,
-  UseInterceptors,
-  UploadedFile,
-  ParseFilePipe,
   MaxFileSizeValidator,
-  FileTypeValidator,
+  NotFoundException,
+  Param,
+  ParseFilePipe,
+  ParseUUIDPipe,
+  Post,
+  Put,
+  Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
-import { v4 as uuid } from 'uuid';
-import { MagazineService } from './magazine.service';
-import { CreateMagazineDto } from './dto/create-magazine.dto';
-import { UpdateMagazineDto } from './dto/update-magazine.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { rename, rm } from 'fs/promises';
 import { diskStorage } from 'multer';
 import { join } from 'path';
-import { rename, rm } from 'fs/promises';
+import { v4 as uuid } from 'uuid';
+import { CreateMagazineDto } from './dto/create-magazine.dto';
+import { UpdateMagazineDto } from './dto/update-magazine.dto';
+import { MagazineService } from './magazine.service';
 
 @Controller('admin/magazine')
 export class MagazineController {
@@ -63,8 +64,8 @@ export class MagazineController {
   }
 
   @Get()
-  findAll() {
-    return this.magazineService.findAll();
+  findAll(@Query('page') page: number, @Query('perPage') perPage: number) {
+    return this.magazineService.findAll({ page, perPage });
   }
 
   @Get(':id')
