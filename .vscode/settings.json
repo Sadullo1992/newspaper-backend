@@ -2,7 +2,12 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
-  "editor.codeActionsOnSave": { "source.fixAll": true },
+  "editor.codeActionsOnSave": [
+    "source.removeUnusedImports",
+    "source.addMissingImports",
+    "source.sortImports",
+    "source.fixAll"
+  ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "cSpell.words": ["imagename", "Streamable"]
