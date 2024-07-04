@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Category } from '@prisma/client';
 import {
   PaginatedResult,
   PaginateFunction,
@@ -31,7 +30,7 @@ export class CategoryService {
   async findAll({
     page,
     perPage,
-  }: PaginateOptions): Promise<PaginatedResult<Category>> {
+  }: PaginateOptions) {
     const paginate: PaginateFunction = paginator({ page, perPage });
     return paginate(this.prisma.category);
   }
