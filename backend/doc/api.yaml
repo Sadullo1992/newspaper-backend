@@ -21,6 +21,68 @@ components:
         slug:
           type: string
           example: 'adabiyot-va-sanat'
+          format: slug
+    Image:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        imagename:
+          type: string
+          example: 'image.jpg'
+        imageSize:
+          type: integer
+          example: 524512
+        postId:
+          type: string
+          format: uuid
+          nullable: true
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          example: 'Post title'
+        slug:
+          type: string
+          example: 'post-title'
+          format: slug
+        categoryId:
+          type: string
+          format: uuid
+          nullable: true
+        createdAt:
+          type: number
+          example: 1655000000
+        updatedAt:
+          type: number
+          example: 1655000000
+        isActual:
+          type: boolean
+          example: true
+        isFeatured:
+          type: boolean
+          example: false
+        views:
+          type: integer
+          example: 0
+        author:
+          type: string
+          nullable: true
+          example: John Doe
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+      required:
+        - id
+        - title
+        - slug
+        - categoryId
 paths:
   /admin/category:
     get:
@@ -170,3 +232,52 @@ paths:
           description: Bad request. categoryId is invalid (not uuid)
         404:
           description: Category was not found.
+  /upload/image:
+    post:
+      tags:
+        - Post Image
+      summary: Upload image
+      description: upload image
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  image:
+                    type: string
+                    format: binary
+      responses:
+        201:
+          description: The Image has been created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Image'
+        400:
+          description: Invalid file type or exceed file size
+  /media/images/{imagename}:
+    parameters:
+      - name: imagename
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Post Image
+      summary: Get image source file by url
+      description: Get image source by url
+      responses:
+        200:
+          description: Successful operation
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        400:
+          description: Bad request. imagename was not found
+        404:
+          description: Image file not found
