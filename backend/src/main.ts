@@ -31,7 +31,7 @@ async function bootstrap() {
     encoding: 'utf8',
   });
   const swaggerDocument = YAML.parse(file);
-  SwaggerModule.setup('doc', app, swaggerDocument);
+  SwaggerModule.setup('docs', app, swaggerDocument);
 
   await app.listen(PORT);
 }
