@@ -11,13 +11,20 @@ export class CategoriesController {
   }
 
   @Get(':slug/posts')
-  async findCategoryPosts(@Param('slug') slug: string) {
+  async findCategoryPosts(
+    @Param('slug') slug: string,
+    @Query('page') page: number,
+    @Query('perPage') perPage: number,
+  ) {
     const category = await this.categoriesService.findOne(slug);
 
     if (!category) {
       throw new NotFoundException('Category not found');
     }
 
-    return this.categoriesService.findCategoryPosts(category.id);
+    return this.categoriesService.findCategoryPosts(category.id, {
+      page,
+      perPage,
+    });
   }
 }

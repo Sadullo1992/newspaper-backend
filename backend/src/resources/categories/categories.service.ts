@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { PaginateFunction, PaginateOptions, paginator } from 'src/helpers/paginator';
+import {
+  PaginateFunction,
+  PaginateOptions,
+  paginator,
+} from 'src/helpers/paginator';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -16,8 +20,13 @@ export class CategoriesService {
     return this.prisma.category.findUnique({ where: { slug } });
   }
 
-  async findCategoryPosts(categoryId: string) {
-    return this.prisma.post.findMany({
+  async findCategoryPosts(
+    categoryId: string,
+    { page, perPage }: PaginateOptions,
+  ) {
+    const paginate: PaginateFunction = paginator({ page, perPage });
+
+    const categoryPosts = paginate(this.prisma.post, {
       where: { categoryId },
       select: {
         id: true,
@@ -28,5 +37,7 @@ export class CategoriesService {
         views: true,
       },
     });
+
+    return categoryPosts;
   }
 }
