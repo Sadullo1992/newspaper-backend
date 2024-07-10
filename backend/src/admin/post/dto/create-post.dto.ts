@@ -1,4 +1,4 @@
 import { OmitType } from '@nestjs/mapped-types';
 import { Post } from '../entities/post.entity';
 
-export class CreatePostDto extends OmitType(Post, ['id'] as const) {}
+export class CreatePostDto extends OmitType(Post, ['id', 'createdAt', 'updatedAt', 'views'] as const) {}

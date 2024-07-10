@@ -242,12 +242,12 @@ paths:
         required: true
         content:
           multipart/form-data:
-              schema:
-                type: object
-                properties:
-                  image:
-                    type: string
-                    format: binary
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
       responses:
         201:
           description: The Image has been created.
@@ -281,3 +281,217 @@ paths:
           description: Bad request. imagename was not found
         404:
           description: Image file not found
+
+  /admin/post:
+    get:
+      tags:
+        - Admin Post
+      summary: Get all posts
+      description: Gets all posts
+      parameters:
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: perPage
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      latsPage:
+                        type: integer
+                      currentPage:
+                        type: integer
+                      perPage:
+                        type: integer
+                      prev:
+                        type: integer
+                        nullable: true
+                      next:
+                        type: integer
+                        nullable: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Post'
+    post:
+      tags:
+        - Admin Post
+      summary: Create post
+      description: Creates a new post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: example
+              properties:
+                title:
+                  type: string
+                  description: The post's title
+                slug:
+                  type: string
+                  format: slug
+                  description: The post's slug
+                categoryId:
+                  type: string
+                  format: uuid
+                  nullable: true
+                  description: The category id of post
+                content:
+                  type: string
+                  description: The post's content
+                isActual:
+                  type: boolean
+                  description: Is the post actual?
+                isFeatured:
+                  type: boolean
+                  description: Is the post featured?
+                author:
+                  type: string
+                  nullable: true
+                  description: The post's author
+                images:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        description: image's id
+                      imagename:
+                        type: string
+                        description: filename of image
+              required:
+                - title
+                - slug
+                - categoryId
+                - content
+                - isActual
+                - isFeatured
+                - images
+      responses:
+        201:
+          description: The category has been created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        400:
+          description: Bad request. Body does not contain required fields
+        409:
+          description: Conflict. Post slug already exists!
+  /admin/post/{postId}:
+    parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Admin Post
+      summary: Get single post by id
+      description: Get single post by id
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        400:
+          description: Bad request. postId is invalid
+        404:
+          description: Post not found
+    put:
+      tags:
+        - Admin Post
+      summary: Update post information
+      description: Update post information by UUID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: example
+              properties:
+                title:
+                  type: string
+                  description: The post's title
+                slug:
+                  type: string
+                  format: slug
+                  description: The post's slug
+                categoryId:
+                  type: string
+                  format: uuid
+                  nullable: true
+                  description: The category id of post
+                content:
+                  type: string
+                  description: The post's content
+                isActual:
+                  type: boolean
+                  description: Is the post actual?
+                isFeatured:
+                  type: boolean
+                  description: Is the post featured?
+                author:
+                  type: string
+                  nullable: true
+                  description: The post's author
+                images:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        description: image's id
+                      imagename:
+                        type: string
+                        description: filename of image
+              required:
+                - slug
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        400:
+          description: Bad request. postId is invalid
+        404:
+          description: Category not found
+    delete:
+      tags:
+        - Admin Post
+      summary: Delete post
+      description: Delete post from service
+      responses:
+        204:
+          description: Deleted successfully
+        400:
+          description: Bad request. postId is invalid (not uuid)
+        404:
+          description: Post was not found.
