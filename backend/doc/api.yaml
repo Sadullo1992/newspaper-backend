@@ -682,3 +682,127 @@ paths:
           description: Bad request. magazineId is invalid (not uuid)
         404:
           description: Magazine was not found.
+
+  /categories:
+    get:
+      tags:
+        - Public Categories
+      summary: Get all categories
+      description: Gets all categories
+      parameters:
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: perPage
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      latsPage:
+                        type: integer
+                      currentPage:
+                        type: integer
+                      perPage:
+                        type: integer
+                      prev:
+                        type: integer
+                        nullable: true
+                      next:
+                        type: integer
+                        nullable: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Category'
+  /categories/{slug}/posts:
+    parameters:
+      - name: slug
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Public Categories
+      summary: Get all posts related to category
+      description: Get all posts related to category
+      parameters:
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: perPage
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      latsPage:
+                        type: integer
+                      currentPage:
+                        type: integer
+                      perPage:
+                        type: integer
+                      prev:
+                        type: integer
+                        nullable: true
+                      next:
+                        type: integer
+                        nullable: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      title: example
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        title:
+                          type: string
+                          example: 'Post title'
+                        slug:
+                          type: string
+                          example: 'post-title'
+                          format: slug
+                        createdAt:
+                          type: number
+                          example: 1655000000
+                        updatedAt:
+                          type: number
+                          example: 1655000000
+                        views:
+                          type: integer
+                          example: 0
+                        images:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Image'
