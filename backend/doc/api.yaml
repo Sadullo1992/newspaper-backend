@@ -83,6 +83,32 @@ components:
         - title
         - slug
         - categoryId
+    Magazine:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: '1-son'
+        filename:
+          type: string
+          example: '1-son.pdf'
+        createdAt:
+          type: number
+          example: 1655000000
+        size:
+          type: number
+          example: 524512
+        downloadsCount:
+          type: number
+          example: 0
+      required:
+        - id
+        - filename
+        - name
+
 paths:
   /admin/category:
     get:
@@ -248,6 +274,8 @@ paths:
                 image:
                   type: string
                   format: binary
+              required:
+                - image
       responses:
         201:
           description: The Image has been created.
@@ -256,7 +284,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Image'
         400:
-          description: Invalid file type or exceed file size
+          description: Invalid file type or file size is exceed
+        409:
+          description: Image filename already exists!
   /media/images/{imagename}:
     parameters:
       - name: imagename
@@ -495,3 +525,160 @@ paths:
           description: Bad request. postId is invalid (not uuid)
         404:
           description: Post was not found.
+
+  /admin/magazine:
+    get:
+      tags:
+        - Admin Magazine
+      summary: Get all magazines
+      description: Gets all magazines
+      parameters:
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: perPage
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      latsPage:
+                        type: integer
+                      currentPage:
+                        type: integer
+                      perPage:
+                        type: integer
+                      prev:
+                        type: integer
+                        nullable: true
+                      next:
+                        type: integer
+                        nullable: true
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Magazine'
+    post:
+      tags:
+        - Admin Magazine
+      summary: Create magazine with file
+      description: Create magazine with its file
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                magazine-file:
+                  type: string
+                  format: binary
+                name:
+                  type: string
+                  description: The name of magazine
+                  example: 1-son
+                createdAt:
+                  type: number
+                  description: created time
+                  example: 1655000000
+              required:
+                - magazine-file
+                - name
+                - createdAt
+      responses:
+        201:
+          description: The Magazine has been created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Magazine'
+        400:
+          description: Invalid file type or exceed file size
+        409:
+          description: Magazine file already exists!
+  /admin/magazine/{magazineId}:
+    parameters:
+      - name: magazineId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Admin Magazine
+      summary: Get single magazine by id
+      description: Get single magazine by id
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Magazine'
+        400:
+          description: Bad request. magazineId is invalid
+        404:
+          description: magazine not found
+    put:
+      tags:
+        - Admin Magazine
+      summary: Update magazine information
+      description: Update magazine information by UUID
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                magazine-file:
+                  type: string
+                  format: binary
+                name:
+                  type: string
+                  description: The name of magazine
+                  example: 1-son
+                createdAt:
+                  type: number
+                  description: created time
+                  example: 1655000000
+              required:
+                - name
+                - createdAt
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Magazine'
+        400:
+          description: Bad request. magazineId is invalid
+        404:
+          description: Magazine not found
+    delete:
+      tags:
+        - Admin Magazine
+      summary: Delete magazine
+      description: Delete magazine from service
+      responses:
+        204:
+          description: Deleted successfully
+        400:
+          description: Bad request. magazineId is invalid (not uuid)
+        404:
+          description: Magazine was not found.
