@@ -55,6 +55,9 @@ components:
           type: string
           format: uuid
           nullable: true
+        content:
+          type: string
+          example: It's awesome post
         createdAt:
           type: number
           example: 1655000000
@@ -108,6 +111,73 @@ components:
         - id
         - filename
         - name
+    SinglePostResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          example: 'Post title'
+        slug:
+          type: string
+          example: 'post-title'
+          format: slug
+        categoryId:
+          type: string
+          format: uuid
+          nullable: true
+        content:
+          type: string
+          example: It's awesome post
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+    ManyPostResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          example: 'Post title'
+        slug:
+          type: string
+          example: 'post-title'
+          format: slug
+        createdAt:
+          type: number
+          example: 1655000000
+        updatedAt:
+          type: number
+          example: 1655000000
+        views:
+          type: integer
+          example: 0
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+    Meta:
+      type: object
+      properties:
+        total:
+          type: integer
+        latsPage:
+          type: integer
+        currentPage:
+          type: integer
+        perPage:
+          type: integer
+        prev:
+          type: integer
+          nullable: true
+        next:
+          type: integer
+          nullable: true
 
 paths:
   /admin/category:
@@ -136,22 +206,7 @@ paths:
                 type: object
                 properties:
                   meta:
-                    type: object
-                    properties:
-                      total:
-                        type: integer
-                      latsPage:
-                        type: integer
-                      currentPage:
-                        type: integer
-                      perPage:
-                        type: integer
-                      prev:
-                        type: integer
-                        nullable: true
-                      next:
-                        type: integer
-                        nullable: true
+                    $ref: '#/components/schemas/Meta'
                   data:
                     type: array
                     items:
@@ -338,22 +393,7 @@ paths:
                 type: object
                 properties:
                   meta:
-                    type: object
-                    properties:
-                      total:
-                        type: integer
-                      latsPage:
-                        type: integer
-                      currentPage:
-                        type: integer
-                      perPage:
-                        type: integer
-                      prev:
-                        type: integer
-                        nullable: true
-                      next:
-                        type: integer
-                        nullable: true
+                    $ref: '#/components/schemas/Meta'
                   data:
                     type: array
                     items:
@@ -552,22 +592,7 @@ paths:
                 type: object
                 properties:
                   meta:
-                    type: object
-                    properties:
-                      total:
-                        type: integer
-                      latsPage:
-                        type: integer
-                      currentPage:
-                        type: integer
-                      perPage:
-                        type: integer
-                      prev:
-                        type: integer
-                        nullable: true
-                      next:
-                        type: integer
-                        nullable: true
+                    $ref: '#/components/schemas/Meta'
                   data:
                     type: array
                     items:
@@ -709,22 +734,7 @@ paths:
                 type: object
                 properties:
                   meta:
-                    type: object
-                    properties:
-                      total:
-                        type: integer
-                      latsPage:
-                        type: integer
-                      currentPage:
-                        type: integer
-                      perPage:
-                        type: integer
-                      prev:
-                        type: integer
-                        nullable: true
-                      next:
-                        type: integer
-                        nullable: true
+                    $ref: '#/components/schemas/Meta'
                   data:
                     type: array
                     items:
@@ -761,48 +771,162 @@ paths:
                 type: object
                 properties:
                   meta:
-                    type: object
-                    properties:
-                      total:
-                        type: integer
-                      latsPage:
-                        type: integer
-                      currentPage:
-                        type: integer
-                      perPage:
-                        type: integer
-                      prev:
-                        type: integer
-                        nullable: true
-                      next:
-                        type: integer
-                        nullable: true
+                    $ref: '#/components/schemas/Meta'
                   data:
                     type: array
                     items:
-                      type: object
-                      title: example
-                      properties:
-                        id:
-                          type: string
-                          format: uuid
-                        title:
-                          type: string
-                          example: 'Post title'
-                        slug:
-                          type: string
-                          example: 'post-title'
-                          format: slug
-                        createdAt:
-                          type: number
-                          example: 1655000000
-                        updatedAt:
-                          type: number
-                          example: 1655000000
-                        views:
-                          type: integer
-                          example: 0
-                        images:
-                          type: array
-                          items:
-                            $ref: '#/components/schemas/Image'
+                      $ref: '#/components/schemas/ManyPostResponse'
+        404:
+          description: Category not found
+  /posts:
+    get:
+      tags:
+        - Public Posts
+      summary: Get all posts
+      description: Gets all posts
+      parameters:
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: perPage
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ManyPostResponse'
+  /posts/featured_posts:
+    get:
+      tags:
+        - Public Posts
+      summary: Get all featured posts
+      description: Gets featured all posts
+      parameters:
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: perPage
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ManyPostResponse'
+  /posts/actual_posts:
+    get:
+      tags:
+        - Public Posts
+      summary: Get all actual posts
+      description: Get all actual posts
+      parameters:
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: perPage
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ManyPostResponse'
+  /posts/{slug}:
+    parameters:
+      - name: slug
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Public Posts
+      summary: Gets a post by slug
+      description: Gets a post by slug
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SinglePostResponse'
+        404:
+          description: Post not found
+  /posts/{slug}/related_posts:
+    parameters:
+      - name: slug
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: perPage
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+    get:
+      tags:
+        - Public Posts
+      summary: Get all posts related to the post 
+      description: Get all posts related to the post 
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ManyPostResponse'
+        404:
+          description: Post not found
