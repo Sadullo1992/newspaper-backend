@@ -59,6 +59,7 @@ export class PostsService {
         createdAt: true,
         updatedAt: true,
         views: true,
+        images: true,
       },
     });
 
@@ -75,6 +76,7 @@ export class PostsService {
         categoryId: true,
         content: true,
         author: true,
+        images: true
       },
     });
   }
