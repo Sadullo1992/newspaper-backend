@@ -57,7 +57,7 @@ export const Categories = () => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 32 }}>
         <h2>Kategoriyalar</h2>
-        <Link to={'/category/add'}>
+        <Link to={'/admin/category/add'}>
           <Button type="primary" icon={<PlusOutlined />}>
             Kategoriya qo&#39;shish
           </Button>

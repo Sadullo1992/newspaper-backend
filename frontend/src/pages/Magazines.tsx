@@ -49,7 +49,7 @@ const columns: TableProps<MagazineDataType>['columns'] = [
     key: 'action',
     render: (_, { key, name }) => (
       <Space>
-        <Link to={`/magazine/${key}/edit`}>
+        <Link to={`/admin/magazine/${key}/edit`}>
           <EditOutlined style={{ fontSize: 16 }} />
         </Link>
         <ConfirmModal data={{ key, name }} type="nashr">
@@ -104,7 +104,7 @@ export const Magazines = () => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 32 }}>
         <h2>Gazeta Nashrlari</h2>
-        <Link to={'/magazine/add'}>
+        <Link to={'/admin/magazine/add'}>
           <Button type="primary" icon={<PlusOutlined />}>
             Add Gazeta Nashri
           </Button>

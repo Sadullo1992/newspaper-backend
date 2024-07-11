@@ -8,7 +8,7 @@ export const AddPost = () => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 32 }}>
         <h2>Add Maqola</h2>
-        <Link to={'/post'}>
+        <Link to={'/admin/post'}>
           <Button icon={<LeftOutlined />}>Orqaga qaytish</Button>
         </Link>
       </div>

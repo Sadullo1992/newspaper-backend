@@ -8,7 +8,7 @@ export const AddMagazine = () => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 32 }}>
         <h2>Add Gazeta Nashri</h2>
-        <Link to={'/magazine'}>
+        <Link to={'/admin/magazine'}>
           <Button icon={<LeftOutlined />}>Orqaga qaytish</Button>
         </Link>
       </div>

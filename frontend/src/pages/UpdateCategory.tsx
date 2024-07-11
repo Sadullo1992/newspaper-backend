@@ -25,7 +25,7 @@ export const UpdateCategory = () => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 32 }}>
         <h2>Update Kategoriya</h2>
-        <Link to={'/category'}>
+        <Link to={'/admin/category'}>
           <Button icon={<LeftOutlined />}>Orqaga qaytish</Button>
         </Link>
       </div>

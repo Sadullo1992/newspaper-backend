@@ -79,7 +79,7 @@ const columns: TableProps<PostDataType>['columns'] = [
     key: 'action',
     render: (_, { key, name, slug }) => (
       <Space>
-        <Link to={`/post/${slug}/edit`}>
+        <Link to={`/admin/post/${slug}/edit`}>
           <EditOutlined style={{ fontSize: 16 }} />
         </Link>
         <ConfirmModal data={{ key, name }} type="maqola">
@@ -139,7 +139,7 @@ export const Posts = () => {
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 32 }}>
         <h2>Maqolalar</h2>
-        <Link to={'/post/add'}>
+        <Link to={'/admin/post/add'}>
           <Button type="primary" icon={<PlusOutlined />}>
             Maqola qo&#39;shish
           </Button>

@@ -13,22 +13,22 @@ type MenuItem = Required<MenuProps>['items'][number];
 
 const items: MenuItem[] = [
   {
-    label: <Link to={'/'}>Dashboard</Link>,
+    label: <Link to={'/admin/'}>Dashboard</Link>,
     key: '/',
     icon: createElement(HomeOutlined),
   },
   {
-    label: <Link to={'/category'}>Categories</Link>,
+    label: <Link to={'/admin/category'}>Categories</Link>,
     key: '/category',
     icon: createElement(ProfileOutlined),
   },
   {
-    label: <Link to={'/post'}>Posts</Link>,
+    label: <Link to={'/admin/post'}>Posts</Link>,
     key: '/post',
     icon: createElement(AppstoreAddOutlined),
   },
   {
-    label: <Link to={'/magazine'}>Magazines</Link>,
+    label: <Link to={'/admin/magazine'}>Magazines</Link>,
     key: '/magazine',
     icon: createElement(FilePdfOutlined),
   },
