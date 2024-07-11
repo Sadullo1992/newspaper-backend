@@ -58,7 +58,7 @@ export class MagazinesController {
 
     const stream = createReadStream(filePath);
     res.set({
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/pdf',
       'Content-Disposition': `attachment; filename=${magazine.filename}`,
     });
     return new StreamableFile(stream);

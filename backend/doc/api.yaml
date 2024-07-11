@@ -912,8 +912,8 @@ paths:
     get:
       tags:
         - Public Posts
-      summary: Get all posts related to the post 
-      description: Get all posts related to the post 
+      summary: Get all posts related to the post
+      description: Get all posts related to the post
       responses:
         200:
           description: Successful operation
@@ -930,3 +930,104 @@ paths:
                       $ref: '#/components/schemas/ManyPostResponse'
         404:
           description: Post not found
+
+  /magazines:
+    get:
+      tags:
+        - Public Magazines
+      summary: Get all magazines
+      description: Gets all magazines
+      parameters:
+        - name: page
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - name: perPage
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  meta:
+                    $ref: '#/components/schemas/Meta'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Magazine'
+  /magazines/{magazineId}:
+    parameters:
+      - name: magazineId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Public Magazines
+      summary: Get single magazine by id
+      description: Get single magazine by id
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Magazine'
+        400:
+          description: Bad request. magazineId is invalid
+        404:
+          description: magazine not found
+  /magazines/{magazineId}/download:
+    parameters:
+      - name: magazineId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Public Magazines
+      summary: Download magazine file and increment downloadsCount
+      description: Download magazine file and increment downloadsCount
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        400:
+          description: Bad request. magazineId is invalid
+        404:
+          description: Magazine not found
+  /media/magazines/{filename}:
+    parameters:
+      - name: filename
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Public Magazines
+      summary: View magazine pdf file on the browser
+      description: View magazine pdf file on the browser
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        404:
+          description: Magazine file not found
