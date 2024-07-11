@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Dashboard } from './pages/dashboard';
 import { Categories } from './pages/categories';
 import { UpdateCategory } from './pages/UpdateCategory';
@@ -17,18 +17,19 @@ import { UpdateMagazine } from './pages/UpdateMagazine';
 const App: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<Admin />}>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/category" element={<Categories />} />
-        <Route path="/category/add" element={<AddCategory />} />
-        <Route path="/category/:id/edit" element={<UpdateCategory />} />
-        <Route path="/post" element={<Posts />} />
-        <Route path="/post/add" element={<AddPost />} />
-        <Route path="/post/:id/edit" element={<UpdatePost />} />
-        <Route path="/magazine" element={<Magazines />} />
-        <Route path="/magazine/add" element={<AddMagazine />} />
-        <Route path="/magazine/:id/edit" element={<UpdateMagazine />} />
-        <Route path="*" element={<NotFound />} />
+      <Route path='/' element={<Navigate to="/admin" replace />} />
+      <Route path="/admin" element={<Admin />}>
+        <Route path="/admin/" index element={<Dashboard />} />
+        <Route path="/admin/category" element={<Categories />} />
+        <Route path="/admin/category/add" element={<AddCategory />} />
+        <Route path="/admin/category/:id/edit" element={<UpdateCategory />} />
+        <Route path="/admin/post" element={<Posts />} />
+        <Route path="/admin/post/add" element={<AddPost />} />
+        <Route path="/admin/post/:id/edit" element={<UpdatePost />} />
+        <Route path="/admin/magazine" element={<Magazines />} />
+        <Route path="/admin/magazine/add" element={<AddMagazine />} />
+        <Route path="/admin/magazine/:id/edit" element={<UpdateMagazine />} />
+        <Route path="/admin/*" element={<NotFound />} />
       </Route>
       <Route path="/login" element={<Login />} />
     </Routes>
