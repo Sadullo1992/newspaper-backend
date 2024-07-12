@@ -28,7 +28,7 @@ const columns: TableProps<CategoryDataType>['columns'] = [
     key: 'action',
     render: (_, { key, name }) => (
       <Space size={50}>
-        <Link to={`/category/${key}/edit`}>
+        <Link to={`/admin/category/${key}/edit`}>
           <EditOutlined style={{ fontSize: 16 }} />
         </Link>
         <ConfirmModal data={{ key, name }} type="kategoriya">

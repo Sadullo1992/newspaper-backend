@@ -1,13 +1,14 @@
 import type { FormInstance } from 'antd';
 import { Button, Form, FormProps, Input, message, Space } from 'antd';
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import slugify from 'slugify';
-import { createCategory } from '../api/fetchCategories';
+import { createCategory, updateCategory } from '../api/fetchCategories';
 import { ICategory } from '../types/types';
 
 interface FormCategoryProps {
-  initialData?: ICategory;
+  updateCategoryData?: ICategory;
 }
 
 interface SubmitButtonProps {
@@ -30,7 +31,9 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({ fo
       .validateFields({ validateOnly: true })
       .then(() => setSubmittable(true))
       .catch(() => setSubmittable(false));
+
     const nameValue = form.getFieldValue('name') || '';
+
     form.isFieldTouched('slug') || form.setFieldValue('slug', slugify(nameValue, { lower: true }));
   }, [form, values]);
 
@@ -41,22 +44,30 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({ fo
   );
 };
 
-export const FormCategory = ({ initialData }: FormCategoryProps) => {
+export const FormCategory = ({ updateCategoryData }: FormCategoryProps) => {
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    initialData && form.setFieldValue('name', initialData.name);
-  }, [form, initialData]);
+    updateCategoryData &&
+      form.setFieldsValue({ name: updateCategoryData.name, slug: updateCategoryData.slug });
+  }, [form, updateCategoryData]);
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-    const response = await createCategory(values);
+    const response = !updateCategoryData
+      ? await createCategory(values)
+      : await updateCategory(values, updateCategoryData.id);
+
     const data = await response.json();
-    if(response.ok) {
+    if (response.ok) {
       messageApi.open({
         type: 'success',
         content: 'Category created, successfully!',
       });
+
+      updateCategoryData && navigate('/admin/category');
+
       form.resetFields();
     } else {
       const errorMesage = !data.error ? data.message : data.error;

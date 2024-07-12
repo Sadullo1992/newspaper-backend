@@ -30,7 +30,7 @@ export const UpdateCategory = () => {
         </Link>
       </div>
       {loading && <Spin />}
-      {category && <FormCategory initialData={category} />}
+      {category && <FormCategory updateCategoryData={category} />}
     </>
   );
 };

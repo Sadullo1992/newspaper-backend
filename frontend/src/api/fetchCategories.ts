@@ -24,4 +24,15 @@ async function createCategory(createCategoryDto: Omit<ICategory, 'id'>) {
   return response;
 }
 
-export { fetchCategories, fetchCategoryById, createCategory };
+async function updateCategory(updateCategoryDto: Omit<ICategory, 'id'>, id: string) {
+  const response = await fetch(`${BASE_URL}/admin/category/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updateCategoryDto),
+  });
+  return response;
+}
+
+export { fetchCategories, fetchCategoryById, createCategory, updateCategory };
