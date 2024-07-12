@@ -1,6 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
-  PaginatedResult,
   PaginateFunction,
   PaginateOptions,
   paginator,
@@ -27,10 +26,7 @@ export class CategoryService {
     }
   }
 
-  async findAll({
-    page,
-    perPage,
-  }: PaginateOptions) {
+  async findAll({ page, perPage }: PaginateOptions) {
     const paginate: PaginateFunction = paginator({ page, perPage });
     return paginate(this.prisma.category);
   }
@@ -40,10 +36,17 @@ export class CategoryService {
   }
 
   async update(id: string, updateCategoryDto: UpdateCategoryDto) {
-    return this.prisma.category.update({
-      where: { id },
-      data: updateCategoryDto,
-    });
+    try {
+      return await this.prisma.category.update({
+        where: { id },
+        data: updateCategoryDto,
+      });
+    } catch (e) {
+      throw new HttpException(
+        'Category slug already exists!',
+        HttpStatus.CONFLICT,
+      );
+    }
   }
 
   async remove(id: string) {
