@@ -35,4 +35,11 @@ async function updateCategory(updateCategoryDto: Omit<ICategory, 'id'>, id: stri
   return response;
 }
 
-export { fetchCategories, fetchCategoryById, createCategory, updateCategory };
+async function removeCategory(id: string) {
+  const response = await fetch(`${BASE_URL}/admin/category/${id}`, {
+    method: 'DELETE',
+  });
+  return response;
+}
+
+export { fetchCategories, fetchCategoryById, createCategory, updateCategory, removeCategory };

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { DeleteFilled, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Space, Table, TableProps } from 'antd';
@@ -31,7 +31,7 @@ const columns: TableProps<CategoryDataType>['columns'] = [
         <Link to={`/admin/category/${key}/edit`}>
           <EditOutlined style={{ fontSize: 16 }} />
         </Link>
-        <ConfirmModal data={{ key, name }} type="kategoriya">
+        <ConfirmModal data={{ key, name }} type="category">
           <DeleteFilled style={{ fontSize: 16, color: '#f5222d' }} />
         </ConfirmModal>
       </Space>

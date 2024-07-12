@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Button, Modal, Space } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
+import { Button, message, Modal, Space } from 'antd';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { removeCategory } from '../api/fetchCategories';
 
 interface SubmitButtonProps {
-  data: { key: string | number; name: string };
-  type: 'kategoriya' | 'maqola' | 'nashr';
+  data: { key: string; name: string };
+  type: 'category' | 'post' | 'magazine';
 }
 
 export const ConfirmModal: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
@@ -13,12 +15,40 @@ export const ConfirmModal: React.FC<React.PropsWithChildren<SubmitButtonProps>> 
   children,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const navigate = useNavigate();
+
+  const sendMessage = (type: string, ok: boolean) => {
+    if (ok) {
+      messageApi.open({
+        type: 'success',
+        content: `${type.toUpperCase()} created, successfully!`,
+      });
+
+      navigate(0);
+    } else {
+      messageApi.open({
+        type: 'error',
+        content: `Error occured!`,
+      });
+    }
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
+  const handleOk = async () => {
+    switch (type) {
+      case 'category':
+        {
+          const response = await removeCategory(data.key);
+          sendMessage(type, response.ok);
+        }
+        break;
+      default:
+        console.log(`Wrong type: ${type}`);
+    }
     setIsModalOpen(false);
   };
 
@@ -28,6 +58,7 @@ export const ConfirmModal: React.FC<React.PropsWithChildren<SubmitButtonProps>> 
 
   return (
     <>
+      {contextHolder}
       <Button type="text" onClick={showModal}>
         {children}
       </Button>
