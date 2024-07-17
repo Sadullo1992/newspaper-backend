@@ -2,7 +2,7 @@
   "name": "@newspaper/frontend",
   "private": true,
   "type": "module",
-   "scripts": {
+  "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint .",
@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.51.4",
     "antd": "^5.17.0",
+    "axios": "^1.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-quill": "^2.0.0",
