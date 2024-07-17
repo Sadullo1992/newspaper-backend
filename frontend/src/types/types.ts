@@ -1,4 +1,12 @@
-export interface ICategory {
+export enum DataTypesEnum {
+  CATEGORY = 'category',
+  POST = 'post',
+  MAGAZINE = 'magazine',
+}
+
+export type DataTypesUnion = `${DataTypesEnum}`;
+
+export interface Category {
   id: string;
   name: string;
   slug: string;
@@ -24,7 +32,7 @@ export type TImage = {
 export interface IArticle {
   id: string;
   title: string;
-  category: ICategory;
+  category: Category;
   created_at: string;
   updated_at: string;
   dolzarb: boolean;

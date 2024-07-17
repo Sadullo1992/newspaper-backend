@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { removeCategory } from '../api/fetchCategories';
 
 interface SubmitButtonProps {
-  data: { key: string; name: string };
+  data: { id: string; name: string };
   type: 'category' | 'post' | 'magazine';
 }
 
@@ -42,7 +42,7 @@ export const ConfirmModal: React.FC<React.PropsWithChildren<SubmitButtonProps>> 
     switch (type) {
       case 'category':
         {
-          const response = await removeCategory(data.key);
+          const response = await removeCategory(data.id);
           sendMessage(type, response.ok);
         }
         break;
