@@ -8,7 +8,7 @@ import { SinglePageHeader } from '../components/PageHeader';
 export const AddCategoryPage = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const { mutateAsync: addCategory } = useAddCategory();
-  const invalidateCategories = useInvalidateCategories()
+  const invalidateCategories = useInvalidateCategories();
 
   const [isReset, setIsReset] = useState<boolean>(false);
 

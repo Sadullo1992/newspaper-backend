@@ -59,3 +59,19 @@ export function useInvalidateCategory() {
     []
   );
 }
+
+export function useRemoveCategory() {
+  return useMutation({
+    mutationFn: async (id: string) => {
+      return await axios.delete(`${BASE_URL}/admin/category/${id}`);
+    },
+  });
+}
+
+export function useRemoveCategoryCache() {
+  const queryClient = useQueryClient();
+  return React.useCallback(
+    (id?: string) => queryClient.removeQueries({ queryKey: ['category', { id }], exact: true }),
+    []
+  );
+}

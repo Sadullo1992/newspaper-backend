@@ -1,7 +1,12 @@
 import { message, Spin } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FormCategory } from '../../components/FormCategory';
-import { useGetCategory, useInvalidateCategories, useInvalidateCategory, useUpdateCategory } from '../../queries/categories';
+import {
+  useGetCategory,
+  useInvalidateCategories,
+  useInvalidateCategory,
+  useUpdateCategory,
+} from '../../queries/categories';
 import { Category, DataTypesEnum } from '../../types/types';
 import { SinglePageHeader } from '../components/PageHeader';
 
@@ -19,7 +24,7 @@ export const UpdateCategoryPage = () => {
     await updateCategory(
       { id, ...values },
       {
-        onSuccess: () => {          
+        onSuccess: () => {
           messageApi.open({
             type: 'success',
             content: 'Category updated, successfully!',

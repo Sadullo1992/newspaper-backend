@@ -42,7 +42,7 @@ export const FormCategory = ({ updateCategoryData, onSubmit, isReset }: FormCate
 
   useEffect(() => {
     isReset && form.resetFields();
-  }, [isReset]);
+  }, [isReset, form]);
 
   useEffect(() => {
     updateCategoryData &&

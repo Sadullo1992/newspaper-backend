@@ -1,35 +1,41 @@
 import { ExclamationCircleFilled } from '@ant-design/icons';
-import { Button, message, Modal, Space } from 'antd';
+import { Button, Flex, message, Modal, Typography } from 'antd';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { removeCategory } from '../api/fetchCategories';
+import {
+  useInvalidateCategories,
+  useRemoveCategory,
+  useRemoveCategoryCache,
+} from '../queries/categories';
+import { DataTypesEnum, DataTypesUnion } from '../types/types';
 
-interface SubmitButtonProps {
+interface ConfirmModalProps {
   data: { id: string; name: string };
-  type: 'category' | 'post' | 'magazine';
+  type: DataTypesUnion;
 }
 
-export const ConfirmModal: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+export const ConfirmModal: React.FC<React.PropsWithChildren<ConfirmModalProps>> = ({
   data,
   type,
   children,
 }) => {
+  const { id, name } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
-  const navigate = useNavigate();
+
+  const { mutateAsync: removeCategory } = useRemoveCategory();
+  const removeCategoryCache = useRemoveCategoryCache();
+  const invalidateCategories = useInvalidateCategories();
 
   const sendMessage = (type: string, ok: boolean) => {
     if (ok) {
       messageApi.open({
         type: 'success',
-        content: `${type.toUpperCase()} created, successfully!`,
+        content: `${type.toUpperCase()} deleted, successfully!`,
       });
-
-      navigate(0);
     } else {
       messageApi.open({
         type: 'error',
-        content: `Error occured!`,
+        content: `Error occurred!`,
       });
     }
   };
@@ -40,10 +46,18 @@ export const ConfirmModal: React.FC<React.PropsWithChildren<SubmitButtonProps>> 
 
   const handleOk = async () => {
     switch (type) {
-      case 'category':
+      case DataTypesEnum.CATEGORY:
         {
-          const response = await removeCategory(data.id);
-          sendMessage(type, response.ok);
+          await removeCategory(id, {
+            onSuccess: () => {
+              sendMessage(type, true);
+              removeCategoryCache(id);
+              invalidateCategories();
+            },
+            onError: () => {
+              sendMessage(type, false);
+            },
+          });
         }
         break;
       default:
@@ -64,28 +78,30 @@ export const ConfirmModal: React.FC<React.PropsWithChildren<SubmitButtonProps>> 
       </Button>
       <Modal
         title={
-          <Space>
+          <Flex gap={10} align={'center'}>
             <ExclamationCircleFilled style={{ color: '#faad14' }} />
-            <h4>O&#39;chirishga rozimisiz?</h4>
-          </Space>
+            <Typography.Title level={5} style={{ marginBottom: 0 }}>
+              Are you sure to delete?
+            </Typography.Title>
+          </Flex>
         }
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
         footer={[
           <Button key="back" onClick={handleCancel}>
-            Bekor qilish
+            Cancel
           </Button>,
           <Button danger key="submit" type="primary" onClick={handleOk}>
-            O&#39;chirish
+            Delete
           </Button>,
         ]}
       >
-        <div style={{ marginLeft: 20 }}>
-          <h4>
-            {type.toUpperCase()}: <span style={{ color: '#1890ff' }}>{data.name}</span>
-          </h4>
-        </div>
+        <Typography.Title level={5} style={{ paddingLeft: 20 }}>
+          {type.toLocaleUpperCase()}:{' '}
+          <Typography.Text style={{ color: '#1890ff' }}>{name}</Typography.Text>
+        </Typography.Title>
+        <div style={{ marginLeft: 20 }}></div>
       </Modal>
     </>
   );

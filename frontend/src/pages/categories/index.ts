@@ -3,4 +3,3 @@ import { CategoriesPage } from './categories';
 import { UpdateCategoryPage } from './update-category';
 
 export { CategoriesPage, AddCategoryPage, UpdateCategoryPage };
-
