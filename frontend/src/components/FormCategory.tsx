@@ -1,30 +1,23 @@
 import type { FormInstance } from 'antd';
-import { Button, Form, FormProps, Input, message, Space } from 'antd';
+import { Button, Form, Input, Space } from 'antd';
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import slugify from 'slugify';
-import { createCategory, updateCategory } from '../api/fetchCategories';
-import { ICategory } from '../types/types';
+import { Category } from '../types/types';
 
 interface FormCategoryProps {
-  updateCategoryData?: ICategory;
+  updateCategoryData?: Category;
+  onSubmit: (values: Omit<Category, 'id'>) => void;
+  isReset?: boolean;
 }
 
 interface SubmitButtonProps {
   form: FormInstance;
 }
 
-type FieldType = {
-  name: string;
-  slug: string;
-};
-
 const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({ form, children }) => {
-  const [submittable, setSubmittable] = React.useState<boolean>(false);
-
-  // Watch all values
   const values = Form.useWatch([], form);
+  const [submittable, setSubmittable] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     form
@@ -44,64 +37,39 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({ fo
   );
 };
 
-export const FormCategory = ({ updateCategoryData }: FormCategoryProps) => {
+export const FormCategory = ({ updateCategoryData, onSubmit, isReset }: FormCategoryProps) => {
   const [form] = Form.useForm();
-  const [messageApi, contextHolder] = message.useMessage();
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    isReset && form.resetFields();
+  }, [isReset]);
 
   useEffect(() => {
     updateCategoryData &&
       form.setFieldsValue({ name: updateCategoryData.name, slug: updateCategoryData.slug });
   }, [form, updateCategoryData]);
 
-  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-    const response = !updateCategoryData
-      ? await createCategory(values)
-      : await updateCategory(values, updateCategoryData.id);
-
-    const data = await response.json();
-    if (response.ok) {
-      messageApi.open({
-        type: 'success',
-        content: 'Category created, successfully!',
-      });
-
-      updateCategoryData && navigate('/admin/category');
-
-      form.resetFields();
-    } else {
-      const errorMesage = !data.error ? data.message : data.error;
-      messageApi.open({
-        type: 'error',
-        content: `Error occured: ${errorMesage}`,
-      });
-    }
-  };
-
   return (
-    <>
-      {contextHolder}
-      <Form
-        form={form}
-        name="validateOnly"
-        layout="vertical"
-        autoComplete="off"
-        style={{ maxWidth: 600 }}
-        onFinish={onFinish}
-      >
-        <Form.Item name="name" label="Name" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item name="slug" label="Slug" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item>
-          <Space>
-            <SubmitButton form={form}>Submit</SubmitButton>
-            <Button htmlType="reset">Reset</Button>
-          </Space>
-        </Form.Item>
-      </Form>
-    </>
+    <Form
+      form={form}
+      name="validateOnly"
+      layout="vertical"
+      autoComplete="off"
+      style={{ maxWidth: 600 }}
+      onFinish={onSubmit}
+    >
+      <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+        <Input />
+      </Form.Item>
+      <Form.Item name="slug" label="Slug" rules={[{ required: true }]}>
+        <Input />
+      </Form.Item>
+      <Form.Item>
+        <Space>
+          <SubmitButton form={form}>Submit</SubmitButton>
+          <Button htmlType="reset">Reset</Button>
+        </Space>
+      </Form.Item>
+    </Form>
   );
 };
