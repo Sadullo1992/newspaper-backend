@@ -8,7 +8,7 @@ import { Dashboard } from './pages/dashboard';
 import { Login } from './pages/Login';
 import { Magazines } from './pages/Magazines';
 import { NotFound } from './pages/NotFound';
-import { Posts } from './pages/Posts';
+import { PostsPage } from './pages/posts/posts';
 import { UpdateMagazine } from './pages/UpdateMagazine';
 import { UpdatePost } from './pages/UpdatePost';
 
@@ -21,7 +21,7 @@ const App: React.FC = () => {
         <Route path="/admin/category" element={<CategoriesPage />} />
         <Route path="/admin/category/add" element={<AddCategoryPage />} />
         <Route path="/admin/category/:id/edit" element={<UpdateCategoryPage />} />
-        <Route path="/admin/post" element={<Posts />} />
+        <Route path="/admin/post" element={<PostsPage />} />
         <Route path="/admin/post/add" element={<AddPost />} />
         <Route path="/admin/post/:id/edit" element={<UpdatePost />} />
         <Route path="/admin/magazine" element={<Magazines />} />
