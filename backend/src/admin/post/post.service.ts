@@ -1,9 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  PaginateFunction,
+  PaginateOptions,
+  paginator,
+} from 'src/helpers/paginator';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { v4 as uuid } from 'uuid';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { v4 as uuid } from 'uuid';
-import { PaginateFunction, PaginateOptions, paginator } from 'src/helpers/paginator';
 
 @Injectable()
 export class PostService {
@@ -45,7 +49,9 @@ export class PostService {
   async findAll({ page, perPage }: PaginateOptions) {
     const paginate: PaginateFunction = paginator({ page, perPage });
 
-    return paginate(this.prisma.post, { include: { images: true } });
+    return paginate(this.prisma.post, {
+      include: { category: true, images: true },
+    });
   }
 
   async findOne(id: string) {
