@@ -14,19 +14,15 @@ export class ImageService {
   }
 
   async saveImage(imagename: string, id: string, imageSize: number) {
-    try {
-      const imageModel = await this.prisma.image.create({
-        data: {
-          id,
-          imagename,
-          imageSize,
-          postId: null,
-        },
-      });
-      return { id: imageModel.id, imagename: imageModel.imagename };
-    } catch (e) {
-      throw new HttpException('Image already exists!', HttpStatus.CONFLICT);
-    }
+    const imageModel = await this.prisma.image.create({
+      data: {
+        id,
+        imagename,
+        imageSize,
+        postId: null,
+      },
+    });
+    return { id: imageModel.id, imagename: imageModel.imagename };
   }
 
   async findImageId(imagename: string) {

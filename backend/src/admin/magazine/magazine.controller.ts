@@ -5,6 +5,7 @@ import {
   FileTypeValidator,
   Get,
   HttpCode,
+  HttpException,
   HttpStatus,
   MaxFileSizeValidator,
   NotFoundException,
@@ -40,7 +41,7 @@ export class MagazineController {
     }),
   )
   @HttpCode(HttpStatus.CREATED)
-  create(
+  async create(
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -54,7 +55,16 @@ export class MagazineController {
   ) {
     const { name, createdAt } = createMagazineDto;
     const { originalname, filename, size } = file;
-    return this.magazineService.create({
+
+    const isExist = await this.magazineService.checkExistFileInDB(originalname);
+    if (isExist) {
+      const filePath = join(process.cwd(), `/uploads/magazines/${filename}`);
+      await rm(filePath);
+
+      throw new HttpException('Magazine already exists!', HttpStatus.CONFLICT);
+    }
+
+    return await this.magazineService.create({
       id: filename,
       filename: originalname,
       name,

@@ -1,5 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { PaginateFunction, PaginateOptions, paginator } from 'src/helpers/paginator';
+import {
+  PaginateFunction,
+  PaginateOptions,
+  paginator,
+} from 'src/helpers/paginator';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Magazine } from './entities/magazine.entity';
 
@@ -7,17 +11,18 @@ import { Magazine } from './entities/magazine.entity';
 export class MagazineService {
   constructor(private prisma: PrismaService) {}
 
+  async checkExistFileInDB(filename: string): Promise<boolean> {
+    const isExist = await this.prisma.magazine.findUnique({
+      select: { id: true },
+      where: { filename },
+    });
+    return !!isExist;
+  }
+
   async create(magazine: Magazine) {
-    try {
-      return await this.prisma.magazine.create({
-        data: magazine,
-      });
-    } catch (e) {
-      throw new HttpException(
-        'Magazine file already exists!',
-        HttpStatus.CONFLICT,
-      );
-    }
+    return await this.prisma.magazine.create({
+      data: magazine,
+    });
   }
 
   async findAll({ page, perPage }: PaginateOptions) {

@@ -1,24 +1,27 @@
 import {
   Controller,
-  Get,
-  Post,
-  UseInterceptors,
-  UploadedFile,
-  ParseFilePipe,
-  MaxFileSizeValidator,
   FileTypeValidator,
-  Param,
+  Get,
+  HttpException,
+  HttpStatus,
+  MaxFileSizeValidator,
   NotFoundException,
+  Param,
+  ParseFilePipe,
+  Post,
   Res,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
-import { v4 as uuid } from 'uuid';
-import { ImageService } from './image.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
+import { existsSync } from 'fs';
+import { rm } from 'fs/promises';
 import { diskStorage } from 'multer';
 import { join } from 'path';
-import { existsSync } from 'fs';
-import { Response } from 'express';
 import { of } from 'rxjs';
+import { v4 as uuid } from 'uuid';
+import { ImageService } from './image.service';
 
 @Controller()
 export class ImageController {
@@ -46,7 +49,15 @@ export class ImageController {
   ) {
     const { originalname, filename, size } = image;
 
-    return this.imageService.saveImage(originalname, filename, size);
+    const isExist = await this.imageService.checkExistFileInDB(originalname);
+    if (isExist) {
+      const filePath = join(process.cwd(), `/uploads/images/${filename}`);
+      await rm(filePath);
+
+      throw new HttpException('Image already exists!', HttpStatus.CONFLICT);
+    }
+
+    return await this.imageService.saveImage(originalname, filename, size);
   }
 
   @Get('media/images/:imagename')
