@@ -34,6 +34,7 @@ export interface Image {
 export interface Post {
   id: string;
   title: string;
+  content: string;
   categoryId: string | null;
   category: Category;
   slug: string;
