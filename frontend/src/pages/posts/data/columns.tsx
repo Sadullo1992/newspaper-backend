@@ -9,7 +9,7 @@ import { Space, TableProps } from 'antd';
 import { Link } from 'react-router-dom';
 import { ConfirmModal } from '../../../components/ConfirmModal';
 
-export interface PostDataType {
+export interface PostTableDataType {
   id: string;
   title: string;
   slug: string;
@@ -20,7 +20,7 @@ export interface PostDataType {
   views: number;
 }
 
-export const columns: TableProps<PostDataType>['columns'] = [
+export const columns: TableProps<PostTableDataType>['columns'] = [
   {
     title: 'Title',
     dataIndex: 'title',

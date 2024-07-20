@@ -24,12 +24,12 @@ export interface IResponse<T> {
   };
 }
 
-export type TImage = {
+export interface Image {
   id: number;
   imagename: string;
   imageSize: string;
   postId: string;
-};
+}
 
 export interface Post {
   id: string;
@@ -37,12 +37,12 @@ export interface Post {
   categoryId: string | null;
   category: Category;
   slug: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: number;
+  updatedAt: number;
   isActual: boolean;
   isFeatured: boolean;
   views: number;
-  images: TImage[];
+  images: Image[];
   author: string | null;
 }
 

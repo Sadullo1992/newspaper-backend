@@ -1,82 +1,71 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { Button, GetProp, Table, TableProps } from 'antd';
+import { GetProp, Table, TableProps } from 'antd';
+import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { usePostsQuery } from '../../queries/posts';
-import { columns, PostDataType } from './data/columns';
+import { DataTypesEnum, Post } from '../../types/types';
+import { PageHeader } from '../components/PageHeader';
+import { columns, PostTableDataType } from './data/columns';
 
-type TablePaginationConfig = Exclude<GetProp<TableProps, 'pagination'>, boolean>;
-
-interface TableParams {
-  pagination?: TablePaginationConfig;
-}
+type TablePagination = Exclude<GetProp<TableProps, 'pagination'>, boolean>;
 
 export const PostsPage = () => {
-  const [posts, setPosts] = useState<PostDataType[]>([]);
+  const [posts, setPosts] = useState<PostTableDataType[]>([]);
 
-  const [tableParams, setTableParams] = useState<TableParams>({
-    pagination: {
-      current: 1,
-      pageSize: 2,
-    },
+  const [pagination, setPagination] = useState<TablePagination>({
+    current: 1,
+    pageSize: 10,
   });
 
   const { data, isLoading } = usePostsQuery({
-    page: tableParams.pagination?.current,
-    perPage: tableParams.pagination?.pageSize,
+    page: pagination.current,
+    perPage: pagination.pageSize,
   });
-  console.log(data);
 
   useEffect(() => {
     if (data?.data) {
-      const posts = data?.data.map(
-        ({ id, title, slug, category, createdAt, isFeatured, isActual, views }) => ({
-          id,
-          title,
-          slug,
-          category: category.name,
-          createdAt,
-          isFeatured,
-          isActual,
-          views,
-        })
-      );
-      setTableParams({
-        pagination: {
-          ...tableParams.pagination,
-          total: data.meta.total,
-        },
+      const posts = data?.data.map(transformToDataSource);
+      setPagination({
+        ...pagination,
+        total: data.meta.total,
       });
       setPosts(posts);
     }
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.data]);
 
   const handleTableChange: TableProps['onChange'] = (pagination) => {
-    setTableParams({
-      pagination,
-    });
+    setPagination(pagination);
   };
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 32 }}>
-        <h2>Maqolalar</h2>
-        <Link to={'/admin/post/add'}>
-          <Button type="primary" icon={<PlusOutlined />}>
-            Maqola qo&#39;shish
-          </Button>
-        </Link>
-      </div>
+      <PageHeader title="All posts" type={DataTypesEnum.POST} />
       <Table
         rowKey={'id'}
         columns={columns}
         dataSource={posts}
         size="small"
-        pagination={tableParams.pagination}
+        pagination={pagination}
         onChange={handleTableChange}
         loading={isLoading}
       />
     </>
   );
 };
+
+function transformToDataSource(post: Post) {
+  const { id, title, slug, category, createdAt, isFeatured, isActual, views } = post;
+
+  const date = format(new Date(createdAt), 'dd.MM.yyyy HH:mm');
+
+  return {
+    id,
+    title,
+    slug,
+    category: category.name,
+    createdAt: date,
+    isFeatured,
+    isActual,
+    views,
+  };
+}
