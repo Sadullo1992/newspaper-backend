@@ -1,13 +1,16 @@
 import {
   Controller,
+  Delete,
   FileTypeValidator,
   Get,
+  HttpCode,
   HttpException,
   HttpStatus,
   MaxFileSizeValidator,
   NotFoundException,
   Param,
   ParseFilePipe,
+  ParseUUIDPipe,
   Post,
   Res,
   UploadedFile,
@@ -75,5 +78,13 @@ export class ImageController {
     }
 
     throw new NotFoundException('Image file not found');
+  }
+
+  @Delete('media/images/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async remove(@Param('id', ParseUUIDPipe) id: string) {
+
+    const filePath = join(process.cwd(), `/uploads/images/${id}`); 
+    await rm(filePath); 
   }
 }
