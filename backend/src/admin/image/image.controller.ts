@@ -3,6 +3,7 @@ import {
   Delete,
   FileTypeValidator,
   Get,
+  Headers,
   HttpCode,
   HttpException,
   HttpStatus,
@@ -12,12 +13,13 @@ import {
   ParseFilePipe,
   ParseUUIDPipe,
   Post,
+  Req,
   Res,
   UploadedFile,
-  UseInterceptors,
+  UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { existsSync } from 'fs';
 import { rm } from 'fs/promises';
 import { diskStorage } from 'multer';

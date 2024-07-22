@@ -13,6 +13,14 @@ import { UpdatePostDto } from './dto/update-post.dto';
 export class PostService {
   constructor(private prisma: PrismaService) {}
 
+  async checkExistPostSlug(slug: string): Promise<boolean> {
+    const isExist = await this.prisma.post.findUnique({
+      select: { id: true },
+      where: { slug },
+    });
+    return !!isExist;
+  }
+
   async create({ images, ...restPostDto }: CreatePostDto) {
     const id = uuid();
     try {
@@ -55,17 +63,39 @@ export class PostService {
   }
 
   async findOne(id: string) {
-    return this.prisma.post.findUnique({ where: { id } });
+    return this.prisma.post.findUnique({
+      where: { id },
+      include: { images: true },
+    });
   }
 
   async update(id: string, { images, ...updatePostDto }: UpdatePostDto) {
-    return this.prisma.post.update({
-      where: { id },
-      data: {
-        ...updatePostDto,
-        updatedAt: Date.now(),
-      },
-    });
+    try {
+      const updatePost = this.prisma.post.update({
+        where: { id },
+        data: {
+          ...updatePostDto,
+          updatedAt: Date.now(),
+        },
+      });
+
+      images.forEach(
+        async (item) =>
+          await this.prisma.image.update({
+            where: {
+              id: item.id,
+            },
+            data: { postId: id },
+          }),
+      );
+
+      return updatePost;
+    } catch (e) {
+      throw new HttpException(
+        'Please check the entities!',
+        HttpStatus.CONFLICT,
+      );
+    }
   }
 
   async remove(id: string) {
