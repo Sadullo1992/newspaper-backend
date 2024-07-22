@@ -1,5 +1,5 @@
-import { Button, Form, FormProps, Input, Select, Space, Switch } from 'antd';
-import { useEffect } from 'react';
+import { Button, Form, FormProps, Input, Select, Space, Switch, UploadFile } from 'antd';
+import { useEffect, useState } from 'react';
 import { useCategoriesQuery } from '../../queries/categories';
 import { useRemoveImageFile } from '../../queries/posts';
 import { Image, Post } from '../../types/types';
@@ -9,30 +9,36 @@ import { SubmitButton } from './SubmitButton';
 
 interface FormPostProps {
   initialData?: Post;
-  onSubmit: (values: Omit<Post, 'id'>) => void;
+  onSubmit: (values: Omit<Post, 'id'>) => Promise<void>;
   isReset?: boolean;
 }
 
 export const FormPost = ({ initialData, onSubmit, isReset }: FormPostProps) => {
   const [form] = Form.useForm();
 
-  const { data: categories } = useCategoriesQuery();  
+  const { data: categories } = useCategoriesQuery();
   const { mutateAsync: removeImageFile } = useRemoveImageFile();
+
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   useEffect(() => {
     isReset && form.resetFields();
   }, [isReset, form]);
 
   useEffect(() => {
-    initialData &&
+    if (initialData) {
+      const files = generateFileList(initialData.images);
+      setFileList(files);
+
       form.setFieldsValue({
         title: initialData.title,
         content: initialData.content,
         isActual: initialData.isActual,
         isFeatured: initialData.isFeatured,
         categoryId: initialData.categoryId,
-        images: initialData.images
-      });
+        images: files,
+      });      
+    }
   }, [form, initialData]);
 
   const handleOnChange = (value: string) => {
@@ -41,7 +47,7 @@ export const FormPost = ({ initialData, onSubmit, isReset }: FormPostProps) => {
 
   const onFinish: FormProps['onFinish'] = async (values) => {
     const post = getImageFromFileObject(values);
-    onSubmit(post);
+    await onSubmit(post);
   };
 
   const handleRemoveImage = async (file: any) => {
@@ -116,7 +122,7 @@ export const FormPost = ({ initialData, onSubmit, isReset }: FormPostProps) => {
           </Form.Item>
         </>
       )}
-      <ImageUpload />
+      <ImageUpload fileList={fileList}/>
       <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
         <Space>
           <SubmitButton form={form}>Submit</SubmitButton>
@@ -127,12 +133,28 @@ export const FormPost = ({ initialData, onSubmit, isReset }: FormPostProps) => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getImageFromFileObject(values: any) {
-  const fileImages = values.images.filter((file: { status: string }) => file.status === 'done');
-  const images = fileImages.map((file: { response: Image }) => file.response);
+function getImageFromFileObject(values: { images: UploadFile<Image>[] }) {
+  const fileImages = values.images.filter((file: UploadFile) => file.status === 'done');
+  const imageFiles = fileImages.map((file: UploadFile<Image>) => file.response as  Image);
   return {
     ...values,
-    images,
-  };
+    images: imageFiles,
+  } as Post;
+}
+
+function generateFileList(images: Image[]): UploadFile[] {
+  const fileList = images.map(({ id, imagename }) => {
+    return {
+      uid: id,
+      name: imagename,
+      status: 'done',
+      url: `/api/media/images/${imagename}`,
+      response: {
+        id,
+        imagename,
+      },
+    } as UploadFile;
+  });
+
+  return fileList;
 }

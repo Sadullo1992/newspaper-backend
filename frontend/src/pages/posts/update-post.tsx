@@ -27,7 +27,7 @@ export const UpdatePostPage = () => {
         onSuccess: () => {
           messageApi.open({
             type: 'success',
-            content: 'Category updated, successfully!',
+            content: 'Post updated, successfully!',
           });
           invalidatePosts();
           invalidatePost(id);

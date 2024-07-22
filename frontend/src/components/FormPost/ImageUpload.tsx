@@ -1,8 +1,12 @@
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Upload } from 'antd';
+import { Button, Form, Upload, UploadFile } from 'antd';
 import { useRemoveImageFile } from '../../queries/posts';
 
-export const ImageUpload = (props: { [key: string]: any }) => {
+type ImageUploadProps = {
+  fileList: UploadFile[]
+}
+
+export const ImageUpload = ({ fileList }: ImageUploadProps) => {
   const { mutateAsync: removeImageFile } = useRemoveImageFile();
 
   const handleRemoveImage = async (file: any) => {
@@ -14,7 +18,6 @@ export const ImageUpload = (props: { [key: string]: any }) => {
 
   return (
     <Form.Item
-      {...props}
       name="images"
       label="Photos"
       valuePropName="fileList"
@@ -34,6 +37,7 @@ export const ImageUpload = (props: { [key: string]: any }) => {
         name="image"
         action="/api/upload/image"
         listType="picture"
+        fileList={fileList}
         onRemove={handleRemoveImage}
       >
         <Button icon={<UploadOutlined />}>Click to upload</Button>
@@ -42,8 +46,7 @@ export const ImageUpload = (props: { [key: string]: any }) => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function normFile(e: any) {
+function normFile(e: { fileList: UploadFile[] }) {
   if (Array.isArray(e)) {
     return e;
   }

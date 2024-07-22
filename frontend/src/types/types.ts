@@ -25,7 +25,7 @@ export interface IResponse<T> {
 }
 
 export interface Image {
-  id: number;
+  id: string;
   imagename: string;
   imageSize: string;
   postId: string;
