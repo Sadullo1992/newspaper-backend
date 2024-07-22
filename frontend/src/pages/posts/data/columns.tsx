@@ -68,9 +68,9 @@ export const columns: TableProps<PostTableDataType>['columns'] = [
   {
     title: 'Action',
     key: 'action',
-    render: (_, { id, title, slug }) => (
+    render: (_, { id, title }) => (
       <Space>
-        <Link to={`/admin/post/${slug}/edit`}>
+        <Link to={`/admin/post/${id}/edit`}>
           <EditOutlined style={{ fontSize: 16 }} />
         </Link>
         <ConfirmModal data={{ id, name: title }} type="post">

@@ -1,7 +1,7 @@
 import { Button, Form, FormProps, Input, Select, Space, Switch } from 'antd';
 import { useEffect } from 'react';
 import { useCategoriesQuery } from '../../queries/categories';
-import { useAddPost, useInvalidatePosts, useRemoveImageFile } from '../../queries/posts';
+import { useRemoveImageFile } from '../../queries/posts';
 import { Image, Post } from '../../types/types';
 import { PostEditor } from '../PostEditor';
 import { ImageUpload } from './ImageUpload';
@@ -9,15 +9,19 @@ import { SubmitButton } from './SubmitButton';
 
 interface FormPostProps {
   initialData?: Post;
+  onSubmit: (values: Omit<Post, 'id'>) => void;
+  isReset?: boolean;
 }
 
-export const FormPost = ({ initialData }: FormPostProps) => {
+export const FormPost = ({ initialData, onSubmit, isReset }: FormPostProps) => {
   const [form] = Form.useForm();
 
-  const { data: categories } = useCategoriesQuery();
-  const { mutateAsync: addPost } = useAddPost();
-  const invalidatePosts = useInvalidatePosts();
+  const { data: categories } = useCategoriesQuery();  
   const { mutateAsync: removeImageFile } = useRemoveImageFile();
+
+  useEffect(() => {
+    isReset && form.resetFields();
+  }, [isReset, form]);
 
   useEffect(() => {
     initialData &&
@@ -26,7 +30,8 @@ export const FormPost = ({ initialData }: FormPostProps) => {
         content: initialData.content,
         isActual: initialData.isActual,
         isFeatured: initialData.isFeatured,
-        category: initialData.category.slug,
+        categoryId: initialData.categoryId,
+        images: initialData.images
       });
   }, [form, initialData]);
 
@@ -36,7 +41,7 @@ export const FormPost = ({ initialData }: FormPostProps) => {
 
   const onFinish: FormProps['onFinish'] = async (values) => {
     const post = getImageFromFileObject(values);
-    await addPost(post);
+    onSubmit(post);
   };
 
   const handleRemoveImage = async (file: any) => {
