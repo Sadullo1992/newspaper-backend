@@ -36,4 +36,12 @@ export class ImageService {
 
     return modelImage.id as string;
   }
+
+  async findOne(id: string) {
+    return await this.prisma.image.findUnique({ where: { id } });
+  }
+
+  async remove(id: string) {
+    return await this.prisma.image.delete({ where: { id } });
+  }
 }

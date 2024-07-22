@@ -83,8 +83,15 @@ export class ImageController {
   @Delete('media/images/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@Param('id', ParseUUIDPipe) id: string) {
+    const image = await this.imageService.findOne(id);
 
-    const filePath = join(process.cwd(), `/uploads/images/${id}`); 
-    await rm(filePath); 
+    if (!image) {
+      throw new NotFoundException('Image not found');
+    }
+
+    await this.imageService.remove(id);
+
+    const filePath = join(process.cwd(), `/uploads/images/${id}`);
+    await rm(filePath);
   }
 }
