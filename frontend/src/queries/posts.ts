@@ -61,6 +61,22 @@ export function useInvalidatePost() {
   );
 }
 
+export function useRemovePost() {
+  return useMutation({
+    mutationFn: async (id: string) => {
+      return await axios.delete(`${BASE_URL}/admin/post/${id}`);
+    },
+  });
+}
+
+export function useRemovePostCache() {
+  const queryClient = useQueryClient();
+  return React.useCallback(
+    (id?: string) => queryClient.removeQueries({ queryKey: ['post', { id }], exact: true }),
+    []
+  );
+}
+
 // Post images
 export function useRemoveImageFile() {
   return useMutation({

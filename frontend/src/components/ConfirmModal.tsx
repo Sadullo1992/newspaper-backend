@@ -6,18 +6,14 @@ import {
   useRemoveCategory,
   useRemoveCategoryCache,
 } from '../queries/categories';
+import { useInvalidatePosts, useRemovePost, useRemovePostCache } from '../queries/posts';
 import { DataTypesEnum, DataTypesUnion } from '../types/types';
 
-interface ConfirmModalProps {
+type Props = React.PropsWithChildren<{
   data: { id: string; name: string };
   type: DataTypesUnion;
-}
-
-export const ConfirmModal: React.FC<React.PropsWithChildren<ConfirmModalProps>> = ({
-  data,
-  type,
-  children,
-}) => {
+}>;
+export const ConfirmModal = ({ data, type, children }: Props) => {
   const { id, name } = data;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
@@ -25,6 +21,10 @@ export const ConfirmModal: React.FC<React.PropsWithChildren<ConfirmModalProps>> 
   const { mutateAsync: removeCategory } = useRemoveCategory();
   const removeCategoryCache = useRemoveCategoryCache();
   const invalidateCategories = useInvalidateCategories();
+
+  const { mutateAsync: removePost } = useRemovePost();
+  const removePostCache = useRemovePostCache();
+  const invalidatePosts = useInvalidatePosts();
 
   const sendMessage = (type: string, ok: boolean) => {
     if (ok) {
@@ -53,6 +53,20 @@ export const ConfirmModal: React.FC<React.PropsWithChildren<ConfirmModalProps>> 
               sendMessage(type, true);
               removeCategoryCache(id);
               invalidateCategories();
+            },
+            onError: () => {
+              sendMessage(type, false);
+            },
+          });
+        }
+        break;
+      case DataTypesEnum.POST:
+        {
+          await removePost(id, {
+            onSuccess: () => {
+              sendMessage(type, true);
+              removePostCache(id);
+              invalidatePosts();
             },
             onError: () => {
               sendMessage(type, false);
