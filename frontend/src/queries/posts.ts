@@ -42,3 +42,11 @@ export function useRemoveImageFile() {
     },
   });
 }
+
+export function useRemoveImageFileCache() {
+  const queryClient = useQueryClient();
+  return React.useCallback(
+    (id?: string) => queryClient.removeQueries({ queryKey: ['category', { id }], exact: true }),
+    []
+  );
+}

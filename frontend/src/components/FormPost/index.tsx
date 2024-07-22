@@ -1,7 +1,7 @@
 import { Button, Form, FormProps, Input, Select, Space, Switch } from 'antd';
 import { useEffect } from 'react';
 import { useCategoriesQuery } from '../../queries/categories';
-import { useAddPost, useInvalidatePosts } from '../../queries/posts';
+import { useAddPost, useInvalidatePosts, useRemoveImageFile } from '../../queries/posts';
 import { Image, Post } from '../../types/types';
 import { PostEditor } from '../PostEditor';
 import { ImageUpload } from './ImageUpload';
@@ -17,6 +17,7 @@ export const FormPost = ({ initialData }: FormPostProps) => {
   const { data: categories } = useCategoriesQuery();
   const { mutateAsync: addPost } = useAddPost();
   const invalidatePosts = useInvalidatePosts();
+  const { mutateAsync: removeImageFile } = useRemoveImageFile();
 
   useEffect(() => {
     initialData &&
@@ -36,6 +37,21 @@ export const FormPost = ({ initialData }: FormPostProps) => {
   const onFinish: FormProps['onFinish'] = async (values) => {
     const post = getImageFromFileObject(values);
     await addPost(post);
+  };
+
+  const handleRemoveImage = async (file: any) => {
+    const id = file.response.id;
+    if (!!id) {
+      await removeImageFile(id);
+    }
+  };
+
+  const handleReset = () => {
+    const images = form.getFieldValue('images');
+    if (images.length > 0) {
+      Promise.all(images.map(handleRemoveImage));
+    }
+    form.resetFields();
   };
 
   return (
@@ -99,7 +115,7 @@ export const FormPost = ({ initialData }: FormPostProps) => {
       <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
         <Space>
           <SubmitButton form={form}>Submit</SubmitButton>
-          <Button htmlType="reset">Reset</Button>
+          <Button onClick={handleReset}>Reset</Button>
         </Space>
       </Form.Item>
     </Form>
