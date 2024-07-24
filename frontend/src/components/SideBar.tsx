@@ -52,7 +52,7 @@ export const SideBar = () => {
   };
 
   return (
-    <Layout.Sider breakpoint="lg" collapsedWidth="0">
+    <Layout.Sider breakpoint="lg" collapsedWidth="0" style={{ background: '#0d3e2c' }}>
       <div className="demo-logo-vertical" />
       <Menu
         theme="dark"

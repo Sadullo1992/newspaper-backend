@@ -1,7 +1,15 @@
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ant-menu{
+  background: #0d3e2c;
+}
+
+.ant-layout-sider-zero-width-trigger {
+  background: #0d3e2c !important;
 }

@@ -71,7 +71,7 @@ export const columns: TableProps<PostTableDataType>['columns'] = [
     render: (_, { id, title }) => (
       <Space>
         <Link to={`/admin/post/${id}/edit`}>
-          <EditOutlined style={{ fontSize: 16 }} />
+          <EditOutlined style={{ fontSize: 16, color: '#25ae7a' }} />
         </Link>
         <ConfirmModal data={{ id, name: title }} type="post">
           <DeleteFilled style={{ fontSize: 16, color: '#f5222d' }} />
