@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useCategoriesQuery } from '../../queries/categories';
 import { useRemoveImageFile } from '../../queries/posts';
 import { Image, Post } from '../../types/types';
+import { dateFormatter } from '../../utils/dateFormatter';
 import { PostEditor } from '../PostEditor';
 import { ImageUpload } from './ImageUpload';
 import { SubmitButton } from './SubmitButton';
@@ -117,10 +118,10 @@ export const FormPost = ({ initialData, onSubmit, isReset, setIsReset }: FormPos
             <span>{initialData.views}</span>
           </Form.Item>
           <Form.Item label="Created at">
-            <span>{initialData.createdAt}</span>
+            <span>{dateFormatter(initialData.createdAt)}</span>
           </Form.Item>
           <Form.Item label="Updated at">
-            <span>{initialData.updatedAt}</span>
+            <span>{dateFormatter(initialData.updatedAt)}</span>
           </Form.Item>
         </>
       )}

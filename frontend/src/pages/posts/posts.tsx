@@ -1,8 +1,8 @@
 import { GetProp, Table, TableProps } from 'antd';
-import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { usePostsQuery } from '../../queries/posts';
 import { DataTypesEnum, Post } from '../../types/types';
+import { dateFormatter } from '../../utils/dateFormatter';
 import { PageHeader } from '../components/PageHeader';
 import { columns, PostTableDataType } from './data/columns';
 
@@ -56,7 +56,7 @@ export const PostsPage = () => {
 function transformToDataSource(post: Post) {
   const { id, title, slug, category, createdAt, isFeatured, isActual, views } = post;
 
-  const date = format(new Date(createdAt), 'dd.MM.yyyy HH:mm');
+  const date = dateFormatter(createdAt);
 
   return {
     id,
