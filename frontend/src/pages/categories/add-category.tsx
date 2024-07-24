@@ -34,7 +34,7 @@ export const AddCategoryPage = () => {
     <>
       {contextHolder}
       <SinglePageHeader title="Add Category" type={DataTypesEnum.CATEGORY} />
-      <FormCategory onSubmit={onSubmit} isReset={isReset} />
+      <FormCategory onSubmit={onSubmit} isReset={isReset} setIsReset={setIsReset} />
     </>
   );
 };

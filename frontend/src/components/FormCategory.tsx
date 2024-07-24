@@ -1,6 +1,6 @@
 import type { FormInstance } from 'antd';
 import { Button, Form, Input, Space } from 'antd';
-import React, { useEffect } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 
 import slugify from 'slugify';
 import { Category } from '../types/types';
@@ -9,6 +9,7 @@ interface FormCategoryProps {
   updateCategoryData?: Category;
   onSubmit: (values: Omit<Category, 'id'>) => void;
   isReset?: boolean;
+  setIsReset?: Dispatch<SetStateAction<boolean>>;
 }
 
 interface SubmitButtonProps {
@@ -37,12 +38,18 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({ fo
   );
 };
 
-export const FormCategory = ({ updateCategoryData, onSubmit, isReset }: FormCategoryProps) => {
+export const FormCategory = ({
+  updateCategoryData,
+  onSubmit,
+  isReset,
+  setIsReset,
+}: FormCategoryProps) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
     isReset && form.resetFields();
-  }, [isReset, form]);
+    setIsReset && setIsReset(false);
+  }, [isReset, setIsReset, form]);
 
   useEffect(() => {
     updateCategoryData &&

@@ -47,7 +47,7 @@ export function useUpdatePost() {
   return useMutation({
     mutationFn: async ({ id, ...rest }: Partial<Post>) => {
       return await axios.put(`${BASE_URL}/admin/post/${id}`, {
-        ...rest
+        ...rest,
       });
     },
   });

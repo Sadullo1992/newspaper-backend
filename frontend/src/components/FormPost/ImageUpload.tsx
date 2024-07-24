@@ -1,16 +1,17 @@
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Form, Upload, UploadFile } from 'antd';
 import { useRemoveImageFile } from '../../queries/posts';
+import { Image } from '../../types/types';
 
 type ImageUploadProps = {
-  fileList: UploadFile[]
-}
+  fileList: UploadFile[];
+};
 
 export const ImageUpload = ({ fileList }: ImageUploadProps) => {
   const { mutateAsync: removeImageFile } = useRemoveImageFile();
 
-  const handleRemoveImage = async (file: any) => {
-    const id = file.response.id;
+  const handleRemoveImage = async (file: UploadFile<Image>) => {
+    const id = file.response?.id;
     if (!!id) {
       await removeImageFile(id);
     }

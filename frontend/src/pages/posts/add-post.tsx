@@ -5,7 +5,7 @@ import { useAddPost, useInvalidatePosts } from '../../queries/posts';
 import { DataTypesEnum, Post } from '../../types/types';
 import { SinglePageHeader } from '../components/PageHeader';
 
-export const AddPostPage = () => {  
+export const AddPostPage = () => {
   const [messageApi, contextHolder] = message.useMessage();
 
   const { mutateAsync: addPost } = useAddPost();
@@ -35,7 +35,7 @@ export const AddPostPage = () => {
     <>
       {contextHolder}
       <SinglePageHeader title="Add Post" type={DataTypesEnum.POST} />
-      <FormPost onSubmit={onSubmit} isReset={isReset} />
+      <FormPost onSubmit={onSubmit} isReset={isReset} setIsReset={setIsReset} />
     </>
   );
 };
