@@ -10,10 +10,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class CategoriesService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll({ page, perPage }: PaginateOptions) {
-    const paginate: PaginateFunction = paginator({ page, perPage });
-
-    return paginate(this.prisma.category);
+  async findAll() {
+    return this.prisma.category.findMany();
   }
 
   async findOne(slug: string) {

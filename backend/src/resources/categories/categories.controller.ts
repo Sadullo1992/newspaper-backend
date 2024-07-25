@@ -6,8 +6,8 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Get()
-  findAll(@Query('page') page: number, @Query('perPage') perPage: number) {
-    return this.categoriesService.findAll({ page, perPage });
+  async findAll() {
+    return this.categoriesService.findAll();
   }
 
   @Get(':slug/posts')

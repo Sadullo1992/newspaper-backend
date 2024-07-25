@@ -1,9 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import {
-  PaginateFunction,
-  PaginateOptions,
-  paginator,
-} from 'src/helpers/paginator';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -26,9 +21,8 @@ export class CategoryService {
     }
   }
 
-  async findAll({ page, perPage }: PaginateOptions) {
-    const paginate: PaginateFunction = paginator({ page, perPage });
-    return paginate(this.prisma.category);
+  async findAll() {
+    return this.prisma.category.findMany();
   }
 
   async findOne(id: string) {

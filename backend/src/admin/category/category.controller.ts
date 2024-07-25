@@ -27,11 +27,8 @@ export class CategoryController {
   }
 
   @Get()
-  async findAll(
-    @Query('page') page: number,
-    @Query('perPage') perPage: number,
-  ) {
-    return this.categoryService.findAll({ page, perPage });
+  async findAll() {
+    return this.categoryService.findAll();
   }
 
   @Get(':id')

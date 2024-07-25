@@ -10,7 +10,13 @@ export const CategoriesPage = () => {
   return (
     <>
       <PageHeader title="All categories" type={DataTypesEnum.CATEGORY} />
-      <Table rowKey={'id'} columns={columns} dataSource={data} loading={isFetching} />
+      <Table
+        rowKey={'id'}
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+        loading={isFetching}
+      />
     </>
   );
 };

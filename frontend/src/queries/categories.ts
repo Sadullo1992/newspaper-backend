@@ -9,7 +9,7 @@ export function useCategoriesQuery() {
     queryKey: ['categories'],
     queryFn: async () => {
       const res = await axios.get(`${BASE_URL}/admin/category`);
-      return res.data.data;
+      return res.data;
     },
   });
 }
