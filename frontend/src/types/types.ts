@@ -47,11 +47,11 @@ export interface Post {
   author: string | null;
 }
 
-export interface IMagazine {
-  id: number;
+export interface Magazine {
+  id: string;
   name: string;
-  created_at: string;
-  file: string;
-  hajmi: string;
-  downloads_count: number;
+  createdAt: number;
+  filename: string;
+  size: number;
+  downloadsCount: number;
 }
