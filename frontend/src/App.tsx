@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { AddMagazine } from './pages/AddMagazine';
 import Admin from './pages/Admin';
 import { AddCategoryPage, CategoriesPage, UpdateCategoryPage } from './pages/categories';
 import { Dashboard } from './pages/dashboard';
 import { Login } from './pages/Login';
-import { Magazines } from './pages/Magazines';
+import { AddMagazinePage } from './pages/magazines/add-magazine';
+import { MagazinesPage } from './pages/magazines/magazines';
 import { NotFound } from './pages/NotFound';
 import { AddPostPage, PostsPage, UpdatePostPage } from './pages/posts';
 import { UpdateMagazine } from './pages/UpdateMagazine';
@@ -22,8 +22,8 @@ const App: React.FC = () => {
         <Route path="/admin/post" element={<PostsPage />} />
         <Route path="/admin/post/add" element={<AddPostPage />} />
         <Route path="/admin/post/:id/edit" element={<UpdatePostPage />} />
-        <Route path="/admin/magazine" element={<Magazines />} />
-        <Route path="/admin/magazine/add" element={<AddMagazine />} />
+        <Route path="/admin/magazine" element={<MagazinesPage />} />
+        <Route path="/admin/magazine/add" element={<AddMagazinePage />} />
         <Route path="/admin/magazine/:id/edit" element={<UpdateMagazine />} />
         <Route path="/admin/*" element={<NotFound />} />
       </Route>

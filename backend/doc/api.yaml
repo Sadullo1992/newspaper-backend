@@ -593,7 +593,7 @@ paths:
             schema:
               type: object
               properties:
-                magazine-file:
+                magazineFile:
                   type: string
                   format: binary
                 name:
@@ -605,7 +605,7 @@ paths:
                   description: created time
                   example: 1655000000
               required:
-                - magazine-file
+                - magazineFile
                 - name
                 - createdAt
       responses:
@@ -654,7 +654,7 @@ paths:
             schema:
               type: object
               properties:
-                magazine-file:
+                magazineFile:
                   type: string
                   format: binary
                 name:

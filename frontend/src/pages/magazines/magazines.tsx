@@ -39,8 +39,10 @@ export const MagazinesPage = () => {
     <>
       <PageHeader title="All Magazines" type={DataTypesEnum.MAGAZINE} />
       <Table
+        rowKey={'id'}
         columns={columns}
         dataSource={magazines}
+        pagination={pagination}
         size="middle"
         onChange={handleTableChange}
         loading={isLoading}

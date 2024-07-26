@@ -33,7 +33,7 @@ export class MagazineController {
 
   @Post()
   @UseInterceptors(
-    FileInterceptor('magazine-file', {
+    FileInterceptor('magazineFile', {
       storage: diskStorage({
         destination: './uploads/magazines',
         filename: (req, file, cb) => cb(null, uuid()),
@@ -91,7 +91,7 @@ export class MagazineController {
 
   @Put(':id')
   @UseInterceptors(
-    FileInterceptor('magazine-file', {
+    FileInterceptor('magazineFile', {
       storage: diskStorage({
         destination: './uploads/magazines',
       }),
