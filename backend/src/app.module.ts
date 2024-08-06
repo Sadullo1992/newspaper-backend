@@ -1,17 +1,20 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { PostsModule } from './resources/posts/posts.module';
-import { PostModule } from './admin/post/post.module';
 import { CategoryModule } from './admin/category/category.module';
-import { CategoriesModule } from './resources/categories/categories.module';
-import { MagazineModule } from './admin/magazine/magazine.module';
-import { MagazinesModule } from './resources/magazines/magazines.module';
-import { PrismaModule } from './prisma/prisma.module';
 import { ImageModule } from './admin/image/image.module';
+import { MagazineModule } from './admin/magazine/magazine.module';
+import { PostModule } from './admin/post/post.module';
+import { AppController } from './app.controller';
+import { LoggerModule } from './logger/logger.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { CategoriesModule } from './resources/categories/categories.module';
+import { MagazinesModule } from './resources/magazines/magazines.module';
+import { PostsModule } from './resources/posts/posts.module';
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     PostsModule,
     PostModule,
     CategoryModule,
@@ -20,6 +23,7 @@ import { ImageModule } from './admin/image/image.module';
     MagazinesModule,
     PrismaModule,
     ImageModule,
+    LoggerModule,
   ],
   controllers: [AppController],
 })
