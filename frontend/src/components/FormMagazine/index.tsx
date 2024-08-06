@@ -45,7 +45,10 @@ export const FormMagazine = ({ initialData, onSubmit, isReset, setIsReset }: Pro
     const magazineDto = {
       name: values.name,
       createdAt: values.createdAt.toDate().getTime().toString(),
-      magazineFile: values.magazineFile[0].originFileObj as RcFile
+    } as MagazineDto
+
+    if(values.magazineFile) {
+      magazineDto.magazineFile = values.magazineFile[0].originFileObj as RcFile;
     }
 
     onSubmit(magazineDto)
@@ -67,12 +70,12 @@ export const FormMagazine = ({ initialData, onSubmit, isReset, setIsReset }: Pro
       </Form.Item>
       {initialData && (
         <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
-          <a href={initialData?.filename} target="_blank" rel="noreferrer">
-            {initialData?.name}
+          <a href={`/api/media/magazines/${initialData?.filename}`} target="_blank" rel="noreferrer">
+            {initialData?.filename}
           </a>
         </Form.Item>
       )}
-      <FileUpload />
+      <FileUpload hasInitialData={!!initialData} />
       <Form.Item label="Created At" name="createdAt" rules={[{ required: true }]}>
         <DatePicker
           onChange={handleOnChange}

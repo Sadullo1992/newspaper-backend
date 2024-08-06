@@ -3,7 +3,11 @@ import { Button, Form, Upload } from 'antd';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import { useState } from 'react';
 
-export const FileUpload = () => {
+type Props = {
+  hasInitialData: boolean
+}
+
+export const FileUpload = ({ hasInitialData }: Props) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const props: UploadProps = {
@@ -25,7 +29,7 @@ export const FileUpload = () => {
       label="Magazine file"
       valuePropName="fileList"
       getValueFromEvent={normFile}
-      rules={[{ required: true }]}
+      rules={[{ required: !hasInitialData }]}
     >
       <Upload {...props} name="magazine-file" listType="text">
         <Button icon={<UploadOutlined />}>Upload magazine file</Button>

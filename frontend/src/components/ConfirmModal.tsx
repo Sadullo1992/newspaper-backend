@@ -6,6 +6,7 @@ import {
   useRemoveCategory,
   useRemoveCategoryCache,
 } from '../queries/categories';
+import { useInvalidateMagazines, useRemoveMagazine, useRemoveMagazineCache } from '../queries/magazines';
 import { useInvalidatePosts, useRemovePost, useRemovePostCache } from '../queries/posts';
 import { DataTypesEnum, DataTypesUnion } from '../types/types';
 
@@ -25,6 +26,10 @@ export const ConfirmModal = ({ data, type, children }: Props) => {
   const { mutateAsync: removePost } = useRemovePost();
   const removePostCache = useRemovePostCache();
   const invalidatePosts = useInvalidatePosts();
+
+  const { mutateAsync: removeMagazine } = useRemoveMagazine();
+  const removeMagazineCache = useRemoveMagazineCache();
+  const invalidateMagazines = useInvalidateMagazines();
 
   const sendMessage = (type: string, ok: boolean) => {
     if (ok) {
@@ -67,6 +72,20 @@ export const ConfirmModal = ({ data, type, children }: Props) => {
               sendMessage(type, true);
               removePostCache(id);
               invalidatePosts();
+            },
+            onError: () => {
+              sendMessage(type, false);
+            },
+          });
+        }
+        break;
+      case DataTypesEnum.MAGAZINE:
+        {
+          await removeMagazine(id, {
+            onSuccess: () => {
+              sendMessage(type, true);
+              removeMagazineCache(id);
+              invalidateMagazines();
             },
             onError: () => {
               sendMessage(type, false);
