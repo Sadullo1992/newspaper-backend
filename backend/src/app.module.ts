@@ -4,6 +4,7 @@ import { CategoryModule } from './admin/category/category.module';
 import { ImageModule } from './admin/image/image.module';
 import { MagazineModule } from './admin/magazine/magazine.module';
 import { PostModule } from './admin/post/post.module';
+import { UserModule } from './admin/user/user.module';
 import { AppController } from './app.controller';
 import { LoggerModule } from './logger/logger.module';
 import { PrismaModule } from './prisma/prisma.module';
@@ -24,6 +25,7 @@ import { PostsModule } from './resources/posts/posts.module';
     PrismaModule,
     ImageModule,
     LoggerModule,
+    UserModule,
   ],
   controllers: [AppController],
 })
