@@ -1,0 +1,313 @@
+[Nest] 12636  - 06/08/2024, 16:18:22     LOG Mapped {/media/images/:id, DELETE} route
+[Nest] 12636  - 06/08/2024, 16:18:22     LOG Nest application successfully started
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG AppController {/}:
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG PostsController {/posts}:
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/posts, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/posts/featured_posts, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/posts/actual_posts, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/posts/:slug, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/posts/:slug/related_posts, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/post, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/post, POST} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/post/:id, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG PostController {/admin/post}:
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/post/:id, DELETE} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG CategoryController {/admin/category}:
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/category, POST} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/category, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/category/:id, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/category/:id, PUT} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/category/:id, DELETE} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG CategoriesController {/categories}:
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/categories, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/categories/:slug/posts, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/magazine, POST} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG MagazineController {/admin/magazine}:
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/post/:id, PUT} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/magazine, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/magazine/:id, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/magazine/:id, PUT} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/admin/magazine/:id, DELETE} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG MagazinesController {/}:
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/magazines, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/magazines/:id, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/magazines/:id/download, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/media/magazines/:filename, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG ImageController {/}:
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/upload/image, POST} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/media/images/:imagename, GET} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Mapped {/media/images/:id, DELETE} route
+[Nest] 13732  - 06/08/2024, 16:20:06     LOG Nest application successfully started
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG AppController {/}:
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG PostsController {/posts}:
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/posts, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/posts/featured_posts, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/posts/actual_posts, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/posts/:slug, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/posts/:slug/related_posts, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG PostController {/admin/post}:
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/post, POST} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/post, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/post/:id, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/post/:id, PUT} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/post/:id, DELETE} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG CategoryController {/admin/category}:
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/category, POST} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/category, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/category/:id, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/category/:id, PUT} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/category/:id, DELETE} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG CategoriesController {/categories}:
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/categories, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/categories/:slug/posts, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG MagazineController {/admin/magazine}:
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/magazine, POST} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/magazine, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/magazine/:id, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/magazine/:id, PUT} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/admin/magazine/:id, DELETE} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG MagazinesController {/}:
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/magazines, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/magazines/:id, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/magazines/:id/download, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/media/magazines/:filename, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG ImageController {/}:
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/upload/image, POST} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/media/images/:imagename, GET} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Mapped {/media/images/:id, DELETE} route
+[Nest] 9708  - 06/08/2024, 16:21:04     LOG Nest application successfully started
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG AppController {/}:
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG PostsController {/posts}:
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/posts, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/posts/featured_posts, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/posts/actual_posts, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/posts/:slug, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/posts/:slug/related_posts, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG PostController {/admin/post}:
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/post, POST} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/post, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/post/:id, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/post/:id, PUT} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/post/:id, DELETE} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG CategoryController {/admin/category}:
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/category, POST} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/category, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/category/:id, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/category/:id, PUT} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/category/:id, DELETE} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG CategoriesController {/categories}:
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/categories, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/categories/:slug/posts, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG MagazineController {/admin/magazine}:
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/magazine, POST} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/magazine, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/magazine/:id, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/magazine/:id, PUT} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/admin/magazine/:id, DELETE} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG MagazinesController {/}:
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/magazines, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/magazines/:id, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/magazines/:id/download, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/media/magazines/:filename, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG ImageController {/}:
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/upload/image, POST} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/media/images/:imagename, GET} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Mapped {/media/images/:id, DELETE} route
+[Nest] 9196  - 06/08/2024, 16:21:40     LOG Nest application successfully started
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG AppController {/}:
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG PostsController {/posts}:
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/posts, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/posts/featured_posts, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/posts/actual_posts, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/posts/:slug, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/posts/:slug/related_posts, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG PostController {/admin/post}:
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/post, POST} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/post, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/post/:id, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/post/:id, PUT} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG CategoryController {/admin/category}:
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/post/:id, DELETE} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/category, POST} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/category, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/category/:id, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/category/:id, PUT} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/category/:id, DELETE} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG CategoriesController {/categories}:
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/categories, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/categories/:slug/posts, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG MagazineController {/admin/magazine}:
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/magazine, POST} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/magazine, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/magazine/:id, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/magazine/:id, PUT} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/admin/magazine/:id, DELETE} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG MagazinesController {/}:
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/magazines, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/magazines/:id, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/magazines/:id/download, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/media/magazines/:filename, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG ImageController {/}:
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/upload/image, POST} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/media/images/:imagename, GET} route
+[Nest] 18408  - 06/08/2024, 16:25:40     LOG Mapped {/media/images/:id, DELETE} route
+[Nest] 18408  - 06/08/2024, 16:25:41     LOG Nest application successfully started
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG AppController {/}:
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG PostsController {/posts}:
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/posts, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/posts/featured_posts, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/posts/actual_posts, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/posts/:slug, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/posts/:slug/related_posts, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG PostController {/admin/post}:
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/post, POST} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/post, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/post/:id, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/post/:id, PUT} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/post/:id, DELETE} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG CategoryController {/admin/category}:
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/category, POST} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/category, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/category/:id, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/category/:id, PUT} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/category/:id, DELETE} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG CategoriesController {/categories}:
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/categories, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/categories/:slug/posts, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG MagazineController {/admin/magazine}:
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/magazine, POST} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/magazine, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/magazine/:id, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/magazine/:id, PUT} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/admin/magazine/:id, DELETE} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG MagazinesController {/}:
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/magazines, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/magazines/:id, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/magazines/:id/download, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/media/magazines/:filename, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG ImageController {/}:
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/upload/image, POST} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/media/images/:imagename, GET} route
+[Nest] 6432  - 06/08/2024, 16:30:55     LOG Mapped {/media/images/:id, DELETE} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG AppController {/}:
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG PostsController {/posts}:
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/posts, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/posts/featured_posts, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/posts/actual_posts, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/posts/:slug, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/posts/:slug/related_posts, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG PostController {/admin/post}:
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/post, POST} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/post, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/post/:id, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/post/:id, PUT} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/post/:id, DELETE} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG CategoryController {/admin/category}:
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/category, POST} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/category, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/category/:id, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/category/:id, PUT} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/category/:id, DELETE} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG CategoriesController {/categories}:
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/categories, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/categories/:slug/posts, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG MagazineController {/admin/magazine}:
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/magazine, POST} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/magazine, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/magazine/:id, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/magazine/:id, PUT} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/admin/magazine/:id, DELETE} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG MagazinesController {/}:
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/magazines, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/magazines/:id, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/magazines/:id/download, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/media/magazines/:filename, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG ImageController {/}:
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/upload/image, POST} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/media/images/:imagename, GET} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Mapped {/media/images/:id, DELETE} route
+[Nest] 7268  - 06/08/2024, 16:30:59     LOG Nest application successfully started
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG AppController {/}:
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG PostsController {/posts}:
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/posts, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/posts/featured_posts, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/posts/actual_posts, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/posts/:slug, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/posts/:slug/related_posts, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG PostController {/admin/post}:
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/post, POST} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/post, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/post/:id, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/post/:id, PUT} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/post/:id, DELETE} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG CategoryController {/admin/category}:
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/category, POST} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/category, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/category/:id, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/category/:id, PUT} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/category/:id, DELETE} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG CategoriesController {/categories}:
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/categories, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/categories/:slug/posts, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG MagazineController {/admin/magazine}:
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/magazine, POST} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/magazine, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/magazine/:id, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/magazine/:id, PUT} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/admin/magazine/:id, DELETE} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG MagazinesController {/}:
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/magazines, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/magazines/:id, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/magazines/:id/download, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/media/magazines/:filename, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG ImageController {/}:
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/upload/image, POST} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/media/images/:imagename, GET} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Mapped {/media/images/:id, DELETE} route
+[Nest] 7632  - 06/08/2024, 16:31:23     LOG Nest application successfully started
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG AppController {/}:
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG PostsController {/posts}:
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/posts, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/posts/featured_posts, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/posts/actual_posts, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/posts/:slug, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/posts/:slug/related_posts, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG PostController {/admin/post}:
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/post, POST} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/post, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/post/:id, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/post/:id, PUT} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/post/:id, DELETE} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG CategoryController {/admin/category}:
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/category, POST} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/category, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/category/:id, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/category/:id, PUT} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/category/:id, DELETE} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG CategoriesController {/categories}:
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/categories, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/categories/:slug/posts, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG MagazineController {/admin/magazine}:
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/magazine, POST} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/magazine, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/magazine/:id, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/magazine/:id, PUT} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/admin/magazine/:id, DELETE} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG MagazinesController {/}:
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/magazines, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/magazines/:id/download, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/magazines/:id, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/media/magazines/:filename, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG ImageController {/}:
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/upload/image, POST} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/media/images/:imagename, GET} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/media/images/:id, DELETE} route
+[Nest] 17472  - 06/08/2024, 16:31:53     LOG Nest application successfully started
