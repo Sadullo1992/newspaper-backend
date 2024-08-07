@@ -11,6 +11,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { CategoriesModule } from './resources/categories/categories.module';
 import { MagazinesModule } from './resources/magazines/magazines.module';
 import { PostsModule } from './resources/posts/posts.module';
+import { AuthModule } from './admin/auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -26,6 +27,7 @@ import { PostsModule } from './resources/posts/posts.module';
     ImageModule,
     LoggerModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
 })
