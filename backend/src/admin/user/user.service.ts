@@ -22,8 +22,20 @@ export class UserService {
       createdAt: now,
       updatedAt: now,
     };
+    
+    try {
+      const userModel = await this.prisma.user.create({
+        data: user,
+        omit: { password: true },
+      });
+      return userModel;
 
-    return await this.prisma.user.create({ data: user, omit: { password: true } });
+    } catch (e) {
+      throw new HttpException(
+        'User login already exists!',
+        HttpStatus.CONFLICT,
+      );
+    }    
   }
 
   async findAll() {
@@ -68,6 +80,6 @@ export class UserService {
   }
 
   async remove(id: string) {
-    return this.prisma.user.delete({ where: { id } });
+    return await this.prisma.user.delete({ where: { id } });
   }
 }
