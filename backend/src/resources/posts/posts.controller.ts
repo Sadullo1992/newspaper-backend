@@ -1,6 +1,8 @@
 import { Controller, Get, NotFoundException, Param, Query } from '@nestjs/common';
+import { Public } from 'src/admin/auth/public.decorator';
 import { PostsService } from './posts.service';
 
+@Public()
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}

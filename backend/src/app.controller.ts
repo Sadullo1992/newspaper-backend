@@ -1,9 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
+import { Public } from './admin/auth/public.decorator';
 
 @Controller()
 export class AppController {
-  constructor() {}
-
+  @Public()
   @Get()
   getHome(): string {
     return 'Newspaper REST Service!';

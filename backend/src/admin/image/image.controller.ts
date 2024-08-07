@@ -26,6 +26,7 @@ import { diskStorage } from 'multer';
 import { join } from 'path';
 import { of } from 'rxjs';
 import { v4 as uuid } from 'uuid';
+import { Public } from '../auth/public.decorator';
 import { ImageService } from './image.service';
 
 @Controller()
@@ -65,6 +66,7 @@ export class ImageController {
     return await this.imageService.saveImage(originalname, filename, size);
   }
 
+  @Public()
   @Get('media/images/:imagename')
   async download(@Param('imagename') imagename: string, @Res() res: Response) {
     const imageId = await this.imageService.findImageId(imagename);

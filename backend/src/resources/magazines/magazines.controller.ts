@@ -12,8 +12,10 @@ import { Response } from 'express';
 import { createReadStream, existsSync } from 'fs';
 import { join } from 'path';
 import { of } from 'rxjs';
+import { Public } from 'src/admin/auth/public.decorator';
 import { MagazinesService } from './magazines.service';
 
+@Public()
 @Controller()
 export class MagazinesController {
   constructor(private readonly magazinesService: MagazinesService) {}

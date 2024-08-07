@@ -1,10 +1,13 @@
 import { ValidationPipe } from '@nestjs/common';
-import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
+import { HttpAdapterHost, NestFactory, Reflector } from '@nestjs/core';
+import { JwtService } from '@nestjs/jwt';
 import { SwaggerModule } from '@nestjs/swagger';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 import { AllExceptionsFilter } from 'src/exceptions/all-exceptions.filter';
 import * as YAML from 'yaml';
+import { AuthGuard } from './admin/auth/auth.guard';
 import { AppModule } from './app.module';
 import { LoggerInterceptor } from './logger/logger.interceptor';
 import { LogService } from './logger/logger.service';
@@ -28,6 +31,12 @@ async function bootstrap() {
     logger: ['error', 'warn', 'log'],
   });
 
+  // Enable Global Guard
+  const jwt = app.get(JwtService);
+  const config = app.get(ConfigService);
+  const reflector = app.get(Reflector);
+  app.useGlobalGuards(new AuthGuard(jwt, config, reflector));
+
   // Global Logger
   const logger = app.get<LogService>(LogService);
   app.useLogger(logger);
@@ -40,11 +49,13 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter, logger));
 
   // Global config validator
-  app.useGlobalPipes(new ValidationPipe({
+  app.useGlobalPipes(
+    new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
       forbidUnknownValues: true,
-    }));
+    }),
+  );
 
   // Config open api file
   const file = await readFile(join(process.cwd(), './doc/api.yaml'), {
