@@ -311,3 +311,51 @@
 [Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/media/images/:imagename, GET} route
 [Nest] 17472  - 06/08/2024, 16:31:53     LOG Mapped {/media/images/:id, DELETE} route
 [Nest] 17472  - 06/08/2024, 16:31:53     LOG Nest application successfully started
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG AppController {/}:
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG PostsController {/posts}:
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/posts, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/posts/featured_posts, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/posts/actual_posts, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/posts/:slug, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/posts/:slug/related_posts, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG PostController {/admin/post}:
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/post, POST} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/post, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/post/:id, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/post/:id, PUT} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/post/:id, DELETE} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG CategoryController {/admin/category}:
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/category, POST} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/category, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/category/:id, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/category/:id, PUT} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/category/:id, DELETE} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG CategoriesController {/categories}:
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/categories, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/categories/:slug/posts, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG MagazineController {/admin/magazine}:
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/magazine, POST} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/magazine, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/magazine/:id, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/magazine/:id, PUT} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/magazine/:id, DELETE} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG MagazinesController {/}:
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/magazines, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/magazines/:id, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/magazines/:id/download, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/media/magazines/:filename, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG ImageController {/}:
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/upload/image, POST} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/media/images/:imagename, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/media/images/:id, DELETE} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG UserController {/admin/user}:
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/user, POST} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/user, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/user/:id, GET} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/user/:id, PUT} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/user/:id, DELETE} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG AuthController {/admin/auth}:
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/auth/signup, POST} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Mapped {/admin/auth/login, POST} route
+[Nest] 8412  - 07/08/2024, 11:22:15     LOG Nest application successfully started

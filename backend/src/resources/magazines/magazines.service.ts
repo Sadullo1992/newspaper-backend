@@ -1,5 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PaginateFunction, PaginateOptions, paginator } from 'src/helpers/paginator';
+import {
+  PaginateFunction,
+  PaginateOptions,
+  paginator,
+} from 'src/helpers/paginator';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()

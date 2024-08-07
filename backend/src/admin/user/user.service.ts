@@ -1,8 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { genHashPassword, isMatchPassword } from 'src/helpers/hashPassword';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -22,20 +18,19 @@ export class UserService {
       createdAt: now,
       updatedAt: now,
     };
-    
+
     try {
       const userModel = await this.prisma.user.create({
         data: user,
         omit: { password: true },
       });
       return userModel;
-
     } catch (e) {
       throw new HttpException(
         'User login already exists!',
         HttpStatus.CONFLICT,
       );
-    }    
+    }
   }
 
   async findAll() {
@@ -71,12 +66,12 @@ export class UserService {
       updatedAt: now,
       version: user.version + 1,
     };
-    
+
     return await this.prisma.user.update({
       where: { id },
       data: updateDto,
       omit: { password: true },
-    });;
+    });
   }
 
   async remove(id: string) {
