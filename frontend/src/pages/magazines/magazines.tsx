@@ -38,7 +38,7 @@ export const MagazinesPage = () => {
   return (
     <>
       <PageHeader title="All Magazines" type={DataTypesEnum.MAGAZINE} />
-      <Table
+      <Table<MagazineTableDataType>
         rowKey={'id'}
         columns={columns}
         dataSource={magazines}

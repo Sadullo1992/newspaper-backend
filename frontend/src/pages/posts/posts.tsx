@@ -40,7 +40,7 @@ export const PostsPage = () => {
   return (
     <>
       <PageHeader title="All posts" type={DataTypesEnum.POST} />
-      <Table
+      <Table<PostTableDataType>
         rowKey={'id'}
         columns={columns}
         dataSource={posts}
