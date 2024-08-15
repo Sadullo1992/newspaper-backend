@@ -49,7 +49,6 @@ export class Post {
   author: string | null;
 
   @IsArray()
-  @ValidateNested({ each: true })
   @ArrayMaxSize(3)
   @Type(() => Image)
   images: Image[];
