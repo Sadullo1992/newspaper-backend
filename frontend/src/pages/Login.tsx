@@ -13,7 +13,7 @@ export const Login = () => {
       }}
     >
       <div style={{ width: '100%', maxWidth: 600 }}>
-        <h3 style={{ textAlign: 'center', marginBottom: 32 }}>Login</h3>
+        <h3 style={{ textAlign: 'center', marginBottom: 32 }}>Sign In</h3>
         <AuthForm />
       </div>
     </Layout>

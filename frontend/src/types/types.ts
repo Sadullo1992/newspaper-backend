@@ -55,3 +55,8 @@ export interface Magazine {
   size: number;
   downloadsCount: number;
 }
+
+export interface LoginDto {
+  login: string;
+  password: string;
+}

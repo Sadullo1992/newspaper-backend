@@ -1,14 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import React from 'react';
-import { BASE_URL } from '../constants/constants';
+import { BASE_URL, headers } from '../constants/constants';
 import { Category } from '../types/types';
 
 export function useCategoriesQuery() {
   return useQuery<Category[], AxiosError>({
     queryKey: ['categories'],
     queryFn: async () => {
-      const res = await axios.get(`${BASE_URL}/admin/category`);
+      const res = await axios.get(`${BASE_URL}/admin/category`, {
+        headers,
+      });
       return res.data;
     },
   });
@@ -25,7 +27,9 @@ export function useInvalidateCategories() {
 export function useAddCategory() {
   return useMutation({
     mutationFn: async (values: Omit<Category, 'id'>) => {
-      return await axios.post(`${BASE_URL}/admin/category`, values);
+      return await axios.post(`${BASE_URL}/admin/category`, values, {
+        headers,
+      });
     },
   });
 }
@@ -34,7 +38,9 @@ export function useGetCategory(id?: string) {
   return useQuery<Category, AxiosError>({
     queryKey: ['category', { id }],
     queryFn: async () => {
-      const res = await axios.get(`${BASE_URL}/admin/category/${id}`);
+      const res = await axios.get(`${BASE_URL}/admin/category/${id}`, {
+        headers,
+      });
       return res.data;
     },
     enabled: !!id,
@@ -44,10 +50,16 @@ export function useGetCategory(id?: string) {
 export function useUpdateCategory() {
   return useMutation({
     mutationFn: async ({ id, name, slug }: Partial<Category>) => {
-      return await axios.put(`${BASE_URL}/admin/category/${id}`, {
-        name,
-        slug,
-      });
+      return await axios.put(
+        `${BASE_URL}/admin/category/${id}`,
+        {
+          name,
+          slug,
+        },
+        {
+          headers,
+        }
+      );
     },
   });
 }
@@ -63,7 +75,9 @@ export function useInvalidateCategory() {
 export function useRemoveCategory() {
   return useMutation({
     mutationFn: async (id: string) => {
-      return await axios.delete(`${BASE_URL}/admin/category/${id}`);
+      return await axios.delete(`${BASE_URL}/admin/category/${id}`, {
+        headers,
+      });
     },
   });
 }

@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import React from 'react';
-import { BASE_URL } from '../constants/constants';
+import { BASE_URL, headers } from '../constants/constants';
 import { IResponse, Post } from '../types/types';
 
 type PaginationParams = {
@@ -13,7 +13,9 @@ export function usePostsQuery({ page = 1, perPage = 10 }: PaginationParams) {
   return useQuery<IResponse<Post>, AxiosError>({
     queryKey: ['posts', page, perPage],
     queryFn: async () => {
-      const res = await axios.get(`${BASE_URL}/admin/post?page=${page}&perPage=${perPage}`);
+      const res = await axios.get(`${BASE_URL}/admin/post?page=${page}&perPage=${perPage}`, {
+        headers,
+      });
       return res.data;
     },
   });
@@ -27,7 +29,7 @@ export function useInvalidatePosts() {
 export function useAddPost() {
   return useMutation({
     mutationFn: async (values: Omit<Post, 'id'>) => {
-      return await axios.post(`${BASE_URL}/admin/post`, values);
+      return await axios.post(`${BASE_URL}/admin/post`, values, { headers });
     },
   });
 }
@@ -36,7 +38,7 @@ export function useGetPost(id?: string) {
   return useQuery<Post, AxiosError>({
     queryKey: ['post', { id }],
     queryFn: async () => {
-      const res = await axios.get(`${BASE_URL}/admin/post/${id}`);
+      const res = await axios.get(`${BASE_URL}/admin/post/${id}`, { headers });
       return res.data;
     },
     enabled: !!id,
@@ -46,9 +48,13 @@ export function useGetPost(id?: string) {
 export function useUpdatePost() {
   return useMutation({
     mutationFn: async ({ id, ...rest }: Partial<Post>) => {
-      return await axios.put(`${BASE_URL}/admin/post/${id}`, {
-        ...rest,
-      });
+      return await axios.put(
+        `${BASE_URL}/admin/post/${id}`,
+        {
+          ...rest,
+        },
+        { headers }
+      );
     },
   });
 }
@@ -64,7 +70,7 @@ export function useInvalidatePost() {
 export function useRemovePost() {
   return useMutation({
     mutationFn: async (id: string) => {
-      return await axios.delete(`${BASE_URL}/admin/post/${id}`);
+      return await axios.delete(`${BASE_URL}/admin/post/${id}`, { headers });
     },
   });
 }
@@ -81,7 +87,7 @@ export function useRemovePostCache() {
 export function useRemoveImageFile() {
   return useMutation({
     mutationFn: async (id: string) => {
-      return await axios.delete(`${BASE_URL}/media/images/${id}`);
+      return await axios.delete(`${BASE_URL}/media/images/${id}`, { headers });
     },
   });
 }
