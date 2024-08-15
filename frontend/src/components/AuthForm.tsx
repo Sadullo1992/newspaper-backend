@@ -6,7 +6,7 @@ import { useAuth } from '../auth/AuthProvider';
 
 export const AuthForm: React.FC = () => {
   const { login } = useAuth();
-  const onFinish: FormProps<LoginDto>['onFinish'] = (values) => {
+  const onFinish: FormProps['onFinish'] = (values: LoginDto) => {
   login(values)
 };
 
@@ -18,7 +18,7 @@ export const AuthForm: React.FC = () => {
       onFinish={onFinish}
       autoComplete="off"
     >
-      <Form.Item<LoginDto>
+      <Form.Item
         label="Login"
         name="login"
         rules={[{ required: true, message: 'Please input your login!' }]}
@@ -26,7 +26,7 @@ export const AuthForm: React.FC = () => {
         <Input />
       </Form.Item>
 
-      <Form.Item<LoginDto>
+      <Form.Item
         label="Password"
         name="password"
         rules={[{ required: true, message: 'Please input your password!' }]}

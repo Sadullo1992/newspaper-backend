@@ -33,14 +33,14 @@ export const PostsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.data]);
 
-  const handleTableChange: TableProps['onChange'] = (pagination) => {
+  const handleTableChange: TableProps<PostTableDataType>['onChange'] = (pagination) => {
     setPagination(pagination);
   };
 
   return (
     <>
       <PageHeader title="All posts" type={DataTypesEnum.POST} />
-      <Table
+      <Table<PostTableDataType>
         rowKey={'id'}
         columns={columns}
         dataSource={posts}

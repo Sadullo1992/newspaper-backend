@@ -32,13 +32,13 @@ export const MagazinesPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.data]);
 
-  const handleTableChange: TableProps['onChange'] = (pagination) => {
+  const handleTableChange: TableProps<MagazineTableDataType>['onChange'] = (pagination) => {
     setPagination(pagination);
   };
   return (
     <>
       <PageHeader title="All Magazines" type={DataTypesEnum.MAGAZINE} />
-      <Table
+      <Table<MagazineTableDataType>
         rowKey={'id'}
         columns={columns}
         dataSource={magazines}
