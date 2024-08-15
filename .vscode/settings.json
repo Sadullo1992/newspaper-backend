@@ -10,7 +10,7 @@
   ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "cSpell.words": ["imagename", "Streamable", "tanstack"],
+  "cSpell.words": ["Appstore", "imagename", "Sider", "Streamable", "tanstack"],
   "typescript.preferences.quoteStyle": "single",
   "typescript.tsdk": "node_modules/typescript/lib"
 }

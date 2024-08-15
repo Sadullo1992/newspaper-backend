@@ -7,6 +7,7 @@ import {
   ProfileOutlined,
   AppstoreAddOutlined,
   FilePdfOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -31,6 +32,11 @@ const items: MenuItem[] = [
     label: <Link to={'/admin/magazine'}>Magazines</Link>,
     key: '/magazine',
     icon: createElement(FilePdfOutlined),
+  },
+  {
+    label: <Link to={'/admin/user'}>Users</Link>,
+    key: '/user',
+    icon: createElement(UserOutlined),
   },
 ];
 
