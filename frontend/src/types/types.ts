@@ -2,6 +2,7 @@ export enum DataTypesEnum {
   CATEGORY = 'category',
   POST = 'post',
   MAGAZINE = 'magazine',
+  USER = 'user',
 }
 
 export type DataTypesUnion = `${DataTypesEnum}`;
@@ -59,4 +60,12 @@ export interface Magazine {
 export interface LoginDto {
   login: string;
   password: string;
+}
+
+export interface User {
+  id: string;
+  login: string;
+  createdAt: number;
+  updatedAt: number;
+  version: number;
 }

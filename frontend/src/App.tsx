@@ -10,6 +10,7 @@ import { MagazinesPage } from './pages/magazines/magazines';
 import { UpdateMagazinePage } from './pages/magazines/update-magazine';
 import { NotFound } from './pages/NotFound';
 import { AddPostPage, PostsPage, UpdatePostPage } from './pages/posts';
+import { UsersPage } from './pages/users';
 
 const App: React.FC = () => {
   return (
@@ -27,6 +28,7 @@ const App: React.FC = () => {
           <Route path="/admin/magazine" element={<MagazinesPage />} />
           <Route path="/admin/magazine/add" element={<AddMagazinePage />} />
           <Route path="/admin/magazine/:id/edit" element={<UpdateMagazinePage />} />
+          <Route path="/admin/user" element={<UsersPage />} />
           <Route path="/admin/*" element={<NotFound />} />
         </Route>
       </Route>
