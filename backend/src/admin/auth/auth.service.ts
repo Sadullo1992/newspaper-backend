@@ -19,7 +19,7 @@ export class AuthService {
 
     const isMatch = await isMatchPassword(loginUserDto.password, user.password);
     if (!isMatch)
-      throw new HttpException('User not found.', HttpStatus.FORBIDDEN);
+      throw new HttpException('User login or password is wrong', HttpStatus.FORBIDDEN);
 
     const token = await this.jwtService.signAsync({
       userId: user.id,

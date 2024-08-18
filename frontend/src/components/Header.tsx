@@ -1,5 +1,5 @@
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Breadcrumb, Dropdown, Layout, MenuProps, theme } from 'antd';
+import { Avatar, Breadcrumb, Dropdown, Layout, MenuProps, Space, theme, Typography } from 'antd';
 import { useAuth } from '../auth/AuthProvider';
 
 export const Header = () => {
@@ -7,13 +7,22 @@ export const Header = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const { logout } = useAuth();
+  const { logout, username } = useAuth();
 
-  const items: MenuProps['items'] = [
+  const menuItems: MenuProps['items'] = [
     {
       key: '1',
       label: <a onClick={() => logout()}>Logout</a>,
       icon: <LogoutOutlined />,
+    },
+  ];
+
+  const breadcrumbItems = [
+    {
+      title: 'Home',
+    },
+    {
+      title: 'App',
     },
   ];
 
@@ -26,19 +35,13 @@ export const Header = () => {
         alignItems: 'center',
       }}
     >
-      <Breadcrumb
-        items={[
-          {
-            title: 'Home',
-          },
-          {
-            title: 'App',
-          },
-        ]}
-      />
-      <Dropdown menu={{ items }}>
-        <Avatar style={{ backgroundColor: '#0d3e2c' }} icon={<UserOutlined />} />
-      </Dropdown>
+      <Breadcrumb items={breadcrumbItems} />
+      <Space>
+        <Typography.Text>{username}</Typography.Text>
+        <Dropdown menu={{ items: menuItems }}>
+          <Avatar style={{ backgroundColor: '#0d3e2c' }} icon={<UserOutlined />} />
+        </Dropdown>
+      </Space>
     </Layout.Header>
   );
 };

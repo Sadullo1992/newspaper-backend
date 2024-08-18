@@ -1,4 +1,5 @@
 import { message } from 'antd';
+import { jwtDecode } from 'jwt-decode';
 import { PropsWithChildren, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useClearQueryCache, useLogin } from '../queries/user';
@@ -14,6 +15,8 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const token = localStorage.getItem('token');
   const [isAuth, setIsAuth] = useState<boolean>(!!token);
+  const decode = !!token ? jwtDecode<{ login: string }>(token) : { login: '' };
+  const [username, setUsername] = useState<string>(decode.login);
 
   const login = async (loginDto: LoginDto) => {
     await userLogin(loginDto, {
@@ -24,6 +27,8 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
         });
         setIsAuth(true);
         localStorage.setItem('token', data.token);
+        const { login } = jwtDecode<{ login: string }>(data.token);
+        setUsername(login);
         clearQueryCache();
         navigate('/admin');
       },
@@ -43,7 +48,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuth, login, logout }}>
+    <AuthContext.Provider value={{ isAuth, login, logout, username }}>
       {contextHolder} {children}
     </AuthContext.Provider>
   );
