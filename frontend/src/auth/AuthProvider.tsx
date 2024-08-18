@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import { PropsWithChildren, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLogin } from '../queries/user';
+import { useClearQueryCache, useLogin } from '../queries/user';
 import { LoginDto } from '../types/types';
 import { AuthContext } from './AuthContext';
 
@@ -10,6 +10,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const navigate = useNavigate();
 
   const { mutateAsync: userLogin } = useLogin();
+  const clearQueryCache = useClearQueryCache();
 
   const token = localStorage.getItem('token');
   const [isAuth, setIsAuth] = useState<boolean>(!!token);
@@ -23,6 +24,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
         });
         setIsAuth(true);
         localStorage.setItem('token', data.token);
+        clearQueryCache();
         navigate('/admin');
       },
       onError: (e) => {
@@ -36,6 +38,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const logout = () => {
     localStorage.removeItem('token');
+    clearQueryCache();
     navigate('/login');
   };
 

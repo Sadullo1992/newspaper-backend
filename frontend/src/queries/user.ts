@@ -31,3 +31,8 @@ export function useInvalidateUsers() {
     []
   );
 }
+
+export function useClearQueryCache() {
+  const queryClient = useQueryClient();
+  return React.useCallback(() => queryClient.getQueryCache().clear(), []);
+}
