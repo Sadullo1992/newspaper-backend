@@ -1,0 +1,23 @@
+name: Build Docker Image UI
+
+on:
+  push:
+    branches: [ 'develop' ]
+    paths:
+      - frontend/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: set lower case owner name
+        run: |
+          echo "OWNER_LC=${OWNER,,}" >> ${GITHUB_ENV}
+        env:
+          OWNER: '${{ github.repository_owner }}'
+      - run: echo "REPO_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV
+      - run: cp package-lock.json ./frontend
+      - run: docker login -u ${{github.repository_owner}} -p ${{secrets.GITHUB_TOKEN}} ghcr.io
+      - run: docker build -t ghcr.io/${{ env.OWNER_LC }}/${{ env.REPO_NAME }}/${{github.ref_name}}:ui frontend
+      - run: docker push ghcr.io/${{ env.OWNER_LC }}/${{ env.REPO_NAME }}/${{github.ref_name}}:ui
