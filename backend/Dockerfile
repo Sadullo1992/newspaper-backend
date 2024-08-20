@@ -14,4 +14,4 @@ FROM base
 COPY --from=dev /usr/backend/dist ./dist
 COPY --from=prod /usr/backend/node_modules  ./node_modules
 
-CMD npm run start:prod
+CMD npm run prisma:generate && npm run prisma:db:push && npm run start:prod
