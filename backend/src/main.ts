@@ -24,7 +24,7 @@ BigInt.prototype.toJSON = function () {
   return Number(this.toString());
 };
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 80;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
