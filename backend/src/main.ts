@@ -9,6 +9,7 @@ import { AllExceptionsFilter } from 'src/exceptions/all-exceptions.filter';
 import * as YAML from 'yaml';
 import { AuthGuard } from './admin/auth/auth.guard';
 import { AppModule } from './app.module';
+import { seedDatabase } from './helpers/seedDatabase';
 import { LoggerInterceptor } from './logger/logger.interceptor';
 import { LogService } from './logger/logger.service';
 
@@ -63,6 +64,9 @@ async function bootstrap() {
   });
   const swaggerDocument = YAML.parse(file);
   SwaggerModule.setup('docs', app, swaggerDocument);
+
+  // seed db
+  await seedDatabase();
 
   await app.listen(PORT);
 
