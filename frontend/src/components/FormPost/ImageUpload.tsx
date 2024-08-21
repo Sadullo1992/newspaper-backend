@@ -1,6 +1,5 @@
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Form, Upload, UploadFile } from 'antd';
-import { headers } from '../../constants/constants';
 import { useRemoveImageFile } from '../../queries/posts';
 import { Image } from '../../types/types';
 
@@ -41,7 +40,9 @@ export const ImageUpload = ({ fileList }: ImageUploadProps) => {
         listType="picture"
         fileList={fileList}
         onRemove={handleRemoveImage}
-        headers={headers}
+        headers={{
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        }}
       >
         <Button icon={<UploadOutlined />}>Click to upload</Button>
       </Upload>
