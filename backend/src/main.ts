@@ -32,6 +32,9 @@ async function bootstrap() {
     logger: ['error', 'warn', 'log'],
   });
 
+  // Enable CORS
+  app.enableCors();
+
   // Enable Global Guard
   const jwt = app.get(JwtService);
   const config = app.get(ConfigService);
