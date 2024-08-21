@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import React from 'react';
-import { BASE_URL, headers } from '../constants/constants';
+import { BASE_URL } from '../constants/constants';
 import { Category } from '../types/types';
 
 export function useCategoriesQuery() {
@@ -9,7 +9,9 @@ export function useCategoriesQuery() {
     queryKey: ['categories'],
     queryFn: async () => {
       const res = await axios.get(`${BASE_URL}/admin/category`, {
-        headers,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       return res.data;
     },
@@ -28,7 +30,9 @@ export function useAddCategory() {
   return useMutation({
     mutationFn: async (values: Omit<Category, 'id'>) => {
       return await axios.post(`${BASE_URL}/admin/category`, values, {
-        headers,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
     },
   });
@@ -39,7 +43,9 @@ export function useGetCategory(id?: string) {
     queryKey: ['category', { id }],
     queryFn: async () => {
       const res = await axios.get(`${BASE_URL}/admin/category/${id}`, {
-        headers,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       return res.data;
     },
@@ -57,7 +63,9 @@ export function useUpdateCategory() {
           slug,
         },
         {
-          headers,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         }
       );
     },
@@ -76,7 +84,9 @@ export function useRemoveCategory() {
   return useMutation({
     mutationFn: async (id: string) => {
       return await axios.delete(`${BASE_URL}/admin/category/${id}`, {
-        headers,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
     },
   });

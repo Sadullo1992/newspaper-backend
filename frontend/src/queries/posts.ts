@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import React from 'react';
-import { BASE_URL, headers } from '../constants/constants';
+import { BASE_URL } from '../constants/constants';
 import { IResponse, Post } from '../types/types';
 
 type PaginationParams = {
@@ -14,7 +14,9 @@ export function usePostsQuery({ page = 1, perPage = 10 }: PaginationParams) {
     queryKey: ['posts', page, perPage],
     queryFn: async () => {
       const res = await axios.get(`${BASE_URL}/admin/post?page=${page}&perPage=${perPage}`, {
-        headers,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       return res.data;
     },
@@ -29,7 +31,11 @@ export function useInvalidatePosts() {
 export function useAddPost() {
   return useMutation({
     mutationFn: async (values: Omit<Post, 'id'>) => {
-      return await axios.post(`${BASE_URL}/admin/post`, values, { headers });
+      return await axios.post(`${BASE_URL}/admin/post`, values, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
     },
   });
 }
@@ -38,7 +44,11 @@ export function useGetPost(id?: string) {
   return useQuery<Post, AxiosError>({
     queryKey: ['post', { id }],
     queryFn: async () => {
-      const res = await axios.get(`${BASE_URL}/admin/post/${id}`, { headers });
+      const res = await axios.get(`${BASE_URL}/admin/post/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       return res.data;
     },
     enabled: !!id,
@@ -53,7 +63,11 @@ export function useUpdatePost() {
         {
           ...rest,
         },
-        { headers }
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
       );
     },
   });
@@ -70,7 +84,11 @@ export function useInvalidatePost() {
 export function useRemovePost() {
   return useMutation({
     mutationFn: async (id: string) => {
-      return await axios.delete(`${BASE_URL}/admin/post/${id}`, { headers });
+      return await axios.delete(`${BASE_URL}/admin/post/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
     },
   });
 }
@@ -87,7 +105,11 @@ export function useRemovePostCache() {
 export function useRemoveImageFile() {
   return useMutation({
     mutationFn: async (id: string) => {
-      return await axios.delete(`${BASE_URL}/media/images/${id}`, { headers });
+      return await axios.delete(`${BASE_URL}/media/images/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
     },
   });
 }

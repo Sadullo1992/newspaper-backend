@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { RcFile } from 'antd/es/upload';
 import axios, { AxiosError } from 'axios';
 import React from 'react';
-import { BASE_URL, headers } from '../constants/constants';
+import { BASE_URL } from '../constants/constants';
 import { IResponse, Magazine } from '../types/types';
 
 type PaginationParams = {
@@ -23,7 +23,9 @@ export function useMagazinesQuery({ page = 1, perPage = 10 }: PaginationParams) 
     queryKey: ['magazines', page, perPage],
     queryFn: async () => {
       const res = await axios.get(`${BASE_URL}/admin/magazine?page=${page}&perPage=${perPage}`, {
-        headers,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       return res.data;
     },
@@ -43,7 +45,11 @@ export function useAddMagazine() {
         form.append(key, value);
       }
 
-      return await axios.post(`${BASE_URL}/admin/magazine`, form, { headers });
+      return await axios.post(`${BASE_URL}/admin/magazine`, form, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
     },
   });
 }
@@ -52,7 +58,11 @@ export function useGetMagazine(id?: string) {
   return useQuery<Magazine, AxiosError>({
     queryKey: ['magazine', { id }],
     queryFn: async () => {
-      const res = await axios.get(`${BASE_URL}/admin/magazine/${id}`, { headers });
+      const res = await axios.get(`${BASE_URL}/admin/magazine/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
       return res.data;
     },
     enabled: !!id,
@@ -67,7 +77,11 @@ export function useUpdateMagazine() {
         form.append(key, value);
       }
 
-      return await axios.put(`${BASE_URL}/admin/magazine/${id}`, form, { headers });
+      return await axios.put(`${BASE_URL}/admin/magazine/${id}`, form, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
     },
   });
 }
@@ -83,7 +97,11 @@ export function useInvalidateMagazine() {
 export function useRemoveMagazine() {
   return useMutation({
     mutationFn: async (id: string) => {
-      return await axios.delete(`${BASE_URL}/admin/magazine/${id}`, { headers });
+      return await axios.delete(`${BASE_URL}/admin/magazine/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
     },
   });
 }

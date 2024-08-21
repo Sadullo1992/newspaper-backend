@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import React from 'react';
-import { BASE_URL, headers } from '../constants/constants';
+import { BASE_URL } from '../constants/constants';
 import { LoginDto, User } from '../types/types';
 
 export function useLogin() {
@@ -17,7 +17,9 @@ export function useUsersQuery() {
     queryKey: ['users'],
     queryFn: async () => {
       const res = await axios.get(`${BASE_URL}/admin/user`, {
-        headers,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
       return res.data;
     },
