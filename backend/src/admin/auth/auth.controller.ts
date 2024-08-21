@@ -12,12 +12,12 @@ export class AuthController {
     private readonly userService: UserService,
   ) {}
 
-  @Public()
-  @Post('signup')
-  @HttpCode(HttpStatus.CREATED)
-  async signup(@Body() signupDto: CreateUserDto) {
-    return await this.userService.create(signupDto);
-  }
+  // @Public()
+  // @Post('signup')
+  // @HttpCode(HttpStatus.CREATED)
+  // async signup(@Body() signupDto: CreateUserDto) {
+  //   return await this.userService.create(signupDto);
+  // }
 
   @Public()
   @Post('login')
