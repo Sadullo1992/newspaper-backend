@@ -74,7 +74,7 @@ export class ImageController {
     const filePath = join(process.cwd(), `/uploads/images/${imageId}`);
     if (existsSync(filePath)) {
       res.set({
-        'Content-Type': 'image/jpg',
+        'Content-Type': 'image/jpeg',
         'Content-Disposition': `inline; filename=${imagename}`,
       });
 
