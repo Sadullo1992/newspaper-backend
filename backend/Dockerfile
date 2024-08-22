@@ -14,6 +14,7 @@ FROM base
 COPY --from=dev /usr/backend/dist ./dist
 COPY --from=dev /usr/backend/prisma ./prisma
 COPY --from=dev /usr/backend/logs ./logs
+COPY --from=dev /usr/backend/uploads ./uploads
 COPY --from=dev /usr/backend/doc/api.yaml ./doc/api.yaml
 COPY --from=prod /usr/backend/node_modules  ./node_modules
 
