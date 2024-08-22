@@ -18,6 +18,17 @@ export class CategoriesController {
     return this.categoriesService.findAll();
   }
 
+  @Get(':slug')
+  async findOne(@Param('slug') slug: string) {
+    const category = await this.categoriesService.findOne(slug);
+
+    if (!category) {
+      throw new NotFoundException('Category not found');
+    }
+
+    return category;
+  }
+
   @Get(':slug/posts')
   async findCategoryPosts(
     @Param('slug') slug: string,

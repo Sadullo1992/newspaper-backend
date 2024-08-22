@@ -33,6 +33,7 @@ export class CategoriesService {
         createdAt: true,
         updatedAt: true,
         views: true,
+        images: true
       },
     });
 
