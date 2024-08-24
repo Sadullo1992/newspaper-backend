@@ -44,6 +44,8 @@ export class PostsController {
       throw new NotFoundException('Post not found');
     }
 
+    await this.postsService.incrementViews(post.slug);
+
     return post;
   }
 
