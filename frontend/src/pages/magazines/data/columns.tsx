@@ -3,6 +3,7 @@ import { Space, TableProps } from 'antd';
 import { Link } from 'react-router-dom';
 import { ConfirmModal } from '../../../components/ConfirmModal';
 import { DataTypesEnum, Magazine } from '../../../types/types';
+import { byteToMB } from '../../../utils/byteToMB';
 import { dateFormatter } from '../../../utils/dateFormatter';
 
 export type MagazineTableDataType = Omit<Magazine, 'filename'>;
@@ -26,6 +27,7 @@ export const columns: TableProps<MagazineTableDataType>['columns'] = [
     dataIndex: 'size',
     key: 'size',
     align: 'center',
+    render: (value) => byteToMB(value),
   },
   {
     title: 'Downloads Count',
