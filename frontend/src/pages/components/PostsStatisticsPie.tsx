@@ -16,7 +16,6 @@ export const PostsStatisticsPie = () => {
       innerRadius: 0.6,
       label: {
         text: 'posts',
-        // position: 'outside',
         style: {
           fontWeight: 'bold',
         },
@@ -32,7 +31,7 @@ export const PostsStatisticsPie = () => {
         {
           type: 'text',
           style: {
-            text: 'Total posts: 56',
+            text: 'Total posts: 100',
             x: '50%',
             y: '50%',
             textAlign: 'center',
