@@ -7,7 +7,7 @@ import { dateFormatter } from '../../utils/dateFormatter';
 export const RecentPosts = () => {
   const { data, isLoading } = usePostsQuery({
     page: 1,
-    perPage: 10,
+    perPage: 5,
   });
 
   return (
