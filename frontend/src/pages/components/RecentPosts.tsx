@@ -32,14 +32,14 @@ export const RecentPosts = () => {
             description={
               <Flex gap={16}>
                 <IconText
-                  icon={EyeOutlined}
-                  text={`${item.views} Views`}
-                  key="list-vertical-eye-o"
-                />
-                <IconText
                   icon={CalendarOutlined}
                   text={dateFormatter(item.createdAt)}
                   key="list-vertical-like-o"
+                />
+                <IconText
+                  icon={EyeOutlined}
+                  text={`${item.views} Views`}
+                  key="list-vertical-eye-o"
                 />
               </Flex>
             }
