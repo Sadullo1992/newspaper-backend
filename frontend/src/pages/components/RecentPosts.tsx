@@ -21,7 +21,7 @@ export const RecentPosts = () => {
             avatar={
               <Image
                 style={{ width: 100, height: 'auto', aspectRatio: 16 / 9, borderRadius: '4px' }}
-                src={`https://uzunpro.uz/api/media/images/${item?.images[0].imagename}`}
+                src={`/api/media/images/${item?.images[0].imagename}`}
               />
             }
             title={
