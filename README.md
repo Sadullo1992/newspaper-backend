@@ -1,4 +1,4 @@
-# Full-stack newspaper application
+# Full-stack Newspaper Application
 
 ## Description
 
@@ -89,7 +89,7 @@
 * `GET /posts/actual_posts` - get all actual posts
 * `GET /posts/related_posts` - get all posts related to the current post
 
-#### Posts
+#### Magazines
 * `GET /magazines` - get all magazines.
 * `GET /magazines/:id` - get single magazine by id
 * `GET /magazines/:id/download` - download magazine file and increment downloadsCount
